@@ -33,9 +33,5 @@ void ABasicCharacter::SetupPlayerInputComponent( class UInputComponent* InputCom
 {
 	Super::SetupPlayerInputComponent(InputComponent);
    ABasicPlayerController* controller = Cast<ABasicPlayerController>( InputComponent );
-  // InputComponent->BindAxis( "Forward", this, &ABasicPlayerController::MoveForward );
-  // InputComponent->BindAxis( "Strafe", this, &ABasicPlayerController::MoveRight );
-  // InputComponent->BindAxis( "Yaw", this, &ABasicPlayerController::Yaw );
-  // InputComponent->BindAxis( "Pitch", this, &ABasicPlayerController::Pitch );
 }
 
