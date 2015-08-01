@@ -1,0 +1,1046 @@
+﻿[2015.07.25-12.25.24:619][  0]Log file open, 07/25/15 20:25:24
+[2015.07.25-12.25.24:619][  0]LogInit:Display: Running engine for game: Demo
+[2015.07.25-12.25.24:620][  0]LogInit:Display: RandInit(693882880) SRandInit(693882881).
+[2015.07.25-12.25.24:620][  0]LogTaskGraph: Started task graph with 4 named threads and 7 total threads.
+[2015.07.25-12.25.24:620][  0]LogStats: Stats thread started
+[2015.07.25-12.25.24:621][  0]LogInit: Version: 4.8.2-2614606+++depot+UE4-Releases+4.8
+[2015.07.25-12.25.24:621][  0]LogInit: API Version: 2579680
+[2015.07.25-12.25.24:621][  0]LogInit: Compiled (64-bit): Jul  8 2015 23:43:41
+[2015.07.25-12.25.24:621][  0]LogInit: Compiled with Visual C++: 18.00.21005.01
+[2015.07.25-12.25.24:622][  0]LogInit: Build Configuration: Development
+[2015.07.25-12.25.24:622][  0]LogInit: Branch Name: ++depot+UE4-Releases+4.8
+[2015.07.25-12.25.24:622][  0]LogInit: Command line: 
+[2015.07.25-12.25.24:623][  0]LogInit: Base directory: C:/Program Files/Epic Games/4.8/Engine/Binaries/Win64/
+[2015.07.25-12.25.24:623][  0]LogInit: Rocket: 1
+[2015.07.25-12.25.24:651][  0]LogInit: Using libcurl 7.41.0
+[2015.07.25-12.25.24:651][  0]LogInit:  - built for x86_64-pc-win32
+[2015.07.25-12.25.24:652][  0]LogInit:  - supports SSL with WinSSL
+[2015.07.25-12.25.24:652][  0]LogInit:  - other features:
+[2015.07.25-12.25.24:652][  0]LogInit:      CURL_VERSION_SSL
+[2015.07.25-12.25.24:653][  0]LogInit:      CURL_VERSION_IPV6
+[2015.07.25-12.25.24:653][  0]LogInit:      CURL_VERSION_ASYNCHDNS
+[2015.07.25-12.25.24:653][  0]LogInit:      CURL_VERSION_LARGEFILE
+[2015.07.25-12.25.24:653][  0]LogInit:      CURL_VERSION_IDN
+[2015.07.25-12.25.24:654][  0]LogInit:  CurlRequestOptions (configurable via config and command line):
+[2015.07.25-12.25.24:654][  0]LogInit:  - bVerifyPeer = true  - Libcurl will verify peer certificate
+[2015.07.25-12.25.24:654][  0]LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+[2015.07.25-12.25.24:655][  0]LogInit:  - bDontReuseConnections = false  - Libcurl will reuse connections
+[2015.07.25-12.25.24:655][  0]LogInit:  - CertBundlePath = nullptr  - Libcurl will use whatever was configured at build time.
+[2015.07.25-12.25.24:678][  0]LogOnline:Warning: No default platform service specified for OnlineSubsystem
+[2015.07.25-12.25.24:732][  0]LogInit: Presizing for 0 objects not considered by GC, pre-allocating 0 bytes.
+[2015.07.25-12.25.24:743][  0]LogInit: Object subsystem initialized
+[2015.07.25-12.25.24:744][  0]LogConsoleResponse:Warning: Skipping Unknown console variable: 'TranslucentSortAxis = (X=0.000000,Y=-1.000000,Z=0.000000)'
+[2015.07.25-12.25.24:745][  0]LogConsoleResponse:Warning:   Found in ini file 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Config/Windows/Engine.ini', in section '[/Script/Engine.RendererSettings]'
+[2015.07.25-12.25.24:745][  0]LogConsoleResponse:Warning: Skipping Unknown console variable: 'UIScaleRule = ShortestSide'
+[2015.07.25-12.25.24:745][  0]LogConsoleResponse:Warning:   Found in ini file 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Config/Windows/Engine.ini', in section '[/Script/Engine.RendererSettings]'
+[2015.07.25-12.25.24:745][  0]LogConsoleResponse:Warning: Skipping Unknown console variable: 'UIScaleCurve = (EditorCurveData=(Keys=),ExternalCurve=None)'
+[2015.07.25-12.25.24:746][  0]LogConsoleResponse:Warning:   Found in ini file 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Config/Windows/Engine.ini', in section '[/Script/Engine.RendererSettings]'
+[2015.07.25-12.25.24:747][  0]LogInit: Selected Device Profile: [Windows]
+[2015.07.25-12.25.24:747][  0]LogInit: Applying CVar settings loaded from the selected device profile: [Windows]
+[2015.07.25-12.25.24:756][  0]LogInit: Computer: SCW-PC
+[2015.07.25-12.25.24:756][  0]LogInit: User: SCW
+[2015.07.25-12.25.24:756][  0]LogInit: CPU Page size=4096, Cores=4
+[2015.07.25-12.25.24:757][  0]LogInit: High frequency timer resolution =2.483750 MHz
+[2015.07.25-12.25.24:757][  0]LogMemory: Memory total: Physical=8.0GB (8GB approx)
+[2015.07.25-12.25.24:757][  0]LogMemory: Platform Memory Stats for Windows
+[2015.07.25-12.25.24:758][  0]LogMemory: Process Physical Memory: 50.52 MB used, 50.52 MB peak
+[2015.07.25-12.25.24:758][  0]LogMemory: Process Virtual Memory: 23.46 MB used, 23.46 MB peak
+[2015.07.25-12.25.24:758][  0]LogMemory: Physical Memory: 5251.80 MB used, 8183.05 MB total
+[2015.07.25-12.25.24:758][  0]LogMemory: Virtual Memory: 291.52 MB used, 8388608.00 MB total
+[2015.07.25-12.25.24:861][  0]LogTextLocalizationManager: The requested culture ('zh_TW') has no localization data; falling back to 'en' for localization and internationalization data.
+[2015.07.25-12.25.25:199][  0]LogTextLocalizationManager:Warning: Loaded localization resources contain conflicting entries for (Namespace:ContentBrowser, Key:ImportAssetToolTip):
+Localization Resource: (C:/Program Files/Epic Games/4.8/Engine/Content/Localization/Editor/en/Editor.locres) Source String Hash: (-630476809) Localized String: (Import to {0}...)
+Localization Resource: (C:/Program Files/Epic Games/4.8/Engine/Content/Localization/Editor/en/Editor.locres) Source String Hash: (1271782899) Localized String: (Imports an asset from file to this folder.)
+[2015.07.25-12.25.25:875][  0]LogD3D11RHI: Found D3D11 adapter 0: NVIDIA GeForce GTX 560 Ti   (Feature Level 11_0)
+[2015.07.25-12.25.25:875][  0]LogD3D11RHI: Adapter has 979MB of dedicated video memory, 0MB of dedicated system memory, and 3071MB of shared system memory, 2 output[s]
+[2015.07.25-12.25.25:875][  0]LogD3D11RHI: Chosen D3D11 Adapter Id = 0
+[2015.07.25-12.25.25:880][  0]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.25.25:881][  0]LogD3D11RHI: !Direct3DDevice
+[2015.07.25-12.25.25:881][  0]LogRHI: Texture pool is 685 MB (70% of 979 MB)
+[2015.07.25-12.25.25:921][  0]LogD3D11RHI: Async texture creation enabled
+[2015.07.25-12.25.25:940][  0]LogShaderCompilers:Display: Using Local Shader Compiler.
+[2015.07.25-12.25.27:160][  0]LogTemp:Display: Loaded TP DesktopTargetPlatform
+[2015.07.25-12.25.27:194][  0]LogTemp:Display: Loaded TP WindowsClientTargetPlatform
+[2015.07.25-12.25.27:233][  0]LogTemp:Display: Loaded TP WindowsNoEditorTargetPlatform
+[2015.07.25-12.25.27:272][  0]LogTemp:Display: Loaded TP WindowsServerTargetPlatform
+[2015.07.25-12.25.27:314][  0]LogTemp:Display: Loaded TP WindowsTargetPlatform
+[2015.07.25-12.25.27:340][  0]LogTemp:Display: Loaded TP AndroidTargetPlatform
+[2015.07.25-12.25.27:368][  0]LogTemp:Display: Loaded TP Android_ASTCTargetPlatform
+[2015.07.25-12.25.27:398][  0]LogTemp:Display: Loaded TP Android_ATCTargetPlatform
+[2015.07.25-12.25.27:429][  0]LogTemp:Display: Loaded TP Android_DXTTargetPlatform
+[2015.07.25-12.25.27:459][  0]LogTemp:Display: Loaded TP Android_ETC1TargetPlatform
+[2015.07.25-12.25.27:491][  0]LogTemp:Display: Loaded TP Android_ETC2TargetPlatform
+[2015.07.25-12.25.27:520][  0]LogTemp:Display: Loaded TP Android_PVRTCTargetPlatform
+[2015.07.25-12.25.27:629][  0]LogTemp:Display: Loaded TP IOSTargetPlatform
+[2015.07.25-12.25.27:655][  0]LogTemp:Display: Loaded TP LinuxNoEditorTargetPlatform
+[2015.07.25-12.25.27:681][  0]LogTemp:Display: Loaded TP LinuxServerTargetPlatform
+[2015.07.25-12.25.27:709][  0]LogTemp:Display: Loaded TP LinuxTargetPlatform
+[2015.07.25-12.25.27:709][  0]LogTargetPlatformManager:Display: Building Assets For Windows
+[2015.07.25-12.25.28:252][  0]LogDerivedDataCache:Display: Max Cache Size: 512 MB
+[2015.07.25-12.25.28:317][  0]LogDerivedDataCache: Loaded boot cache 0.06s 53MB C:/Users/SCW/AppData/Local/UnrealEngine/4.8/DerivedDataCache/Boot.ddc.
+[2015.07.25-12.25.28:317][  0]LogDerivedDataCache:Display: Loaded Boot cache: C:/Users/SCW/AppData/Local/UnrealEngine/4.8/DerivedDataCache/Boot.ddc
+[2015.07.25-12.25.28:318][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  Pak pak cache file D:/Users/SCW/Documents/Unreal Projects/Demo/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[2015.07.25-12.25.28:318][  0]LogDerivedDataCache: Unable to find inner node Pak for hierarchical cache Hierarchy.
+[2015.07.25-12.25.28:319][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  CompressedPak pak cache file D:/Users/SCW/Documents/Unreal Projects/Demo/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2015.07.25-12.25.28:319][  0]LogDerivedDataCache: Unable to find inner node CompressedPak for hierarchical cache Hierarchy.
+[2015.07.25-12.25.28:539][  0]LogDerivedDataCache:Display: Pak cache opened for reading ../../../Engine/DerivedDataCache/Compressed.ddp.
+[2015.07.25-12.25.28:552][  0]LogDerivedDataCache: Using Local data cache path C:/Users/SCW/AppData/Local/UnrealEngine/Common/DerivedDataCache: Writable
+[2015.07.25-12.25.28:869][  0]LogInit: Selected Device Profile: [Windows]
+[2015.07.25-12.25.28:878][  0]ImportText (ComponentSweepMultiTests): Missing closing parenthesis: (RootShapeAsset="/Engine/BasicShapes/Cube.Cube",ShapeType="TriggerCapsule",HitResult=(Time=0.50,Location=(X=-100.000015,Y=0.0,Z=100.000015),ImpactPoint=(X=-50.0,Y=0.0,Z=50.0),Normal=(X=-1.0,Y=-0.0,Z=0.0),ImpactNormal=(X=0.0,Y=0.0,Z=1.0),TraceStart=(X=-200.0,Y=0.0,Z=200.0),TraceEnd=(X=0.0,Y=0.0,Z=0.0))
+[2015.07.25-12.25.28:879][  0]ImportText (LineTraceSingleByChannelTests): Missing closing parenthesis: (RootShapeAsset="/Engine/BasicShapes/Cube.Cube",HitResult=(Time=0.50,Location=(X=-100.000015,Y=0.0,Z=100.000015),ImpactPoint=(X=-50.0,Y=0.0,Z=50.0),Normal=(X=-1.0,Y=-0.0,Z=0.0),ImpactNormal=(X=0.0,Y=0.0,Z=1.0),TraceStart=(X=-200.0,Y=0.0,Z=200.0),TraceEnd=(X=0.0,Y=0.0,Z=0.0))
+[2015.07.25-12.25.28:950][  0]LogMeshUtilities: No automatic mesh reduction module available
+[2015.07.25-12.25.28:950][  0]LogMeshUtilities: No automatic mesh merging module available
+[2015.07.25-12.25.29:558][  0]LogInit: WinSock: version 1.1 (2.2), MaxSocks=32767, MaxUdp=65467
+[2015.07.25-12.25.31:592][  0]UdpMessaging: Initializing bridge on interface 0.0.0.0:0 to multicast group 230.0.0.1:6666.
+[2015.07.25-12.25.32:510][  0]SourceControl: Info Source control is disabled
+[2015.07.25-12.25.32:566][  0]SourceControl: Info Source control is disabled
+[2015.07.25-12.25.32:592][  0]SourceControl: Info Source control is disabled
+[2015.07.25-12.25.32:625][  0]SourceControl: Info Source control is disabled
+[2015.07.25-12.25.33:125][  0]LogObj: 26288 objects as part of root set at end of initial load.
+[2015.07.25-12.25.33:126][  0]LogUObjectAllocator: 5422088 out of 0 bytes used by permanent object pool.
+[2015.07.25-12.25.33:264][  0]LogEngine: Initializing Engine...
+[2015.07.25-12.25.33:268][  0]LogHMD: Can't find Oculus library dev build: is proper Runtime installed? Version: 0.6.0.0
+[2015.07.25-12.25.33:276][  0]LogHMD:Warning: SteamVR failed to initialize.  Error: 100
+[2015.07.25-12.25.33:518][  0]LogAIModule: Creating AISystem for world NewWorld
+[2015.07.25-12.25.33:531][  0]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.25.33:543][  0]LogInit: FAudioDevice initialized.
+[2015.07.25-12.25.33:579][  0]LogDerivedDataCache: Saved boot cache 0.03s 53MB C:/Users/SCW/AppData/Local/UnrealEngine/4.8/DerivedDataCache/Boot.ddc.
+[2015.07.25-12.25.33:587][  0]LogInit: Texture streaming: Disabled
+[2015.07.25-12.25.33:645][  0]LogAnalytics: Creating configured Analytics provider AnalyticsET
+[2015.07.25-12.25.33:646][  0]LogAnalytics: [UEEditor.Rocket.Release] APIServer = http://et2.epicgames.com/ET2/. AppVersion = 4.8.2-2614606+++depot+UE4-Releases+4.8
+[2015.07.25-12.25.33:646][  0]LogAnalytics: [UEEditor.Rocket.Release] SetUserId 568b5a34404f889fb1b32ab5dcc7273c|171fa9009f6b4f02983f7d0ecd1f12ba|c0dd2cb7-895e-48cf-9e36-42424b144c9b
+[2015.07.25-12.25.33:647][  0]LogAnalytics: [UEEditor.Rocket.Release] AnalyticsET::StartSession
+[2015.07.25-12.25.33:694][  0]LogInit: Transaction tracking system initialized
+[2015.07.25-12.25.34:167][  0]BlueprintLog: New page: Editor Load
+[2015.07.25-12.25.34:238][  0]LogAssetRegistry: FAssetRegistry took 0.0114 seconds to start up
+[2015.07.25-12.25.34:239][  0]LogDirectoryWatcher:Warning: Failed to begin reading directory changes for ../../../Engine/Plugins/Experimental/CharacterAI/Content/. Error: 0
+[2015.07.25-12.25.35:746][  0]LogLinker:Warning: Asset '../../../Engine/Content/Tutorial/Mobile/SettingUpAndroidTutorial.uasset' has been saved with empty engine version. The asset will be loaded but may be incompatible.
+[2015.07.25-12.25.36:128][  0]LogConsoleManager:Warning: Console variable 'r.VSync' wasn't set ('GameSetting' has a lower priority than 'SystemSettingsIni')
+[2015.07.25-12.25.36:129][  0]LogConsoleResponse:Display: 
+[2015.07.25-12.25.36:282][  0]LogCook:Display: Done creating registry. It took  0.00s.
+[2015.07.25-12.25.36:719][  0]SourceControl: Info Source control is disabled
+[2015.07.25-12.25.36:720][  0]Cmd: MAP LOAD FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap" TEMPLATE=0 SHOWPROGRESS=1 FEATURELEVEL=3
+[2015.07.25-12.25.36:721][  0]LightingResults: New page: Lighting Build
+[2015.07.25-12.25.36:744][  0]MapCheck: New page: Map Check
+[2015.07.25-12.25.36:744][  0]LightingResults: New page: Lighting Build
+[2015.07.25-12.25.36:755][  0]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000137B49A0
+[2015.07.25-12.25.37:898][  0]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.25.37:914][  0]LogEditorServer: Finished looking for orphan Actors (0.000 secs)
+[2015.07.25-12.25.37:936][  0]Cmd: MAP CHECKDEP NOCLEARLOG
+[2015.07.25-12.25.38:003][  0]MapCheck: Info Map check complete: 0 Error(s), 0 Warning(s), took 66.452ms to complete.
+[2015.07.25-12.25.38:003][  0]LogFileHelpers: Loading map 'Minimal_Default' took 1.284
+[2015.07.25-12.25.38:192][  0]LogCollectionManager: Loaded 0 collections in 0.003092 seconds
+[2015.07.25-12.25.38:204][  0]LogContentBrowser: Native class hierarchy populated in 0.0115 seconds. Added 1796 classes and 303 folders.
+[2015.07.25-12.25.38:341][  0]LogContentBrowser: Native class hierarchy updated for 'WidgetCarousel' in 0.0031 seconds. Added 0 classes and 0 folders.
+[2015.07.25-12.25.38:409][  0]LogContentBrowser: Native class hierarchy updated for 'AddContentDialog' in 0.0034 seconds. Added 0 classes and 0 folders.
+[2015.07.25-12.25.38:481][  0]LogContentBrowser: Native class hierarchy updated for 'SceneOutliner' in 0.0032 seconds. Added 1 classes and 2 folders.
+[2015.07.25-12.25.38:541][  0]LogCrashTracker: Crashtracker disabled due to settings.
+[2015.07.25-12.25.38:543][  0]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.25.38:547][  0]LogUObjectGlobals:Warning: Failed to find object 'Class None.'
+[2015.07.25-12.25.38:571][  0]LogLoad: Full Startup: 16.94 seconds (BP compile: 0.29 seconds)
+[2015.07.25-12.25.38:658][  0]LogContentStreaming: Texture pool size is 0.000000MB
+[2015.07.25-12.25.38:720][  0]LogContentStreaming: Texture pool size now 700 MB
+[2015.07.25-12.25.38:886][  0]LogRenderer: Reallocating scene render targets to support 1208x584 (Frame:2).
+[2015.07.25-12.25.39:349][  9]LogAssetRegistry: Asset discovery search completed in 5.1230 seconds
+[2015.07.25-12.25.39:851][ 63]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.26.59:204][499]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.26.59:207][499]Recompiling Demo...
+[2015.07.25-12.26.59:207][499]Launching UnrealBuildTool... [C:/Program Files/Epic Games/4.8/Engine/Binaries/DotNET/UnrealBuildTool.exe Demo -ModuleWithSuffix Demo 2355 Win64 Development -editorrecompile -canskiplink "D:/Users/SCW/Documents/Unreal Projects/Demo/Demo.uproject" -rocket  -rocket]
+[2015.07.25-12.26.59:209][499]Warning: Starting HotReload took  0.1s.
+[2015.07.25-12.27.07:321][924]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.27.07:348][924]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.27.07:403][924]LogLinker:Warning: Asset '../../../Engine/Content/ArtTools/RenderToTexture/Macros/RenderToTextureMacros.uasset' has been saved with empty engine version. The asset will be loaded but may be incompatible.
+[2015.07.25-12.27.07:497][924]LogLinker:Warning: Asset '../../../Engine/Content/ArtTools/RenderToTexture/Enums/RenderToTexture_Enum.uasset' has been saved with empty engine version. The asset will be loaded but may be incompatible.
+[2015.07.25-12.27.08:933][924]LogActor:Warning: GameNetworkManager /Engine/Transient.World_2:PersistentLevel.GameNetworkManager_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.27.27:968][934]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.27.28:069][934]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.27.28:087][934]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_GameMode" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset" SILENT=true
+[2015.07.25-12.27.28:119][934]LogSavePackage: Save=15.481429ms
+[2015.07.25-12.27.28:119][934]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_GameModeED4BD2894DAE0E194DDA0EBEF8DE958A.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset'
+[2015.07.25-12.27.31:136][ 84]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.27.32:257][146]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.27.33:610][234]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.28.06:224][ 31]LogEditorViewport: Clicking on Actor (LMB): BP_BasicCharacterControl_C (BP_BasicCharacterControl)
+[2015.07.25-12.28.10:180][247]Cmd: DELETE
+[2015.07.25-12.28.10:181][247]Cmd: ACTOR DELETE
+[2015.07.25-12.28.10:185][247]LogEditorActor: Deleted Actor: BP_BasicCharacterControl_C
+[2015.07.25-12.28.10:236][247]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.28.10:268][247]LogEditorActor: Deleted 1 Actors (0.087 secs)
+[2015.07.25-12.28.11:196][308]LogEditorViewport: Clicking on Actor (LMB): BP_Sky_Sphere_C (BP_Sky_Sphere)
+[2015.07.25-12.28.12:569][388]LogEditorViewport: Clicking on Actor (LMB): PlayerStart (Player Start)
+[2015.07.25-12.28.16:753][649]LogEditorViewport: Clicking on Actor (LMB): BP_Sky_Sphere_C (BP_Sky_Sphere)
+[2015.07.25-12.28.22:398][968]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.28.23:230][ 15]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.28.24:092][ 66]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.28.24:815][110]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.28.28:368][325]LogEditorViewport: Clicking on Actor (LMB): BP_Sky_Sphere_C (BP_Sky_Sphere)
+[2015.07.25-12.28.33:488][458]CompilerResultsLog: New page: Compilation - Jul 26, 2015, 4:28:33 AM
+[2015.07.25-12.28.33:489][458]CompilerResultsLog: Info Compiling game modules for hot reload
+[2015.07.25-12.28.33:489][458]CompilerResultsLog: Info Parsing headers for DemoEditor
+[2015.07.25-12.28.33:490][458]CompilerResultsLog: Info Reflection code generated for DemoEditor
+[2015.07.25-12.28.33:490][458]CompilerResultsLog: Info Performing 2 actions (4 in parallel)
+[2015.07.25-12.28.33:490][458]CompilerResultsLog: Info BasicCharacterControl.cpp
+[2015.07.25-12.28.33:491][458]CompilerResultsLog: Info [2/2] Link UE4Editor-Demo-2355.dll
+[2015.07.25-12.28.33:491][458]CompilerResultsLog: Info    Creating library D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-2355.lib and object D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-2355.exp
+[2015.07.25-12.28.33:491][458]CompilerResultsLog: Info -------- End Detailed Actions Stats -----------------------------------------------------------
+[2015.07.25-12.28.33:492][458]CompilerResultsLog: Info Total build time: 94.02 seconds
+[2015.07.25-12.28.33:492][458]LogMainFrame: MainFrame: Module compiling took 94.296 seconds
+[2015.07.25-12.28.33:492][458]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.28.33:559][458]LogContentBrowser: Native class hierarchy updated for 'Demo' in 0.0020 seconds. Added 4 classes and 2 folders.
+[2015.07.25-12.28.33:563][458]Warning: HotReload successful (0 functions remapped  0 scriptstructs remapped)
+[2015.07.25-12.28.34:221][458]LogContentBrowser: Native class hierarchy populated in 0.0115 seconds. Added 1797 classes and 305 folders.
+[2015.07.25-12.28.44:259][489]LogEditorViewport: Clicking on Actor (LMB): BP_Sky_Sphere_C (BP_Sky_Sphere)
+[2015.07.25-12.28.45:288][549]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.28.45:289][549]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:28:45 AM)
+[2015.07.25-12.28.45:289][549]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.28.45:297][549]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008385s)
+[2015.07.25-12.28.45:299][549]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.28.45:300][549]LogPlayLevel: PIE: World Init took: (0.001992s)
+[2015.07.25-12.28.45:301][549]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011925s)
+[2015.07.25-12.28.45:372][549]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.28.45:375][549]LogInit: FAudioDevice initialized.
+[2015.07.25-12.28.45:458][549]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.28.45:464][549]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.28.45
+[2015.07.25-12.28.45:464][549]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.28.45:465][549]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_1 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.28.45:466][549]LogWorld: Bringing up level for play took: 0.005523
+[2015.07.25-12.28.45:469][549]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.341
+[2015.07.25-12.28.53:308][358]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000039BE7A0
+[2015.07.25-12.29.02:105][190]LogEditorViewport: Clicking on Actor (LMB): PlayerStart (Player Start)
+[2015.07.25-12.29.03:778][367]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.29.04:246][384]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.29.04:247][384]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:29:04 AM)
+[2015.07.25-12.29.04:248][384]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.29.04:255][384]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007939s)
+[2015.07.25-12.29.04:257][384]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.29.04:258][384]LogPlayLevel: PIE: World Init took: (0.002139s)
+[2015.07.25-12.29.04:258][384]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011704s)
+[2015.07.25-12.29.04:296][384]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.29.04:300][384]LogInit: FAudioDevice initialized.
+[2015.07.25-12.29.04:337][384]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.29.04:344][384]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.29.04
+[2015.07.25-12.29.04:345][384]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_1 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.04:346][384]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_2 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.04:346][384]LogWorld: Bringing up level for play took: 0.005865
+[2015.07.25-12.29.04:349][384]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.778
+[2015.07.25-12.29.05:622][513]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000383D9620
+[2015.07.25-12.29.12:023][139]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.29.12:548][172]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.29.12:549][172]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:29:12 AM)
+[2015.07.25-12.29.12:550][172]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.29.12:560][172]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008812s)
+[2015.07.25-12.29.12:561][172]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.29.12:562][172]LogPlayLevel: PIE: World Init took: (0.002089s)
+[2015.07.25-12.29.12:563][172]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.012504s)
+[2015.07.25-12.29.12:602][172]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.29.12:605][172]LogInit: FAudioDevice initialized.
+[2015.07.25-12.29.12:645][172]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.29.12:651][172]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.29.12
+[2015.07.25-12.29.12:652][172]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_2 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.12:653][172]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_3 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.12:653][172]LogWorld: Bringing up level for play took: 0.005453
+[2015.07.25-12.29.12:656][172]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.472
+[2015.07.25-12.29.13:802][287]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000024F34180
+[2015.07.25-12.29.24:171][419]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.29.26:594][657]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.29.26:875][657]LogSavePackage: Save=153.003723ms
+[2015.07.25-12.29.26:875][657]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Minimal_Default40BC8890434B45D55B1D94899FFF17E6.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap'
+[2015.07.25-12.29.26:904][657]LogFileHelpers: Saving map 'Minimal_Default' took 0.304
+[2015.07.25-12.29.28:652][800]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.29.28:666][800]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.29.28:988][800]LogActor:Warning: GameNetworkManager /Engine/Transient.World_3:PersistentLevel.GameNetworkManager_4 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.32:018][  7]BlueprintLog: New page: Compile BP_GameMode
+[2015.07.25-12.29.32:086][  7]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.29.32:109][  7]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000001BD3C4A0
+[2015.07.25-12.29.32:148][  7]BlueprintEditorCompileResults: Info [0250.53] Compile of BP_GameMode successful! [in 129 ms]
+[2015.07.25-12.29.32:694][ 34]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.29.48:001][593]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.29.48:001][593]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:29:48 AM)
+[2015.07.25-12.29.48:002][593]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.29.48:010][593]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007658s)
+[2015.07.25-12.29.48:012][593]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.29.48:013][593]LogPlayLevel: PIE: World Init took: (0.002076s)
+[2015.07.25-12.29.48:014][593]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011279s)
+[2015.07.25-12.29.48:055][593]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.29.48:059][593]LogInit: FAudioDevice initialized.
+[2015.07.25-12.29.48:100][593]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.29.48:107][593]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.29.48
+[2015.07.25-12.29.48:107][593]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_3 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.48:109][593]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_5 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.29.48:109][593]LogWorld: Bringing up level for play took: 0.005998
+[2015.07.25-12.29.48:112][593]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.986
+[2015.07.25-12.29.52:552][101]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000002F5A2020
+[2015.07.25-12.30.16:277][667]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.30.16:349][667]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.30.22:003][233]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.30.22:013][233]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_GameMode" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset" SILENT=true
+[2015.07.25-12.30.22:030][233]LogSavePackage: Save=13.448616ms
+[2015.07.25-12.30.22:031][233]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_GameMode184A72834F1E333B4ED08BBBBD00FECD.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset'
+[2015.07.25-12.30.23:193][321]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.30.23:194][321]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:30:23 AM)
+[2015.07.25-12.30.23:195][321]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.30.23:203][321]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007731s)
+[2015.07.25-12.30.23:205][321]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.30.23:206][321]LogPlayLevel: PIE: World Init took: (0.002080s)
+[2015.07.25-12.30.23:206][321]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011597s)
+[2015.07.25-12.30.23:245][321]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.30.23:249][321]LogInit: FAudioDevice initialized.
+[2015.07.25-12.30.23:289][321]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.30.23:296][321]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.30.23
+[2015.07.25-12.30.23:296][321]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_4 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.30.23:297][321]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_6 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.30.23:298][321]LogWorld: Bringing up level for play took: 0.005751
+[2015.07.25-12.30.23:301][321]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.176
+[2015.07.25-12.30.24:592][459]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000202314E0
+[2015.07.25-12.30.26:244][623]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.30.28:485][814]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.30.30:004][975]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.30.32:108][158]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.30.33:219][243]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.30.33:220][243]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:30:33 AM)
+[2015.07.25-12.30.33:221][243]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.30.33:230][243]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008610s)
+[2015.07.25-12.30.33:231][243]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.30.33:233][243]LogPlayLevel: PIE: World Init took: (0.001931s)
+[2015.07.25-12.30.33:233][243]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.012201s)
+[2015.07.25-12.30.33:272][243]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.30.33:276][243]LogInit: FAudioDevice initialized.
+[2015.07.25-12.30.33:318][243]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.30.33:325][243]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.30.33
+[2015.07.25-12.30.33:325][243]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_5 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.30.33:326][243]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_7 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.30.33:327][243]LogWorld: Bringing up level for play took: 0.005695
+[2015.07.25-12.30.33:329][243]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.205
+[2015.07.25-12.30.34:908][407]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000024F362A0
+[2015.07.25-12.30.46:740][630]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.30.46:743][630]Recompiling Demo...
+[2015.07.25-12.30.46:743][630]Launching UnrealBuildTool... [C:/Program Files/Epic Games/4.8/Engine/Binaries/DotNET/UnrealBuildTool.exe Demo -ModuleWithSuffix Demo 3083 Win64 Development -editorrecompile -canskiplink "D:/Users/SCW/Documents/Unreal Projects/Demo/Demo.uproject" -rocket  -rocket]
+[2015.07.25-12.30.46:746][630]Warning: Starting HotReload took  0.0s.
+[2015.07.25-12.31.14:516][801]CompilerResultsLog: New page: Compilation - Jul 26, 2015, 4:31:14 AM
+[2015.07.25-12.31.14:518][801]CompilerResultsLog: Info Compiling game modules for hot reload
+[2015.07.25-12.31.14:518][801]CompilerResultsLog: Info Parsing headers for DemoEditor
+[2015.07.25-12.31.14:519][801]CompilerResultsLog: Info Reflection code generated for DemoEditor
+[2015.07.25-12.31.14:520][801]CompilerResultsLog: Info Performing 2 actions (4 in parallel)
+[2015.07.25-12.31.14:520][801]CompilerResultsLog: Info BasicCharacterControl.cpp
+[2015.07.25-12.31.14:521][801]CompilerResultsLog: Info [2/2] Link UE4Editor-Demo-3083.dll
+[2015.07.25-12.31.14:522][801]CompilerResultsLog: Info    Creating library D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-3083.lib and object D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-3083.exp
+[2015.07.25-12.31.14:523][801]CompilerResultsLog: Info -------- End Detailed Actions Stats -----------------------------------------------------------
+[2015.07.25-12.31.14:523][801]CompilerResultsLog: Info Total build time: 27.35 seconds
+[2015.07.25-12.31.14:524][801]LogMainFrame: MainFrame: Module compiling took 27.790 seconds
+[2015.07.25-12.31.14:525][801]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.31.14:614][801]LogContentBrowser: Native class hierarchy updated for 'Demo' in 0.0021 seconds. Added 4 classes and 2 folders.
+[2015.07.25-12.31.14:618][801]Warning: HotReload successful (0 functions remapped  0 scriptstructs remapped)
+[2015.07.25-12.31.15:274][801]LogContentBrowser: Native class hierarchy populated in 0.0119 seconds. Added 1797 classes and 305 folders.
+[2015.07.25-12.31.57:849][ 53]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.31.57:850][ 53]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:31:57 AM)
+[2015.07.25-12.31.57:851][ 53]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.31.57:860][ 53]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008277s)
+[2015.07.25-12.31.57:861][ 53]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.31.57:863][ 53]LogPlayLevel: PIE: World Init took: (0.002236s)
+[2015.07.25-12.31.57:863][ 53]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.012130s)
+[2015.07.25-12.31.57:864][ 53]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.31.57:925][ 53]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.31.57:929][ 53]LogInit: FAudioDevice initialized.
+[2015.07.25-12.31.57:971][ 53]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.31.57:977][ 53]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.31.57
+[2015.07.25-12.31.57:978][ 53]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_6 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.31.57:979][ 53]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_8 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.31.57:979][ 53]LogWorld: Bringing up level for play took: 0.005499
+[2015.07.25-12.31.57:984][ 53]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.862
+[2015.07.25-12.32.01:729][421]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000005467380
+[2015.07.25-12.32.07:539][882]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.32.09:573][ 52]LogRenderer: Reallocating scene render targets to support 1208x912 (Frame:15569).
+[2015.07.25-12.32.29:386][ 81]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.32.29:387][ 81]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:32:29 AM)
+[2015.07.25-12.32.29:388][ 81]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.32.29:396][ 81]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007412s)
+[2015.07.25-12.32.29:398][ 81]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.32.29:399][ 81]LogPlayLevel: PIE: World Init took: (0.002047s)
+[2015.07.25-12.32.29:399][ 81]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011020s)
+[2015.07.25-12.32.29:400][ 81]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.32.29:447][ 81]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.32.29:451][ 81]LogInit: FAudioDevice initialized.
+[2015.07.25-12.32.29:493][ 81]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.32.29:499][ 81]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.32.29
+[2015.07.25-12.32.29:500][ 81]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_7 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.32.29:500][ 81]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_9 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.32.29:500][ 81]LogWorld: Bringing up level for play took: 0.005574
+[2015.07.25-12.32.29:505][ 81]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.385
+[2015.07.25-12.32.32:623][437]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000003D5AC7C0
+[2015.07.25-12.32.37:497][886]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.32.37:791][886]LogSavePackage: Save=157.383392ms
+[2015.07.25-12.32.37:792][886]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Minimal_Default1C755D384F021AF41BD87BA24C30E8D7.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap'
+[2015.07.25-12.32.37:822][886]LogFileHelpers: Saving map 'Minimal_Default' took 0.319
+[2015.07.25-12.32.37:830][886]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.32.37:848][886]LogSavePackage: Save=13.696628ms
+[2015.07.25-12.32.37:848][886]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControl599FA735419CE9F83932A9B61570C6C9.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.32.38:248][927]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.32.38:264][927]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.32.38:412][927]LogPlayLevel: PIE:  Blueprint regeneration took 163 ms (1 blueprints)
+[2015.07.25-12.32.38:412][927]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:32:38 AM)
+[2015.07.25-12.32.38:413][927]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.32.38:420][927]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007441s)
+[2015.07.25-12.32.38:422][927]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.32.38:423][927]LogPlayLevel: PIE: World Init took: (0.001999s)
+[2015.07.25-12.32.38:423][927]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010984s)
+[2015.07.25-12.32.38:471][927]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.32.38:474][927]LogInit: FAudioDevice initialized.
+[2015.07.25-12.32.38:514][927]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.32.38:521][927]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.32.38
+[2015.07.25-12.32.38:521][927]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_8 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.32.38:522][927]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_10 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.32.38:523][927]LogWorld: Bringing up level for play took: 0.005929
+[2015.07.25-12.32.38:528][927]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.593
+[2015.07.25-12.32.41:186][206]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000005001ED40
+[2015.07.25-12.33.41:004][370]BlueprintLog: New page: Compile BP_GameMode
+[2015.07.25-12.33.41:084][370]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.33.41:146][370]BlueprintEditorCompileResults: Info [0499.53] Compile of BP_GameMode successful! [in 141 ms]
+[2015.07.25-12.33.44:151][609]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.33.46:451][824]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.35.46:759][515]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.35.46:762][515]Recompiling Demo...
+[2015.07.25-12.35.46:763][515]Launching UnrealBuildTool... [C:/Program Files/Epic Games/4.8/Engine/Binaries/DotNET/UnrealBuildTool.exe Demo -ModuleWithSuffix Demo 3875 Win64 Development -editorrecompile -canskiplink "D:/Users/SCW/Documents/Unreal Projects/Demo/Demo.uproject" -rocket  -rocket]
+[2015.07.25-12.35.46:766][515]Warning: Starting HotReload took  0.0s.
+[2015.07.25-12.36.13:064][753]CompilerResultsLog: New page: Compilation - Jul 26, 2015, 4:36:13 AM
+[2015.07.25-12.36.13:065][753]CompilerResultsLog: Info Compiling game modules for hot reload
+[2015.07.25-12.36.13:065][753]CompilerResultsLog: Info Parsing headers for DemoEditor
+[2015.07.25-12.36.13:066][753]CompilerResultsLog: Info Reflection code generated for DemoEditor
+[2015.07.25-12.36.13:066][753]CompilerResultsLog: Info Performing 2 actions (4 in parallel)
+[2015.07.25-12.36.13:067][753]CompilerResultsLog: Info BasicCharacterControl.cpp
+[2015.07.25-12.36.13:067][753]CompilerResultsLog: Info [2/2] Link UE4Editor-Demo-3875.dll
+[2015.07.25-12.36.13:067][753]CompilerResultsLog: Info    Creating library D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-3875.lib and object D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-3875.exp
+[2015.07.25-12.36.13:068][753]CompilerResultsLog: Info -------- End Detailed Actions Stats -----------------------------------------------------------
+[2015.07.25-12.36.13:068][753]CompilerResultsLog: Info Total build time: 25.99 seconds
+[2015.07.25-12.36.13:069][753]LogMainFrame: MainFrame: Module compiling took 26.315 seconds
+[2015.07.25-12.36.13:069][753]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.36.13:105][753]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000001F945120
+[2015.07.25-12.36.13:177][753]LogContentBrowser: Native class hierarchy updated for 'Demo' in 0.0021 seconds. Added 4 classes and 2 folders.
+[2015.07.25-12.36.13:183][753]Warning: HotReload successful (0 functions remapped  0 scriptstructs remapped)
+[2015.07.25-12.36.13:841][753]LogContentBrowser: Native class hierarchy populated in 0.0116 seconds. Added 1797 classes and 305 folders.
+[2015.07.25-12.36.14:880][757]LogEditorViewport: Clicking on Actor (LMB): BP_Sky_Sphere_C (BP_Sky_Sphere)
+[2015.07.25-12.36.15:708][793]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.36.15:708][793]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:36:15 AM)
+[2015.07.25-12.36.15:709][793]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.36.15:717][793]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007438s)
+[2015.07.25-12.36.15:718][793]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.36.15:720][793]LogPlayLevel: PIE: World Init took: (0.001985s)
+[2015.07.25-12.36.15:720][793]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010913s)
+[2015.07.25-12.36.15:791][793]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.36.15:794][793]LogInit: FAudioDevice initialized.
+[2015.07.25-12.36.15:836][793]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.36.15:843][793]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.36.15
+[2015.07.25-12.36.15:843][793]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_9 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.36.15:844][793]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_11 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.36.15:845][793]LogWorld: Bringing up level for play took: 0.005631
+[2015.07.25-12.36.15:849][793]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.736
+[2015.07.25-12.36.25:617][667]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000047AEBA60
+[2015.07.25-12.36.59:723][659]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.36.59:724][659]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:36:59 AM)
+[2015.07.25-12.36.59:725][659]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.36.59:733][659]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007694s)
+[2015.07.25-12.36.59:735][659]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.36.59:736][659]LogPlayLevel: PIE: World Init took: (0.001991s)
+[2015.07.25-12.36.59:736][659]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011212s)
+[2015.07.25-12.36.59:737][659]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.36.59:791][659]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.36.59:795][659]LogInit: FAudioDevice initialized.
+[2015.07.25-12.36.59:834][659]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.36.59:840][659]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.36.59
+[2015.07.25-12.36.59:841][659]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_10 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.36.59:842][659]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_12 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.36.59:842][659]LogWorld: Bringing up level for play took: 0.005513
+[2015.07.25-12.36.59:847][659]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.735
+[2015.07.25-12.37.01:460][825]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000037EA2B60
+[2015.07.25-12.37.04:805][141]LogEditorViewport: Clicking on Actor (LMB): StaticMeshActor (Floor)
+[2015.07.25-12.37.07:193][380]LogEditorViewport: Clicking on Actor (LMB): PlayerStart (Player Start)
+[2015.07.25-12.37.39:285][851]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.37.39:343][851]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.37.39:381][851]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.37.39:422][851]LogSavePackage: Save=36.514946ms
+[2015.07.25-12.37.39:423][851]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter9ECC03544A52F5D799E896B0C2421CB0.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.37.45:963][401]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.37.45:997][401]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_0) Not registered. Aborting.
+[2015.07.25-12.37.46:006][401]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.37.47:585][492]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_1) Not registered. Aborting.
+[2015.07.25-12.37.47:646][492]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.37.47:679][492]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.37.47:717][492]LogSavePackage: Save=34.275593ms
+[2015.07.25-12.37.47:718][492]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter51CE29A74468FA64A3FA9689525DA0A3.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.37.48:808][556]BlueprintLog: New page: Compile BP_BasicCharacter
+[2015.07.25-12.37.48:916][556]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_2) Not registered. Aborting.
+[2015.07.25-12.37.48:987][556]BlueprintEditorCompileResults: Info [0747.38] Compile of BP_BasicCharacter successful! [in 177 ms]
+[2015.07.25-12.38.04:216][290]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.38.04:217][290]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:38:04 AM)
+[2015.07.25-12.38.04:218][290]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.38.04:226][290]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007473s)
+[2015.07.25-12.38.04:228][290]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.38.04:229][290]LogPlayLevel: PIE: World Init took: (0.002044s)
+[2015.07.25-12.38.04:229][290]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011232s)
+[2015.07.25-12.38.04:230][290]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_3) Not registered. Aborting.
+[2015.07.25-12.38.04:285][290]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.38.04:289][290]LogInit: FAudioDevice initialized.
+[2015.07.25-12.38.04:329][290]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.38.04:335][290]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.38.04
+[2015.07.25-12.38.04:335][290]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_11 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.38.04:336][290]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_13 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.38.04:337][290]LogWorld: Bringing up level for play took: 0.005474
+[2015.07.25-12.38.04:341][290]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.768
+[2015.07.25-12.38.07:359][626]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000037DAE840
+[2015.07.25-12.39.50:604][908]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.39.50:606][908]Recompiling Demo...
+[2015.07.25-12.39.50:607][908]Launching UnrealBuildTool... [C:/Program Files/Epic Games/4.8/Engine/Binaries/DotNET/UnrealBuildTool.exe Demo -ModuleWithSuffix Demo 7729 Win64 Development -editorrecompile -canskiplink "D:/Users/SCW/Documents/Unreal Projects/Demo/Demo.uproject" -rocket  -rocket]
+[2015.07.25-12.39.50:610][908]Warning: Starting HotReload took  0.0s.
+[2015.07.25-12.40.16:599][ 64]CompilerResultsLog: New page: Compilation - Jul 26, 2015, 4:40:16 AM
+[2015.07.25-12.40.16:600][ 64]CompilerResultsLog: Info Compiling game modules for hot reload
+[2015.07.25-12.40.16:600][ 64]CompilerResultsLog: Info Parsing headers for DemoEditor
+[2015.07.25-12.40.16:600][ 64]CompilerResultsLog: Info Reflection code generated for DemoEditor
+[2015.07.25-12.40.16:601][ 64]CompilerResultsLog: Info Performing 2 actions (4 in parallel)
+[2015.07.25-12.40.16:601][ 64]CompilerResultsLog: Info BasicCharacterControl.cpp
+[2015.07.25-12.40.16:601][ 64]CompilerResultsLog: Info [2/2] Link UE4Editor-Demo-7729.dll
+[2015.07.25-12.40.16:602][ 64]CompilerResultsLog: Info    Creating library D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-7729.lib and object D:\Users\SCW\Documents\Unreal Projects\Demo\Intermediate/Build/Win64\UE4Editor\Development\UE4Editor-Demo-7729.exp
+[2015.07.25-12.40.16:602][ 64]CompilerResultsLog: Info -------- End Detailed Actions Stats -----------------------------------------------------------
+[2015.07.25-12.40.16:603][ 64]CompilerResultsLog: Info Total build time: 25.72 seconds
+[2015.07.25-12.40.16:603][ 64]LogMainFrame: MainFrame: Module compiling took 26.005 seconds
+[2015.07.25-12.40.16:603][ 64]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_4) Not registered. Aborting.
+[2015.07.25-12.40.16:701][ 64]LogContentBrowser: Native class hierarchy updated for 'Demo' in 0.0020 seconds. Added 4 classes and 2 folders.
+[2015.07.25-12.40.16:708][ 64]Warning: HotReload successful (0 functions remapped  0 scriptstructs remapped)
+[2015.07.25-12.40.17:355][ 64]LogContentBrowser: Native class hierarchy populated in 0.0116 seconds. Added 1797 classes and 305 folders.
+[2015.07.25-12.40.30:663][218]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.40.30:664][218]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:40:30 AM)
+[2015.07.25-12.40.30:665][218]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.40.30:672][218]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007741s)
+[2015.07.25-12.40.30:674][218]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.40.30:675][218]LogPlayLevel: PIE: World Init took: (0.001985s)
+[2015.07.25-12.40.30:675][218]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011307s)
+[2015.07.25-12.40.30:676][218]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_5) Not registered. Aborting.
+[2015.07.25-12.40.30:764][218]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.40.30:769][218]LogInit: FAudioDevice initialized.
+[2015.07.25-12.40.30:809][218]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.40.30:816][218]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.40.30
+[2015.07.25-12.40.30:817][218]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_12 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.40.30:818][218]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_14 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.40.30:818][218]LogWorld: Bringing up level for play took: 0.006590
+[2015.07.25-12.40.30:823][218]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.281
+[2015.07.25-12.40.36:196][760]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000004FC2F420
+[2015.07.25-12.40.51:159][912]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.40.51:171][912]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.40.51:208][912]LogSavePackage: Save=13.825869ms
+[2015.07.25-12.40.51:208][912]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControl368C556747947C8D97C44AB13E0C3AD5.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.40.52:538][ 36]BlueprintLog: New page: Compile BP_BasicCharacterControl
+[2015.07.25-12.40.52:698][ 36]BlueprintEditorCompileResults: Info [0931.10] Compile of BP_BasicCharacterControl successful! [in 159 ms]
+[2015.07.25-12.41.00:843][675]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.10:366][689]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.41.10:428][689]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.10:460][689]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.41.10:502][689]LogSavePackage: Save=37.425262ms
+[2015.07.25-12.41.10:502][689]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterB9A05467481A9EF283934BA0B3103737.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.41.11:579][767]BlueprintLog: New page: Compile BP_BasicCharacter
+[2015.07.25-12.41.11:685][767]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.41.11:758][767]BlueprintEditorCompileResults: Info [0950.16] Compile of BP_BasicCharacter successful! [in 178 ms]
+[2015.07.25-12.41.12:308][795]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.41.13:505][855]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.41.13:505][855]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:41:13 AM)
+[2015.07.25-12.41.13:506][855]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.41.13:514][855]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007103s)
+[2015.07.25-12.41.13:515][855]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.41.13:517][855]LogPlayLevel: PIE: World Init took: (0.002157s)
+[2015.07.25-12.41.13:517][855]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010821s)
+[2015.07.25-12.41.13:573][855]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.41.13:577][855]LogInit: FAudioDevice initialized.
+[2015.07.25-12.41.13:620][855]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.41.13:627][855]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.41.13
+[2015.07.25-12.41.13:627][855]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_13 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.13:628][855]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_15 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.13:629][855]LogWorld: Bringing up level for play took: 0.006286
+[2015.07.25-12.41.13:633][855]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.531
+[2015.07.25-12.41.15:633][ 66]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000006C1EFBA0
+[2015.07.25-12.41.19:246][394]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.41.19:247][394]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:41:19 AM)
+[2015.07.25-12.41.19:247][394]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.41.19:254][394]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007639s)
+[2015.07.25-12.41.19:256][394]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.41.19:257][394]LogPlayLevel: PIE: World Init took: (0.001993s)
+[2015.07.25-12.41.19:258][394]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011192s)
+[2015.07.25-12.41.19:314][394]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.41.19:318][394]LogInit: FAudioDevice initialized.
+[2015.07.25-12.41.19:360][394]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.41.19:367][394]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.41.19
+[2015.07.25-12.41.19:368][394]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_14 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.19:369][394]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_16 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.19:369][394]LogWorld: Bringing up level for play took: 0.006534
+[2015.07.25-12.41.19:374][394]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.271
+[2015.07.25-12.41.20:676][516]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000005BC1E0C0
+[2015.07.25-12.41.27:007][137]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.41.27:067][137]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.27:100][137]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.41.27:141][137]LogSavePackage: Save=37.110016ms
+[2015.07.25-12.41.27:141][137]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter924D4752428C694DE19FCB81D1F40401.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.41.28:560][249]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.41.28:577][249]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_6) Not registered. Aborting.
+[2015.07.25-12.41.28:581][249]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.41.28:744][249]LogPlayLevel: PIE:  Blueprint regeneration took 183 ms (1 blueprints)
+[2015.07.25-12.41.28:745][249]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:41:28 AM)
+[2015.07.25-12.41.28:745][249]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.41.28:753][249]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007814s)
+[2015.07.25-12.41.28:754][249]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.41.28:755][249]LogPlayLevel: PIE: World Init took: (0.001964s)
+[2015.07.25-12.41.28:756][249]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011322s)
+[2015.07.25-12.41.28:812][249]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.41.28:816][249]LogInit: FAudioDevice initialized.
+[2015.07.25-12.41.28:822][249]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.28:861][249]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.41.28:868][249]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.41.28
+[2015.07.25-12.41.28:869][249]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_15 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.28:870][249]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_17 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.41.28:870][249]LogWorld: Bringing up level for play took: 0.006437
+[2015.07.25-12.41.28:889][249]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.213
+[2015.07.25-12.41.30:698][422]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_7) Not registered. Aborting.
+[2015.07.25-12.41.30:761][422]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000165F5800
+[2015.07.25-12.41.36:186][ 54]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.41.36:224][ 54]LogActorComponent: UnregisterComponent: (/Engine/Transient.CapsuleComponent_8) Not registered. Aborting.
+[2015.07.25-12.41.36:225][ 54]LogActorComponent: UnregisterComponent: (/Engine/Transient.ArrowComponent_8) Not registered. Aborting.
+[2015.07.25-12.41.36:225][ 54]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_8) Not registered. Aborting.
+[2015.07.25-12.41.36:226][ 54]LogActorComponent: UnregisterComponent: (/Engine/Transient.SkeletalMeshComponent_8) Not registered. Aborting.
+[2015.07.25-12.41.36:226][ 54]LogActorComponent: UnregisterComponent: (/Engine/Transient.CameraComponent_3) Not registered. Aborting.
+[2015.07.25-12.41.36:235][ 54]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.45:386][973]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.41.45:431][973]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_9) Not registered. Aborting.
+[2015.07.25-12.41.45:440][973]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.41.55:566][997]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.41.55:603][997]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_10) Not registered. Aborting.
+[2015.07.25-12.41.55:613][997]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.02:611][625]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_11) Not registered. Aborting.
+[2015.07.25-12.42.02:710][625]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.02:744][625]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.42.02:783][625]LogSavePackage: Save=35.680321ms
+[2015.07.25-12.42.02:784][625]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter9A721D3A445A17E75469EC8F1E8EC5BE.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.42.04:037][703]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.42.04:052][703]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_12) Not registered. Aborting.
+[2015.07.25-12.42.04:057][703]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.42.04:219][703]LogPlayLevel: PIE:  Blueprint regeneration took 182 ms (1 blueprints)
+[2015.07.25-12.42.04:220][703]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:42:04 AM)
+[2015.07.25-12.42.04:221][703]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.42.04:229][703]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007673s)
+[2015.07.25-12.42.04:231][703]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.42.04:232][703]LogPlayLevel: PIE: World Init took: (0.002052s)
+[2015.07.25-12.42.04:232][703]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011321s)
+[2015.07.25-12.42.04:288][703]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.42.04:291][703]LogInit: FAudioDevice initialized.
+[2015.07.25-12.42.04:333][703]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.42.04:340][703]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.42.04
+[2015.07.25-12.42.04:341][703]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_16 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.04:342][703]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_18 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.04:342][703]LogWorld: Bringing up level for play took: 0.006247
+[2015.07.25-12.42.04:347][703]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 1.246
+[2015.07.25-12.42.06:712][967]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_13) Not registered. Aborting.
+[2015.07.25-12.42.06:776][967]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000052B90B80
+[2015.07.25-12.42.08:348][ 82]Cmd: TRANSACTION UNDO
+[2015.07.25-12.42.08:349][ 82]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.42.08:395][ 82]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.08:856][116]Cmd: TRANSACTION UNDO
+[2015.07.25-12.42.08:857][116]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.42.08:901][116]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_14) Not registered. Aborting.
+[2015.07.25-12.42.10:542][235]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_15) Not registered. Aborting.
+[2015.07.25-12.42.10:610][235]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.10:645][235]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.42.10:685][235]LogSavePackage: Save=36.781479ms
+[2015.07.25-12.42.10:686][235]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter8D28FF0E43C3EB298FF6848839690CA3.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.42.26:649][968]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.26:656][968]LogSlate:Warning: Prevented a slow task dialog from being summoned while a context menu was open
+[2015.07.25-12.42.32:358][601]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.34:120][775]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_16) Not registered. Aborting.
+[2015.07.25-12.42.34:184][775]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.34:198][775]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_GameMode" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset" SILENT=true
+[2015.07.25-12.42.34:232][775]LogSavePackage: Save=14.094011ms
+[2015.07.25-12.42.34:233][775]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_GameMode515E5B8A46D86D95914B72B1BCE2D13E.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset'
+[2015.07.25-12.42.38:294][139]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.38:339][140]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.41:486][412]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.44:368][639]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.42.44:383][639]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_17) Not registered. Aborting.
+[2015.07.25-12.42.44:387][639]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.42.44:550][639]LogPlayLevel: PIE:  Blueprint regeneration took 183 ms (1 blueprints)
+[2015.07.25-12.42.44:551][639]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:42:44 AM)
+[2015.07.25-12.42.44:552][639]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.42.44:560][639]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007779s)
+[2015.07.25-12.42.44:562][639]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.42.44:563][639]LogPlayLevel: PIE: World Init took: (0.002070s)
+[2015.07.25-12.42.44:563][639]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011451s)
+[2015.07.25-12.42.44:620][639]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.42.44:624][639]LogInit: FAudioDevice initialized.
+[2015.07.25-12.42.44:667][639]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.42.44:675][639]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.42.44
+[2015.07.25-12.42.44:675][639]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_17 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.44:676][639]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_19 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.44:689][639]LogWorld: Bringing up level for play took: 0.018766
+[2015.07.25-12.42.44:693][639]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.407
+[2015.07.25-12.42.47:103][914]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_18) Not registered. Aborting.
+[2015.07.25-12.42.47:166][914]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000002FB75260
+[2015.07.25-12.42.50:413][190]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.42.50:413][190]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:42:50 AM)
+[2015.07.25-12.42.50:414][190]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.42.50:421][190]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007600s)
+[2015.07.25-12.42.50:423][190]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.42.50:424][190]LogPlayLevel: PIE: World Init took: (0.002126s)
+[2015.07.25-12.42.50:425][190]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011250s)
+[2015.07.25-12.42.50:481][190]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.42.50:485][190]LogInit: FAudioDevice initialized.
+[2015.07.25-12.42.50:528][190]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.42.50:535][190]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.42.50
+[2015.07.25-12.42.50:536][190]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_18 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.50:537][190]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_20 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.42.50:540][190]LogWorld: Bringing up level for play took: 0.009087
+[2015.07.25-12.42.50:542][190]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.557
+[2015.07.25-12.42.51:481][257]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000004A26DC60
+[2015.07.25-12.42.56:711][720]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.42.56:718][720]LogSlate:Warning: Prevented a slow task dialog from being summoned while a context menu was open
+[2015.07.25-12.43.02:691][208]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.43.02:692][208]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:43:02 AM)
+[2015.07.25-12.43.02:692][208]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.43.02:701][208]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007723s)
+[2015.07.25-12.43.02:702][208]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.43.02:704][208]LogPlayLevel: PIE: World Init took: (0.002187s)
+[2015.07.25-12.43.02:704][208]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011473s)
+[2015.07.25-12.43.02:759][208]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.43.02:763][208]LogInit: FAudioDevice initialized.
+[2015.07.25-12.43.02:801][208]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.43.02:809][208]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.43.02
+[2015.07.25-12.43.02:809][208]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_19 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.43.02:810][208]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_21 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.43.02:814][208]LogWorld: Bringing up level for play took: 0.009187
+[2015.07.25-12.43.02:817][208]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.282
+[2015.07.25-12.43.05:182][458]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000004A26F380
+[2015.07.25-12.43.43:351][877]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.43.43:352][877]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:43:43 AM)
+[2015.07.25-12.43.43:352][877]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.43.43:361][877]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007715s)
+[2015.07.25-12.43.43:363][877]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.43.43:364][877]LogPlayLevel: PIE: World Init took: (0.002573s)
+[2015.07.25-12.43.43:365][877]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011945s)
+[2015.07.25-12.43.43:421][877]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.43.43:425][877]LogInit: FAudioDevice initialized.
+[2015.07.25-12.43.43:466][877]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.43.43:474][877]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.43.43
+[2015.07.25-12.43.43:474][877]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_20 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.43.43:475][877]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_22 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.43.43:479][877]LogWorld: Bringing up level for play took: 0.009416
+[2015.07.25-12.43.43:482][877]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.385
+[2015.07.25-12.43.48:368][434]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000191ED8A0
+[2015.07.25-12.43.49:626][549]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.43.50:046][549]LogSavePackage: Save=171.763260ms
+[2015.07.25-12.43.50:047][549]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Minimal_DefaultF943461D413765B1D8DE2D8862A17120.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap'
+[2015.07.25-12.43.50:078][549]LogFileHelpers: Saving map 'Minimal_Default' took 0.446
+[2015.07.25-12.43.50:088][549]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_GameMode" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset" SILENT=true
+[2015.07.25-12.43.50:105][549]LogSavePackage: Save=13.177655ms
+[2015.07.25-12.43.50:106][549]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_GameMode57493D914FA5319AF825A69C03A93253.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset'
+[2015.07.25-12.44.04:674][236]LogEditorViewport: Clicking on Actor (LMB): BP_BasicCharacterControl_C (BP_BasicCharacterControl)
+[2015.07.25-12.44.14:328][202]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_19) Not registered. Aborting.
+[2015.07.25-12.44.16:429][387]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_20) Not registered. Aborting.
+[2015.07.25-12.44.16:500][387]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.44.16:532][387]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.44.16:572][387]LogSavePackage: Save=35.255562ms
+[2015.07.25-12.44.16:573][387]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter9A28BD0E46C95DA2CAAF81A8A894D769.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.44.18:387][504]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.44.59:941][845]LogSCSEditor:Warning: Calling UpdateTree() from Tick() more frequently than expected due to invalid tree node state. This might be a performance issue.
+[2015.07.25-12.45.01:024][911]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.45.01:041][911]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.45.01:180][911]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.45.01:240][911]LogPlayLevel: PIE:  Blueprint regeneration took 216 ms (1 blueprints)
+[2015.07.25-12.45.01:241][911]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:45:01 AM)
+[2015.07.25-12.45.01:242][911]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.45.01:250][911]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008027s)
+[2015.07.25-12.45.01:251][911]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.45.01:252][911]LogPlayLevel: PIE: World Init took: (0.002082s)
+[2015.07.25-12.45.01:252][911]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011575s)
+[2015.07.25-12.45.01:334][911]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.45.01:338][911]LogInit: FAudioDevice initialized.
+[2015.07.25-12.45.01:377][911]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.45.01:384][911]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.45.01
+[2015.07.25-12.45.01:384][911]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_21 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.01:385][911]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_23 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.01:388][911]LogWorld: Bringing up level for play took: 0.007916
+[2015.07.25-12.45.01:391][911]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.296
+[2015.07.25-12.45.02:203][972]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000002F473560
+[2015.07.25-12.45.10:642][699]LogEditorViewport: Clicking on Actor (LMB): BP_BasicCharacterControl_C (BP_BasicCharacterControl)
+[2015.07.25-12.45.15:462][ 57]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.45.31:098][431]LogSCSEditor:Warning: Calling UpdateTree() from Tick() more frequently than expected due to invalid tree node state. This might be a performance issue.
+[2015.07.25-12.45.33:132][568]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.45.33:455][568]LogSavePackage: Save=172.393356ms
+[2015.07.25-12.45.33:455][568]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Minimal_Default1272D4F14259D45C5B620E9F6DA6212F.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap'
+[2015.07.25-12.45.33:487][568]LogFileHelpers: Saving map 'Minimal_Default' took 0.349
+[2015.07.25-12.45.33:497][568]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.45.33:516][568]LogSavePackage: Save=15.735480ms
+[2015.07.25-12.45.33:517][568]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControl4542A5E94476731522F346B70A0F1822.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.45.36:105][751]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.45.36:114][751]LogSlate:Warning: Prevented a slow task dialog from being summoned while a context menu was open
+[2015.07.25-12.45.42:255][235]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.45.42:273][235]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.45.42:502][235]LogPlayLevel: PIE:  Blueprint regeneration took 247 ms (1 blueprints)
+[2015.07.25-12.45.42:503][235]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:45:42 AM)
+[2015.07.25-12.45.42:504][235]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.45.42:512][235]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007730s)
+[2015.07.25-12.45.42:514][235]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.45.42:515][235]LogPlayLevel: PIE: World Init took: (0.001931s)
+[2015.07.25-12.45.42:515][235]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011081s)
+[2015.07.25-12.45.42:600][235]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.45.42:604][235]LogInit: FAudioDevice initialized.
+[2015.07.25-12.45.42:641][235]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.45.42:648][235]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.45.42
+[2015.07.25-12.45.42:649][235]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_22 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.42:650][235]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_24 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.42:653][235]LogWorld: Bringing up level for play took: 0.008368
+[2015.07.25-12.45.42:657][235]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.437
+[2015.07.25-12.45.45:367][533]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000001F9458A0
+[2015.07.25-12.45.47:299][685]LogEditorViewport: Clicking on Actor (LMB): BP_BasicCharacterControl_C (BP_BasicCharacterControl)
+[2015.07.25-12.45.47:886][731]LogEditorViewport: Clicking on Actor (LMB): BP_BasicCharacterControl_C (BP_BasicCharacterControl)
+[2015.07.25-12.45.48:269][765]Cmd: DELETE
+[2015.07.25-12.45.48:270][765]Cmd: ACTOR DELETE
+[2015.07.25-12.45.48:271][765]LogEditorActor: Deleted Actor: BP_BasicCharacterControl_C
+[2015.07.25-12.45.48:363][765]LogEditorActor: Deleted 1 Actors (0.092 secs)
+[2015.07.25-12.45.49:476][851]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.45.49:476][851]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:45:49 AM)
+[2015.07.25-12.45.49:477][851]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.45.49:485][851]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007137s)
+[2015.07.25-12.45.49:486][851]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.45.49:488][851]LogPlayLevel: PIE: World Init took: (0.002174s)
+[2015.07.25-12.45.49:488][851]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010842s)
+[2015.07.25-12.45.49:542][851]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.45.49:546][851]LogInit: FAudioDevice initialized.
+[2015.07.25-12.45.49:589][851]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.45.49:596][851]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.45.49
+[2015.07.25-12.45.49:596][851]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_23 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.49:597][851]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_25 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.45.49:598][851]LogWorld: Bringing up level for play took: 0.005816
+[2015.07.25-12.45.49:602][851]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.509
+[2015.07.25-12.45.50:674][960]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000001F947C40
+[2015.07.25-12.46.15:666][592]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.46.15:683][592]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.46.15:863][592]LogPlayLevel: PIE:  Blueprint regeneration took 196 ms (1 blueprints)
+[2015.07.25-12.46.15:864][592]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:46:15 AM)
+[2015.07.25-12.46.15:865][592]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.46.15:874][592]LogPlayLevel: PIE: StaticDuplicateObject took: (0.008372s)
+[2015.07.25-12.46.15:875][592]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.46.15:876][592]LogPlayLevel: PIE: World Init took: (0.002462s)
+[2015.07.25-12.46.15:877][592]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.012677s)
+[2015.07.25-12.46.15:932][592]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.46.15:936][592]LogInit: FAudioDevice initialized.
+[2015.07.25-12.46.15:973][592]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.46.15:980][592]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.46.15
+[2015.07.25-12.46.15:980][592]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_24 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.46.15:981][592]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_26 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.46.15:982][592]LogWorld: Bringing up level for play took: 0.005505
+[2015.07.25-12.46.15:986][592]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.893
+[2015.07.25-12.46.17:876][793]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000192760C0
+[2015.07.25-12.46.46:837][406]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.46.47:014][406]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.46.48:085][453]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.46.53:554][792]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.47.07:811][255]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.47.07:827][255]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.47.07:831][255]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.47.07:953][255]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.47.08:125][255]LogPlayLevel: PIE:  Blueprint regeneration took 314 ms (2 blueprints)
+[2015.07.25-12.47.08:125][255]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:47:08 AM)
+[2015.07.25-12.47.08:126][255]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.47.08:134][255]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007872s)
+[2015.07.25-12.47.08:136][255]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.47.08:137][255]LogPlayLevel: PIE: World Init took: (0.001990s)
+[2015.07.25-12.47.08:137][255]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011462s)
+[2015.07.25-12.47.08:193][255]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.47.08:197][255]LogInit: FAudioDevice initialized.
+[2015.07.25-12.47.08:235][255]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.47.08:242][255]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.47.08
+[2015.07.25-12.47.08:242][255]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_25 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.08:243][255]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_27 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.08:244][255]LogWorld: Bringing up level for play took: 0.005825
+[2015.07.25-12.47.08:248][255]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 1.157
+[2015.07.25-12.47.09:158][353]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.47.09:220][353]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000002FB76D40
+[2015.07.25-12.47.13:130][785]LogEditorViewport: Clicking on Actor (LMB): PlayerStart (Player Start)
+[2015.07.25-12.47.14:644][932]LogNavigationPoint: PostEditMove Clear paths rebuilt
+[2015.07.25-12.47.15:453][993]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.47.15:453][993]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:47:15 AM)
+[2015.07.25-12.47.15:454][993]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.47.15:461][993]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007246s)
+[2015.07.25-12.47.15:463][993]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.47.15:464][993]LogPlayLevel: PIE: World Init took: (0.002016s)
+[2015.07.25-12.47.15:464][993]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010790s)
+[2015.07.25-12.47.15:521][993]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.47.15:525][993]LogInit: FAudioDevice initialized.
+[2015.07.25-12.47.15:577][993]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.47.15:585][993]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.47.15
+[2015.07.25-12.47.15:586][993]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_26 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.15:587][993]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_28 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.15:587][993]LogWorld: Bringing up level for play took: 0.005831
+[2015.07.25-12.47.15:592][993]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.502
+[2015.07.25-12.47.16:454][ 39]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000004A26CE00
+[2015.07.25-12.47.22:889][631]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.47.22:955][631]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.47.23:285][631]LogSavePackage: Save=182.141113ms
+[2015.07.25-12.47.23:285][631]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/Minimal_DefaultFD161F6440E5F0399F735FA9FBCC9AE9.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/StarterContent/Maps/Minimal_Default.umap'
+[2015.07.25-12.47.23:314][631]LogFileHelpers: Saving map 'Minimal_Default' took 0.354
+[2015.07.25-12.47.23:325][631]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.47.23:343][631]LogSavePackage: Save=14.411273ms
+[2015.07.25-12.47.23:344][631]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControlBE4A3DA5416C1500C127B288926CDC3C.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.47.23:375][631]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.47.23:416][631]LogSavePackage: Save=36.447712ms
+[2015.07.25-12.47.23:416][631]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterE7D108B840FE50E67DD892B35440FE86.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.47.23:429][631]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_GameMode" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset" SILENT=true
+[2015.07.25-12.47.23:463][631]LogSavePackage: Save=29.980875ms
+[2015.07.25-12.47.23:464][631]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_GameMode9F71A715418F88088BDF1FB91A8E685F.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_GameMode.uasset'
+[2015.07.25-12.47.24:922][731]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.47.24:938][731]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_21) Not registered. Aborting.
+[2015.07.25-12.47.24:942][731]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.47.25:116][731]LogPlayLevel: PIE:  Blueprint regeneration took 193 ms (1 blueprints)
+[2015.07.25-12.47.25:116][731]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:47:25 AM)
+[2015.07.25-12.47.25:117][731]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.47.25:125][731]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007287s)
+[2015.07.25-12.47.25:126][731]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.47.25:127][731]LogPlayLevel: PIE: World Init took: (0.002253s)
+[2015.07.25-12.47.25:128][731]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011114s)
+[2015.07.25-12.47.25:184][731]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.47.25:189][731]LogInit: FAudioDevice initialized.
+[2015.07.25-12.47.25:236][731]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.47.25:243][731]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.47.25
+[2015.07.25-12.47.25:243][731]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_27 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.25:244][731]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_29 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.25:245][731]LogWorld: Bringing up level for play took: 0.005710
+[2015.07.25-12.47.25:249][731]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.159
+[2015.07.25-12.47.26:456][863]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.47.26:519][863]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000037EA0E00
+[2015.07.25-12.47.39:968][214]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.47.39:984][214]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.47.39:988][214]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.47.40:166][214]LogPlayLevel: PIE:  Blueprint regeneration took 197 ms (1 blueprints)
+[2015.07.25-12.47.40:166][214]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:47:40 AM)
+[2015.07.25-12.47.40:166][214]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.47.40:175][214]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007742s)
+[2015.07.25-12.47.40:176][214]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.47.40:177][214]LogPlayLevel: PIE: World Init took: (0.001969s)
+[2015.07.25-12.47.40:178][214]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011213s)
+[2015.07.25-12.47.40:233][214]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.47.40:236][214]LogInit: FAudioDevice initialized.
+[2015.07.25-12.47.40:273][214]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.47.40:280][214]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.47.40
+[2015.07.25-12.47.40:280][214]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_28 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.40:281][214]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_30 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.40:282][214]LogWorld: Bringing up level for play took: 0.005784
+[2015.07.25-12.47.40:286][214]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 1.197
+[2015.07.25-12.47.41:995][391]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_22) Not registered. Aborting.
+[2015.07.25-12.47.42:058][391]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000050EAA20
+[2015.07.25-12.47.46:752][868]Cmd: SELECT NONE
+[2015.07.25-12.47.53:697][582]LogEditorTransaction: Undo Select None
+[2015.07.25-12.47.53:708][582]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.47.54:897][658]LogEditorTransaction: Undo Modify Component(s)
+[2015.07.25-12.47.57:068][770]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.47.57:083][770]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_23) Not registered. Aborting.
+[2015.07.25-12.47.57:087][770]LogPlayLevel: [PIE] Compiling BP_BasicCharacter before PIE...
+[2015.07.25-12.47.57:252][770]LogPlayLevel: PIE:  Blueprint regeneration took 184 ms (1 blueprints)
+[2015.07.25-12.47.57:253][770]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:47:57 AM)
+[2015.07.25-12.47.57:254][770]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.47.57:262][770]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007553s)
+[2015.07.25-12.47.57:263][770]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.47.57:264][770]LogPlayLevel: PIE: World Init took: (0.001978s)
+[2015.07.25-12.47.57:265][770]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.010973s)
+[2015.07.25-12.47.57:321][770]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.47.57:325][770]LogInit: FAudioDevice initialized.
+[2015.07.25-12.47.57:364][770]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.47.57:371][770]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.47.57
+[2015.07.25-12.47.57:371][770]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_29 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.57:372][770]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_31 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.47.57:373][770]LogWorld: Bringing up level for play took: 0.005588
+[2015.07.25-12.47.57:376][770]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.288
+[2015.07.25-12.47.58:372][848]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_24) Not registered. Aborting.
+[2015.07.25-12.47.58:434][848]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x0000000019002C00
+[2015.07.25-12.48.09:664][  9]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharacterMovementComponent_25) Not registered. Aborting.
+[2015.07.25-12.48.09:735][  9]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.09:767][  9]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.48.09:808][  9]LogSavePackage: Save=37.287571ms
+[2015.07.25-12.48.09:809][  9]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterC3D5E01F4F35E0E132CA529D0CA78B24.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.48.13:701][325]BlueprintLog: New page: Compile BP_BasicCharacter
+[2015.07.25-12.48.13:791][325]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.48.13:864][325]BlueprintEditorCompileResults: Info [1372.28] Compile of BP_BasicCharacter successful! [in 162 ms]
+[2015.07.25-12.48.15:360][410]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.48.15:360][410]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:48:15 AM)
+[2015.07.25-12.48.15:361][410]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.48.15:369][410]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007663s)
+[2015.07.25-12.48.15:371][410]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.48.15:372][410]LogPlayLevel: PIE: World Init took: (0.002085s)
+[2015.07.25-12.48.15:373][410]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011297s)
+[2015.07.25-12.48.15:373][410]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.48.15:430][410]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.48.15:434][410]LogInit: FAudioDevice initialized.
+[2015.07.25-12.48.15:478][410]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.48.15:485][410]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.48.15
+[2015.07.25-12.48.15:485][410]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_30 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.48.15:486][410]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_32 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.48.15:487][410]LogWorld: Bringing up level for play took: 0.005537
+[2015.07.25-12.48.15:491][410]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.403
+[2015.07.25-12.48.16:829][539]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x000000001780B6A0
+[2015.07.25-12.48.23:249][196]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.48.23:312][196]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.23:344][196]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacter" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset" SILENT=true
+[2015.07.25-12.48.23:382][196]LogSavePackage: Save=34.303371ms
+[2015.07.25-12.48.23:382][196]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacter542C61B84BA7E39A2F1A3A8AA9D4D81B.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacter.uasset'
+[2015.07.25-12.48.25:208][318]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.26:454][410]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.26:967][449]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.36:663][466]LogActorComponent: UnregisterComponent: (/Engine/Transient.CharMoveComp) Not registered. Aborting.
+[2015.07.25-12.48.36:730][466]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.48.36:743][466]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.48.36:763][466]LogSavePackage: Save=15.799899ms
+[2015.07.25-12.48.36:763][466]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControl1157311B4DA5D9D09EA277A42B017DB6.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.48.37:640][515]BlueprintLog: New page: Compile BP_BasicCharacterControl
+[2015.07.25-12.48.37:805][515]BlueprintEditorCompileResults: Info [1396.22] Compile of BP_BasicCharacterControl successful! [in 164 ms]
+[2015.07.25-12.48.38:924][576]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.48.38:925][576]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:48:38 AM)
+[2015.07.25-12.48.38:926][576]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.48.38:934][576]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007757s)
+[2015.07.25-12.48.38:936][576]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.48.38:937][576]LogPlayLevel: PIE: World Init took: (0.001927s)
+[2015.07.25-12.48.38:937][576]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011219s)
+[2015.07.25-12.48.38:995][576]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.48.38:999][576]LogInit: FAudioDevice initialized.
+[2015.07.25-12.48.39:036][576]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.48.39:042][576]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.48.39
+[2015.07.25-12.48.39:042][576]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_31 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.48.39:043][576]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_33 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.48.39:044][576]LogWorld: Bringing up level for play took: 0.005568
+[2015.07.25-12.48.39:048][576]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default -0.039
+[2015.07.25-12.48.40:243][693]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000501FBF60
+[2015.07.25-12.49.11:271][856]LogD3D11RHI: InitD3DDevice
+[2015.07.25-12.49.11:285][856]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Blueprints/BP_BasicCharacterControl" FILE="D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset" SILENT=true
+[2015.07.25-12.49.11:304][856]LogSavePackage: Save=15.994766ms
+[2015.07.25-12.49.11:305][856]LogSavePackage: Moving 'D:/Users/SCW/Documents/Unreal Projects/Demo/Saved/BP_BasicCharacterControl9656C18745151ECB1DE99AB8E4BD40D0.tmp' to 'D:/Users/SCW/Documents/Unreal Projects/Demo/Content/Blueprints/BP_BasicCharacterControl.uasset'
+[2015.07.25-12.49.12:015][894]BlueprintLog: New page: Compile BP_BasicCharacterControl
+[2015.07.25-12.49.12:175][894]BlueprintEditorCompileResults: Info [1430.59] Compile of BP_BasicCharacterControl successful! [in 158 ms]
+[2015.07.25-12.49.13:784][986]LogPlayLevel: PIE:  No blueprints needed recompiling
+[2015.07.25-12.49.13:785][986]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:49:13 AM)
+[2015.07.25-12.49.13:786][986]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.49.13:793][986]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007756s)
+[2015.07.25-12.49.13:795][986]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.49.13:796][986]LogPlayLevel: PIE: World Init took: (0.002018s)
+[2015.07.25-12.49.13:796][986]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011313s)
+[2015.07.25-12.49.13:855][986]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.49.13:859][986]LogInit: FAudioDevice initialized.
+[2015.07.25-12.49.13:899][986]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.49.13:906][986]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.49.13
+[2015.07.25-12.49.13:906][986]LogActor:Warning: GameSession /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameSession_32 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.49.13:907][986]LogActor:Warning: GameNetworkManager /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default:PersistentLevel.GameNetworkManager_34 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2015.07.25-12.49.13:908][986]LogWorld: Bringing up level for play took: 0.006006
+[2015.07.25-12.49.13:913][986]PIE: Info Play in editor start time for /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default 0.826
+[2015.07.25-12.49.15:208][109]LogParticles: Destroying 0 GPU particle simulations for FXSystem 0x00000000192CAC00
+[2015.07.25-12.49.24:079][987]BlueprintLog: New page: Pre-PIE auto-recompile
+[2015.07.25-12.49.24:095][987]LogPlayLevel: [PIE] Compiling BP_BasicCharacterControl before PIE...
+[2015.07.25-12.49.24:259][987]LogPlayLevel: PIE:  Blueprint regeneration took 180 ms (1 blueprints)
+[2015.07.25-12.49.24:260][987]PIE: New page: PIE session: Minimal_Default (Jul 26, 2015, 4:49:24 AM)
+[2015.07.25-12.49.24:260][987]LogPlayLevel: Creating play world package: /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default
+[2015.07.25-12.49.24:268][987]LogPlayLevel: PIE: StaticDuplicateObject took: (0.007392s)
+[2015.07.25-12.49.24:270][987]LogAIModule: Creating AISystem for world Minimal_Default
+[2015.07.25-12.49.24:271][987]LogPlayLevel: PIE: World Init took: (0.002381s)
+[2015.07.25-12.49.24:272][987]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/StarterContent/Maps/Minimal_Default.Minimal_Default to /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default (0.011450s)
+[2015.07.25-12.49.24:328][987]LogInit: XAudio2 using '喇叭 (ASUS Xonar DS Audio Device)' : 2 channels at 44.1 kHz using 16 bits per sample (channel mask 0x3)
+[2015.07.25-12.49.24:332][987]LogInit: FAudioDevice initialized.
+[2015.07.25-12.49.24:369][987]LogWorld: Game class is 'BP_GameMode_C'
+[2015.07.25-12.49.24:375][987]LogWorld: Bringing World /Game/StarterContent/Maps/UEDPIE_0_Minimal_Default.Minimal_Default up for play (max tick rate 0) at 2015.07.25-20.49.24
+[2015.07.25-12.49.24:37
