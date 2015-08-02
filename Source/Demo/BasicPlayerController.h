@@ -23,8 +23,6 @@ public:
    // Called when the game starts or when spawned
    virtual void BeginPlay() override;
 
-  void InitiateCamrea();
-
    UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
       virtual void Possess( APawn * InPawn ) override;
 
