@@ -23,6 +23,13 @@ public:
    // Called when the game starts or when spawned
    virtual void BeginPlay() override;
 
+  void InitiateCamrea();
+
+   UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
+      virtual void Possess( APawn * InPawn ) override;
+
+   virtual void CalcCamera( float DeltaTime, struct FMinimalViewInfo& OutResult ) override;
+
    void Tick( float DeltaTime ) override;
 	
    //custom function for movement
@@ -37,11 +44,14 @@ public:
    //custom function for movement
    void Pitch( float amount );
 
-   void SetControllingCharacter( ABasicCharacter* character );
+   bool SetControllingCharacter( APawn* InPawn );
 
    
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = EnemyProperties )
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      UCameraComponent* m_Camera;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterProperties )
       UClass* BPCharacter;
 private:
    ABasicCharacter* m_ControllingCharacter;

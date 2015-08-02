@@ -12,8 +12,8 @@ UCLASS()
 class DEMO_API ANPCCharacter : public ABasicCharacter
 {
 	GENERATED_BODY()
-	
-	
+      /*
+public:	
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = EnemyProperties )
       float Speed;
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{7C1CBE5F-BF12-4987-8BC6-01686A246773}"
 EndProject
@@ -33,8 +33,8 @@ Global
 		{D526ED53-4118-4FCF-8794-798562A06882}.DebugGame|Win32.Build.0 = DebugGame_Game|Win32
 		{D526ED53-4118-4FCF-8794-798562A06882}.DebugGame|Win64.ActiveCfg = DebugGame_Game|x64
 		{D526ED53-4118-4FCF-8794-798562A06882}.DebugGame|Win64.Build.0 = DebugGame_Game|x64
-		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win32.ActiveCfg = Development_Editor|Win32
-		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win32.Build.0 = Development_Editor|Win32
+		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win32.ActiveCfg = Development_Editor|x64
+		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win32.Build.0 = Development_Editor|x64
 		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win64.ActiveCfg = Development_Editor|x64
 		{D526ED53-4118-4FCF-8794-798562A06882}.Development Editor|Win64.Build.0 = Development_Editor|x64
 		{D526ED53-4118-4FCF-8794-798562A06882}.Development|Win32.ActiveCfg = Development_Game|Win32

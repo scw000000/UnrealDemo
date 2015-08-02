@@ -9,6 +9,10 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+   m_SpringArm = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "Camera Spring Arm" ) );
+   m_SpringArm->AttachTo( RootComponent );
+   m_SpringArm->TargetArmLength = 300.0f;
+   m_SpringArm->bUsePawnControlRotation = true;
    //ACharacter::CharacterMovementComponentName.ToString
    
 }
@@ -28,10 +32,4 @@ void ABasicCharacter::Tick( float DeltaTime )
 
 }
 
-// Called to bind functionality to input
-void ABasicCharacter::SetupPlayerInputComponent( class UInputComponent* InputComponent )
-{
-	Super::SetupPlayerInputComponent(InputComponent);
-   ABasicPlayerController* controller = Cast<ABasicPlayerController>( InputComponent );
-}
 
