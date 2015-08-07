@@ -20,7 +20,14 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+   USpringArmComponent* GetCameraBoomShift( );
+
+   USpringArmComponent* GetCameraBoomRotation( );
+
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* m_SpringArm;
+      USpringArmComponent* m_CameraBoomShift;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* m_CameraBoomRotation;
 
 };

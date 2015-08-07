@@ -2,17 +2,21 @@
 
 #include "Demo.h"
 #include "BasicCharacter.h"
-#include "BasicPlayerController.h"
 
 // Sets default values
 ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) 
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-   m_SpringArm = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "Camera Spring Arm" ) );
-   m_SpringArm->AttachTo( RootComponent );
-   m_SpringArm->TargetArmLength = 300.0f;
-   m_SpringArm->bUsePawnControlRotation = true;
+   m_CameraBoomShift = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "Camera Spring Arm Shift" ) );
+   m_CameraBoomShift->AttachTo( RootComponent );
+   m_CameraBoomShift->TargetArmLength = 300.0f;
+   m_CameraBoomShift->bUsePawnControlRotation = false;
+
+   m_CameraBoomRotation = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "Camera Spring Arm Rotation" ) );
+   m_CameraBoomRotation->AttachTo( m_CameraBoomShift );
+   m_CameraBoomRotation->TargetArmLength = 300.0f;
+   m_CameraBoomRotation->bUsePawnControlRotation = false;
    //ACharacter::CharacterMovementComponentName.ToString
    
 }
@@ -31,5 +35,15 @@ void ABasicCharacter::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 }
+
+USpringArmComponent* ABasicCharacter::GetCameraBoomShift( )
+{
+   return m_CameraBoomShift;
+}
+
+USpringArmComponent* ABasicCharacter::GetCameraBoomRotation( )
+   {
+   return m_CameraBoomRotation;
+   }
 
 

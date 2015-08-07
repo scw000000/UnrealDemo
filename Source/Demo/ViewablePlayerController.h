@@ -42,6 +42,13 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       UCameraComponent* m_Camera;
 
+   //camera boom of yaw and pitch
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* m_CameraBoomYaw;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* m_CameraBoomPitch;
+
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = CharacterProperties )
       UClass* BPCharacter;
 protected:
