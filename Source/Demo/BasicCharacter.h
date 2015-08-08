@@ -16,19 +16,10 @@ public:
    // Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-   virtual void PostInitializeComponents( ) override;
-
 	// Sets default values for this character's properties
    ABasicCharacter( const FObjectInitializer& ObjectInitializer );
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
-
-   
-
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      UClass* m_BPCameraBoom;
-
-   ACameraBoom *m_CameraBoom;
 
 };

@@ -11,10 +11,6 @@ AViewablePlayerController::AViewablePlayerController( const FObjectInitializer& 
    PrimaryActorTick.bCanEverTick = true;
    //DO NOT LET camera be rootcomponent in controller!!
    m_Camera = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>( this, TEXT( "Player Camera" ) );
-//   RootComponent = m_Camera;
-  // m_Camera->AttachTo( RootComponent );
-   //m_CameraBoom = GetWorld( )->SpawnActor< AThirdPersonCameraBoom >( m_BPCameraBoom );
-  // m_CameraBoom = NULL;
 }
 
 void AViewablePlayerController::SetupInputComponent( )
@@ -24,10 +20,21 @@ void AViewablePlayerController::SetupInputComponent( )
    InputComponent->BindAxis( "Pitch", this, &AViewablePlayerController::Pitch );
 }
 
+void AViewablePlayerController::PostInitializeComponents( )
+{
+   Super::PostInitializeComponents( );
+    //  m_CameraBoom = GetWorld( )->SpawnActor< AThirdPersonCameraBoom >( m_BPCameraBoom, m_ControllingCharacter->GetActorLocation( ), m_ControllingCharacter->GetActorRotation( ) );
+      m_CameraBoom = GetWorld( )->SpawnActor< AThirdPersonCameraBoom >( m_BPCameraBoom );
+   if( !m_CameraBoom )
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "camera boom spawn failed" );
+      }
+}
+
 void AViewablePlayerController::BeginPlay( )
 {
    Super::BeginPlay( );
-   AttachToCameraBoom();
+   
    //should set camera here!!
 }
 
@@ -38,13 +45,14 @@ void AViewablePlayerController::CalcCamera( float DeltaTime, struct FMinimalView
 
 void AViewablePlayerController::AttachToCameraBoom( )
 {
-if( m_ControllingCharacter &&  m_ControllingCharacter->m_CameraBoom )
+if( m_CameraBoom )
    {
    if( m_Camera )
       {
-      ACameraBoom *cameraBoom = m_ControllingCharacter->m_CameraBoom;
-      m_Camera->SetWorldLocationAndRotation( cameraBoom->GetCameraAttachComponent( )->GetSocketLocation( cameraBoom->GetSocketName( ) ), cameraBoom->GetActorRotation( ) );
-      m_Camera->AttachTo( cameraBoom->GetCameraAttachComponent( ) );
+      //camera should be attached to tail of camera boom
+      m_Camera->SetWorldLocationAndRotation( m_CameraBoom->GetCameraAttachComponent( )->GetSocketLocation( m_CameraBoom->GetSocketName( ) ), m_CameraBoom->GetActorRotation( ) );
+    //  m_Camera->SetWorldLocationAndRotation( m_CameraBoom->GetActorLocation(), m_CameraBoom->GetActorRotation( ) );
+      m_Camera->AttachTo( m_CameraBoom->GetCameraAttachComponent( ), m_CameraBoom->GetSocketName( ) );
       }
    else
       {
@@ -56,50 +64,50 @@ else
 GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "camera boom null" );
 }
 
+void AViewablePlayerController::Possess( APawn * InPawn )
+{
+   Super::Possess( InPawn );
+   if( m_CameraBoom && m_ControllingCharacter )
+      {
+      //this section went well if the cameraboom is not attached to character
+      m_CameraBoom->SetActorLocationAndRotation( InPawn->GetRootComponent( )->GetComponentLocation( ), InPawn->GetRootComponent( )->GetComponentRotation( ) );
+     // m_CameraBoom->Atta
+  //    m_CameraBoom->AttachRootComponentTo( m_ControllingCharacter->GetMesh( ) );
+     // m_ControllingCharacter->GetMesh();
+  //    m_CameraBoom->GetRootComponent( )->SetWorldLocationAndRotation( InPawn->GetRootComponent( )->GetComponentLocation( ), InPawn->GetRootComponent( )->GetComponentRotation( ) );
+    //  m_CameraBoom->SetActorLocation( InPawn->GetRootComponent( )->GetComponentLocation( ) );
+    //  m_CameraBoom->GetRootComponent( )->AttachTo( InPawn->GetRootComponent( ) );
+     // m_CameraBoom->AttachRootComponentToActor( m_ControllingCharacter );
+   //   m_CameraBoom->AttachRootComponentTo( InPawn->GetRootComponent() );
+      }
+      
+   else
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "camera boom null ptr error in ViewablePlayerController::Possess" );
+   //
+   AttachToCameraBoom( );
+}
+
 void AViewablePlayerController::Tick( float DeltaTime )
 {
    Super::Tick( DeltaTime );
- //  AttachToCameraBoom();
+
 }
 //needs to disable "use pawn contorl rotation" in spring arm->camera settings
 void AViewablePlayerController::Yaw( float amount )
 {
-if( m_ControllingCharacter && m_ControllingCharacter->m_CameraBoom )
+if( m_CameraBoom )
       {
-      m_ControllingCharacter->m_CameraBoom->Yaw( amount );
+      m_CameraBoom->Yaw( amount );
       }
-      
-//m_ControllingCharacter->m_SpringArm->Add
-  // AddYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
-//m_CameraBoomYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
-
 }
 
 void AViewablePlayerController::Pitch( float amount )
 {
-if( m_ControllingCharacter && m_ControllingCharacter->m_CameraBoom )
+if( m_CameraBoom )
       {
-      m_ControllingCharacter->m_CameraBoom->Pitch( amount );
+      m_CameraBoom->Pitch( amount );
       }
-/*
-m_CameraBoomPitch->AddRelativeRotation( FRotator( 200.f * amount * -1.f * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::SanitizeFloat( m_CameraBoomPitch->GetComponentRotation( ).Pitch ) );
-
-FRotator cuttentRotation = m_CameraBoomPitch->GetComponentRotation( );
-   if( cuttentRotation.Pitch > 70.f )
-      {
-      
-      m_CameraBoomPitch->SetWorldRotation( FRotator( 70.f, cuttentRotation.Yaw, cuttentRotation.Roll ) );
-      }
-   else if( m_CameraBoomPitch->GetComponentRotation( ).Pitch < -70.f )
-      {
-      m_CameraBoomPitch->SetWorldRotation( FRotator( -70.f, cuttentRotation.Yaw, cuttentRotation.Roll ) );
-      }
-   */
 }
-
-//return ture if seting character and cameraboom sucess 
-//else leave
 
 
 

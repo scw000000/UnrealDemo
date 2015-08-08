@@ -16,26 +16,9 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 void ABasicCharacter::BeginPlay( )
 {
 	Super::BeginPlay();
-   m_CameraBoom->AttachRootComponentToActor( this );
-   //m_CameraBoom->SetActorLocation( this->GetRootComponent( )->GetComponentLocation( ) );
-   if( !m_CameraBoom )
-      {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "camera boom spawn failed" );
-      }
-  // m_CameraBoom->AttachRootComponentTo( RootComponent );
-   
-//   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, ACharacter::CharacterInputComponentName.ToString( ) );
-  // this->InputComponent
-
 }
 
-void ABasicCharacter::PostInitializeComponents( )
-{
-   Super::PostInitializeComponents( );
-   m_CameraBoom = GetWorld( )->SpawnActor< AThirdPersonCameraBoom >( m_BPCameraBoom, this->GetActorLocation(), this->GetActorRotation() );
-   
-   
-}
+
 
 // Called every frame
 void ABasicCharacter::Tick( float DeltaTime )

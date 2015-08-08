@@ -4,24 +4,23 @@
 #include "BasicCharacter.h"
 #include "BasicPlayerController.h"
 
+void ABasicPlayerController::PostInitializeComponents( )
+{
+   Super::PostInitializeComponents( );
+   
+}
+
 void ABasicPlayerController::BeginPlay( )
 {
    Super::BeginPlay( );
-   SetControllingCharacter( Cast<ABasicCharacter>( GetPawn( ) ) );
-
-   if( !m_ControllingCharacter )
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "error:null character pointer" );
 }
 
 void ABasicPlayerController::Possess( APawn * InPawn )
 {
+   Super::Possess( InPawn );
    if( SetControllingCharacter( InPawn ) )
       {
-      Super::Possess( InPawn );
-    //  m_Camera->AttachTo( m_CameraBoomPitch );
-    //  m_Camera->bUsePawnControlRotation = false;
       SetViewTarget( this );
-      //   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess " );
       }
    else
       {

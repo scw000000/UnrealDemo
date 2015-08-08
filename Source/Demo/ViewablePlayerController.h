@@ -22,12 +22,17 @@ public:
 
    virtual void SetupInputComponent( ) override;
 
+   virtual void PostInitializeComponents( ) override;
+
    // Called when the game starts or when spawned
    virtual void BeginPlay( ) override;
 
-   virtual void CalcCamera( float DeltaTime, struct FMinimalViewInfo& OutResult ) override;
-
    void AttachToCameraBoom();
+
+   UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
+      virtual void Possess( APawn * InPawn ) override;
+
+   virtual void CalcCamera( float DeltaTime, struct FMinimalViewInfo& OutResult ) override;
 
    void Tick( float DeltaTime ) override;
 
@@ -46,5 +51,6 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       UClass* m_BPCameraBoom;
 private:
+   ACameraBoom *m_CameraBoom;
 	
 };

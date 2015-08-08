@@ -6,7 +6,7 @@
 
 AThirdPersonCameraBoom::AThirdPersonCameraBoom( const FObjectInitializer& ObjectInitializer )
 {
-GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "BOOM spawned" );
+//GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "BOOM spawned" );
    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
    PrimaryActorTick.bCanEverTick = true;
    m_CharacterCenter = ObjectInitializer.CreateDefaultSubobject<UBoxComponent>( this, TEXT( "TTTTTTTTT" ) );
@@ -27,21 +27,12 @@ GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "BOOM spawned" );
 void AThirdPersonCameraBoom::Tick( float DeltaSeconds )
 {
 //SetActorLocation( UGameplayStatics::GetPlayerPawn( GetWorld( ), 0 )->GetActorLocation() );
-RootComponent->SetWorldLocation( UGameplayStatics::GetPlayerPawn( GetWorld( ), 0 )->GetActorLocation( ) );
+//RootComponent->SetWorldLocation( UGameplayStatics::GetPlayerPawn( GetWorld( ), 0 )->GetActorLocation( ) );
 }
 
 void AThirdPersonCameraBoom::BeginPlay( )
 { 
-//ABasicCharacter *character = Cast<ABasicCharacter>( UGameplayStatics::GetPlayerPawn( GetWorld( ), 0 ) );
- //  this->AttachRootComponentToActor( character );
- //  this->SetActorLocation( UGameplayStatics::GetPlayerPawn( GetWorld( ), 0 )->GetRootComponent()->GetComponentLocation() );
- //  FText a = FText();
- //  if( !this->EditorCanAttachTo( character, a ) )
- //     {
- //     GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, a.ToString() );
- //     }
 
- //  GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, a.ToString( ) );
 }
 
 bool AThirdPersonCameraBoom::AttachToCharacter( ABasicCharacter *inCharacter )
@@ -50,7 +41,7 @@ bool AThirdPersonCameraBoom::AttachToCharacter( ABasicCharacter *inCharacter )
       {
       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "Character attach success" );
     //  m_CameraBoomYaw->AttachTo( inCharacter->GetRootComponent() );
-      this->AttachToCharacter( inCharacter );
+     // this->AttachToCharacter( inCharacter );
       return true;
       }
    else

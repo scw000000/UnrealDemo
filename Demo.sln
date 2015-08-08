@@ -54,7 +54,6 @@ Global
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development Editor|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development Editor|Win64.Build.0 = BuiltWithUnrealBuildTool|Win32
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
 		{BE66D19A-62E4-4463-A24C-F64BA2B80BFF}.Development|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
