@@ -29,12 +29,13 @@ public:
 
    void AttachToCameraBoom();
 
+   // Called every frame
+   virtual void Tick( float DeltaSeconds ) override;
+
    UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
       virtual void Possess( APawn * InPawn ) override;
 
    virtual void CalcCamera( float DeltaTime, struct FMinimalViewInfo& OutResult ) override;
-
-   void Tick( float DeltaTime ) override;
 
    //custom function for movement
    void Yaw( float amount );
@@ -50,6 +51,12 @@ public:
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       UClass* m_BPCameraBoom;
+
+   //custom function for movement
+   void MoveForward( float amount );
+
+   //custom function for movement
+   void MoveRight( float amount );
 private:
    ACameraBoom *m_CameraBoom;
 	
