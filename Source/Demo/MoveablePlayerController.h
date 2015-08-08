@@ -2,14 +2,15 @@
 
 #pragma once
 
-#include "ViewablePlayerController.h"
+//#include "GameFramework/PlayerController.h"
+#include "BasicPlayerController.h"
 #include "MoveablePlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class DEMO_API AMoveablePlayerController : public AViewablePlayerController
+class DEMO_API AMoveablePlayerController : public ABasicPlayerController
 {
 	GENERATED_BODY()
 	
