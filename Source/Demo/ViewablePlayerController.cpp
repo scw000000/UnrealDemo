@@ -16,11 +16,11 @@ AViewablePlayerController::AViewablePlayerController( const FObjectInitializer& 
 void AViewablePlayerController::SetupInputComponent( )
 {
    Super::SetupInputComponent( );
-   InputComponent->BindAxis( "Yaw", this, &AViewablePlayerController::Yaw );
-   InputComponent->BindAxis( "Pitch", this, &AViewablePlayerController::Pitch );
+   InputComponent->BindAxis( "MouseX", this, &AViewablePlayerController::Yaw );
+   InputComponent->BindAxis( "MouseY", this, &AViewablePlayerController::Pitch );
 
-   InputComponent->BindAxis( "Forward", this, &AViewablePlayerController::MoveForward );
-   InputComponent->BindAxis( "Strafe", this, &AViewablePlayerController::MoveRight );
+ //  InputComponent->BindAxis( "Forward", this, &AViewablePlayerController::MoveForward );
+ //  InputComponent->BindAxis( "Strafe", this, &AViewablePlayerController::MoveRight );
 }
 
 void AViewablePlayerController::PostInitializeComponents( )
@@ -96,7 +96,7 @@ void AViewablePlayerController::Pitch( float amount )
       }
 }
 
-
+/*
 void AViewablePlayerController::MoveForward( float amount )
 {
    if( m_ControllingCharacter )
@@ -114,6 +114,6 @@ void AViewablePlayerController::MoveRight( float amount )
       m_ControllingCharacter->AddMovementInput( right, amount );
       }
 }
-
+*/
 
 

@@ -52,10 +52,10 @@ public:
       UClass* m_BPCameraBoom;
 
    //custom function for movement
-   void MoveForward( float amount );
+   //void MoveForward( float amount );
 
    //custom function for movement
-   void MoveRight( float amount );
+   //void MoveRight( float amount );
 private:
    ACameraBoom *m_CameraBoom;
 	
