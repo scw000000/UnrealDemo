@@ -2,7 +2,6 @@
 
 #pragma once
 
-//#include "GameFramework/PlayerController.h"
 #include "BasicPlayerController.h"
 #include "ViewablePlayerController.generated.h"
 
@@ -27,7 +26,7 @@ public:
    // Called when the game starts or when spawned
    virtual void BeginPlay( ) override;
 
-   void AttachToCameraBoom();
+   void AttachCameraComponents();
 
    // Called every frame
    virtual void Tick( float DeltaSeconds ) override;

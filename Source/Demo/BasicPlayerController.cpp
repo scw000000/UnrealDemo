@@ -20,11 +20,11 @@ void ABasicPlayerController::Possess( APawn * InPawn )
    Super::Possess( InPawn );
    if( SetControllingCharacter( InPawn ) )
       {
-      SetViewTarget( this );
+      
       }
    else
       {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess failed" );
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: possess failed" );
       }
 }
 
@@ -37,7 +37,7 @@ bool ABasicPlayerController::SetControllingCharacter( APawn* InPawn )
       m_ControllingCharacter = character;
       return true;
       }
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess cast fail" );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: possess cast fail" );
    return false;
 }
 

@@ -16,19 +16,19 @@ class DEMO_API AMoveablePlayerController : public ABasicPlayerController
 	
 public:
    // Sets default values for this character's properties
- //  AMoveablePlayerController( const FObjectInitializer& ObjectInitializer );
+   //AMoveablePlayerController( const FObjectInitializer& ObjectInitializer );
 
    virtual void SetupInputComponent( ) override;
 
    // Called when the game starts or when spawned
- //  virtual void BeginPlay( ) override;
+   //virtual void BeginPlay( ) override;
 
- //  void Tick( float DeltaTime ) override;
+   //void Tick( float DeltaTime ) override;
 
-   //custom function for movement
+   // custom function for movement
    void MoveForward( float amount );
 
-   //custom function for movement
+   // custom function for movement
    void MoveRight( float amount );
 	
 };

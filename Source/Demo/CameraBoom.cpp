@@ -12,13 +12,6 @@ ACameraBoom::ACameraBoom()
 
 }
 
-// Called when the game starts or when spawned
-void ACameraBoom::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
 void ACameraBoom::Yaw( float amount )
 {
 }

@@ -15,10 +15,6 @@ class DEMO_API AThirdPersonCameraBoom : public ACameraBoom
 public:
    AThirdPersonCameraBoom( const FObjectInitializer& ObjectInitializer );
 
-   virtual void BeginPlay( ) override;
-
-   virtual void Tick( float DeltaSeconds ) override;
-
    virtual void Yaw( float amount ) override;
 
    virtual void Pitch( float amount ) override;

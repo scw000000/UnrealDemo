@@ -18,8 +18,6 @@ void ABasicCharacter::BeginPlay( )
 	Super::BeginPlay();
 }
 
-
-
 // Called every frame
 void ABasicCharacter::Tick( float DeltaTime )
 {
