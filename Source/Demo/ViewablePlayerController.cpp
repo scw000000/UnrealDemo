@@ -49,17 +49,41 @@ void AViewablePlayerController::AttachCameraComponents( )
 {
    if( m_CameraBoom )
    {
-   m_CameraBoom->AttachToCharacter( m_ControllingCharacter );
+   m_CameraBoom->GetRootComponent( )->AttachTo( m_ControllingCharacter->GetRootComponent() );
+   FString Boomloacation = FString(" boom X: ") + FString::SanitizeFloat( m_CameraBoom->GetRootComponent( )->GetComponentLocation().X )
+      + FString( " y: " ) + FString::SanitizeFloat( m_CameraBoom->GetRootComponent( )->GetComponentLocation( ).Y ) +
+      FString( " Z: " ) + FString::SanitizeFloat( m_CameraBoom->GetRootComponent( )->GetComponentLocation( ).Z );
+
+   FString Characterloacation = FString( " char X: " ) + FString::SanitizeFloat( m_ControllingCharacter->GetRootComponent( )->GetComponentLocation( ).X )
+      + FString( " y: " ) + FString::SanitizeFloat( m_ControllingCharacter->GetRootComponent( )->GetComponentLocation( ).Y ) +
+      FString( " Z: " ) + FString::SanitizeFloat( m_ControllingCharacter->GetRootComponent( )->GetComponentLocation( ).Z );
+  // m_CameraBoom->AttachToCharacter( m_ControllingCharacter );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, Characterloacation );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, Boomloacation );
    }
    if( m_CameraBoom && m_Camera )
       {
+     // m_Camera->SetAbsolute( true, true, true );
+
+      m_CameraBoom->PrintText();
+
       m_Camera->SetWorldLocationAndRotation( m_CameraBoom->GetCameraAttachComponent( )->GetSocketLocation( m_CameraBoom->GetSocketName( ) ), m_CameraBoom->GetActorRotation( ) );
+     // m_Camera->SetAbsolute( false, false, false );
       m_Camera->AttachTo( m_CameraBoom->GetCameraAttachComponent( ), m_CameraBoom->GetSocketName( ) );
       }
    else
       {
       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: amera boom or camer null ptr" );
       }
+   FString Cameraloacation = FString( " Came X: " ) + FString::SanitizeFloat( m_Camera->GetComponentLocation( ).X )
+      + FString( " y: " ) + FString::SanitizeFloat( m_Camera->GetComponentLocation( ).Y ) +
+      FString( " Z: " ) + FString::SanitizeFloat( m_Camera->GetComponentLocation( ).Z );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, Cameraloacation );
+   FString Camerarevloacation = FString( " Came rev X: " ) + FString::SanitizeFloat( m_Camera->RelativeLocation.X )
+      + FString( " y: " ) + FString::SanitizeFloat( m_Camera->RelativeLocation.Y ) +
+      FString( " Z: " ) + FString::SanitizeFloat( m_Camera->RelativeLocation.Z );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, Camerarevloacation );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "---------------------------" );
 }
 
 void AViewablePlayerController::Tick( float DeltaSeconds )

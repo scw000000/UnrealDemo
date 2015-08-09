@@ -12,6 +12,10 @@ ACameraBoom::ACameraBoom()
 
 }
 
+void ACameraBoom::PrintText( )
+   {
+   }
+
 void ACameraBoom::Yaw( float amount )
 {
 }

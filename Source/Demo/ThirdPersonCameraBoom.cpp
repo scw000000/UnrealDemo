@@ -4,6 +4,25 @@
 #include "ThirdPersonCameraBoom.h"
 #include "BasicCharacter.h"
 
+void AThirdPersonCameraBoom::PrintText( )
+{
+FString headloacation = FString( " head rev X: " ) + FString::SanitizeFloat( m_CameraBoomYaw->RelativeLocation.X )
++ FString( " y: " ) + FString::SanitizeFloat( m_CameraBoomYaw->RelativeLocation.Y ) +
+FString( " Z: " ) + FString::SanitizeFloat( m_CameraBoomYaw->RelativeLocation.Z );
+GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, headloacation );
+
+FString tailloacation = FString( " tail rev X: " ) + FString::SanitizeFloat( m_CameraBoomPitch->RelativeLocation.X )
++ FString( " y: " ) + FString::SanitizeFloat( m_CameraBoomPitch->RelativeLocation.Y ) +
+FString( " Z: " ) + FString::SanitizeFloat( m_CameraBoomPitch->RelativeLocation.Z );
+GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, tailloacation );
+
+FString tailloacation = FString( " tail rev X: " ) + FString::SanitizeFloat( m_CameraBoomPitch->SocketOffset  .X )
++ FString( " y: " ) + FString::SanitizeFloat( m_CameraBoomPitch->RelativeLocation.Y ) +
+FString( " Z: " ) + FString::SanitizeFloat( m_CameraBoomPitch->RelativeLocation.Z );
+GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, tailloacation );
+
+}
+
 AThirdPersonCameraBoom::AThirdPersonCameraBoom( const FObjectInitializer& ObjectInitializer )
 {
 //GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "BOOM spawned" );

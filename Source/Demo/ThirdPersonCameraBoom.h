@@ -13,7 +13,10 @@ class DEMO_API AThirdPersonCameraBoom : public ACameraBoom
 {
 	GENERATED_BODY()
 public:
+   virtual void PrintText() override;
+
    AThirdPersonCameraBoom( const FObjectInitializer& ObjectInitializer );
+
 
    virtual void Yaw( float amount ) override;
 

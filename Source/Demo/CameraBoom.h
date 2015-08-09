@@ -16,6 +16,8 @@ public:
 	// Sets default values for this actor's properties
 	ACameraBoom();
 
+   virtual void PrintText( );
+
    virtual void Yaw( float amount  );
 
    virtual void Pitch( float amount );
