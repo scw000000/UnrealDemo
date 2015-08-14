@@ -7,12 +7,7 @@
 		{
 			"Name": "Demo",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine",
-				"UnrealEd",
-				"AIModule"
-			]
+			"LoadingPhase": "Default"
 		}
 	]
 }
