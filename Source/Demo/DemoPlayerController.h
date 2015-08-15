@@ -19,13 +19,17 @@ public:
 
    void SpacePressed();
 
-   void BButtonPressed();
+   void BPressed();
 
-   void BButtonReleased();
+   void BReleased();
 
    void MouseWheelUpPressed();
 
    void MouseWheelDownPressed( );
+
+   void RMBPressed( );
+
+   void RMBReleased( );
 
    UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
       virtual void Possess( APawn * InPawn ) override;

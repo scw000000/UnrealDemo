@@ -11,16 +11,25 @@ void ADemoPlayerController::SetupInputComponent( )
    // InputComponent->BindAxis( "MouseY", this, &ADemoPlayerController::Pitch );
 
    InputComponent->BindAxis( "WS", this, &ADemoPlayerController::WS );
+
    InputComponent->BindAxis( "AD", this, &ADemoPlayerController::AD );
+
    InputComponent->BindAxis( "MouseX", this, &ADemoPlayerController::MouseX );
+
    InputComponent->BindAxis( "MouseY", this, &ADemoPlayerController::MouseY );
   // InputComponent->BindAxis( "MouseWheelUp", this, &ADemoPlayerController::MouseScroll );
 
    InputComponent->BindAction( "Space", IE_Pressed, this, &ADemoPlayerController::SpacePressed );
-   InputComponent->BindAction( "B", IE_Pressed, this, &ADemoPlayerController::BButtonPressed );
-   InputComponent->BindAction( "B", IE_Released, this, &ADemoPlayerController::BButtonReleased );
+
+   InputComponent->BindAction( "B", IE_Pressed, this, &ADemoPlayerController::BPressed );
+   InputComponent->BindAction( "B", IE_Released, this, &ADemoPlayerController::BReleased );
+
    InputComponent->BindAction( "MouseWheelUp", IE_Pressed, this, &ADemoPlayerController::MouseWheelUpPressed );
    InputComponent->BindAction( "MouseWheelDown", IE_Pressed, this, &ADemoPlayerController::MouseWheelDownPressed );
+
+   InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
+   InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
+
 }
 
 void ADemoPlayerController::SpacePressed( )
@@ -31,7 +40,7 @@ void ADemoPlayerController::SpacePressed( )
       }
 }
 
-void ADemoPlayerController::BButtonPressed( )
+void ADemoPlayerController::BPressed( )
 {
    if( m_ControllingCharacter )
       {
@@ -39,19 +48,18 @@ void ADemoPlayerController::BButtonPressed( )
       }
 }
 
-void ADemoPlayerController::BButtonReleased( )
-   {
+void ADemoPlayerController::BReleased( )
+{
    if( m_ControllingCharacter )
       {
       m_ControllingCharacter->SetViewPointToThirdPerson( );
       }
-   }
+}
 
 void ADemoPlayerController::MouseWheelUpPressed( )
 {
    if( m_ControllingCharacter)
       {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "scrolling " );
       m_ControllingCharacter->SetCameraDistance( 1.f );
       }
 }
@@ -60,11 +68,21 @@ void ADemoPlayerController::MouseWheelDownPressed( )
 {
    if( m_ControllingCharacter)
       {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "scrolling " );
       m_ControllingCharacter->SetCameraDistance( -1.f );
       }
 }
 
+void ADemoPlayerController::RMBPressed( )
+{
+    if( m_ControllingCharacter )
+       {
+       }
+}
+
+void ADemoPlayerController::RMBReleased( )
+{
+
+}
 
 void ADemoPlayerController::Possess( APawn * InPawn )
 {

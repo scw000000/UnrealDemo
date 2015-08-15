@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Character.h"
+#include "DemoEnums.h"
 #include "BasicCharacter.generated.h"
 
 UCLASS()
@@ -61,6 +62,7 @@ public:
    void SetCameraDistance( float amount );
 
 private:
-   
-	
+
+   void UpdateCameraLocationAndRotation( float DeltaSeconds );
+   PlayerViewTypes m_CurrentViewType;
 };
