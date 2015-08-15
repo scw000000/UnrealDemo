@@ -10,6 +10,14 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+   m_PitchRotUpperBound = 50.f;
+   m_PitchRotLowerBound = -50.f;
+
+   m_CameraScrollSpeed = 1000.f;
+   m_CameraDisUpperBound = 700.f;
+   m_CameraDisLowerBound = 100.f;
+
+
    m_ThirdPersonArmYaw = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Yaw Rotation" ) );
    m_ThirdPersonArmYaw->AttachTo( RootComponent );
    m_ThirdPersonArmYaw->TargetArmLength = 75.0f;
@@ -65,22 +73,21 @@ void ABasicCharacter::MoveRight( float amount )
    AddMovementInput( right, amount );
 }
 
-void ABasicCharacter::Yaw( float amount )
+void ABasicCharacter::SetCameraYaw( float amount )
 {
    //  m_CameraBoomYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
    m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
 }
 
-void ABasicCharacter::Pitch( float amount )
+void ABasicCharacter::SetCameraPitch( float amount )
 {
    m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( 200.f * amount * -1.f * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
    FRotator cuttentRotation = m_ThirdPersonArmPitch->GetComponentRotation( );
-   if( cuttentRotation.Pitch > 70.f )
-      {
-      m_ThirdPersonArmPitch->SetWorldRotation( FRotator( 70.f, cuttentRotation.Yaw, cuttentRotation.Roll ) );
-      }
-   else if( cuttentRotation.Pitch < -70.f )
-      {
-      m_ThirdPersonArmPitch->SetWorldRotation( FRotator( -70.f, cuttentRotation.Yaw, cuttentRotation.Roll ) );
-      }
+   float clampedPitch = FMath::Clamp<float>( cuttentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
+   m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, cuttentRotation.Yaw, cuttentRotation.Roll ) );
+}
+void ABasicCharacter::SetCameraDistance( float amount )
+{
+   m_ThirdPersonArmPitch->TargetArmLength += m_CameraScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
+   m_ThirdPersonArmPitch->TargetArmLength = FMath::Clamp<float>( m_ThirdPersonArmPitch->TargetArmLength, m_CameraDisLowerBound, m_CameraDisUpperBound );
 }

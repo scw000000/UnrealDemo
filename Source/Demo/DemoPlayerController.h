@@ -23,6 +23,10 @@ public:
 
    void BButtonReleased();
 
+   void MouseWheelUpPressed();
+
+   void MouseWheelDownPressed( );
+
    UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
       virtual void Possess( APawn * InPawn ) override;
 
@@ -36,7 +40,9 @@ public:
    void MouseX( float amount );
 
    //custom function for movement
-   void MouseY( float amount );
+   void MouseY( float amount ); 
+
+   
 
 protected:
    ABasicCharacter* m_ControllingCharacter;

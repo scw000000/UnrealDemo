@@ -25,6 +25,21 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_PitchRotUpperBound;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_PitchRotLowerBound;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_CameraScrollSpeed;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_CameraDisUpperBound;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_CameraDisLowerBound;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       USpringArmComponent* m_ThirdPersonArmYaw;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
@@ -39,9 +54,11 @@ public:
    //custom function for movement
    void MoveRight( float amount );
 
-   void Yaw( float amount );
+   void SetCameraYaw( float amount );
 
-   void Pitch( float amount );
+   void SetCameraPitch( float amount );
+
+   void SetCameraDistance( float amount );
 
 private:
    

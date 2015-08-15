@@ -14,10 +14,13 @@ void ADemoPlayerController::SetupInputComponent( )
    InputComponent->BindAxis( "AD", this, &ADemoPlayerController::AD );
    InputComponent->BindAxis( "MouseX", this, &ADemoPlayerController::MouseX );
    InputComponent->BindAxis( "MouseY", this, &ADemoPlayerController::MouseY );
+  // InputComponent->BindAxis( "MouseWheelUp", this, &ADemoPlayerController::MouseScroll );
 
    InputComponent->BindAction( "Space", IE_Pressed, this, &ADemoPlayerController::SpacePressed );
    InputComponent->BindAction( "B", IE_Pressed, this, &ADemoPlayerController::BButtonPressed );
    InputComponent->BindAction( "B", IE_Released, this, &ADemoPlayerController::BButtonReleased );
+   InputComponent->BindAction( "MouseWheelUp", IE_Pressed, this, &ADemoPlayerController::MouseWheelUpPressed );
+   InputComponent->BindAction( "MouseWheelDown", IE_Pressed, this, &ADemoPlayerController::MouseWheelDownPressed );
 }
 
 void ADemoPlayerController::SpacePressed( )
@@ -43,6 +46,24 @@ void ADemoPlayerController::BButtonReleased( )
       m_ControllingCharacter->SetViewPointToThirdPerson( );
       }
    }
+
+void ADemoPlayerController::MouseWheelUpPressed( )
+{
+   if( m_ControllingCharacter)
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "scrolling " );
+      m_ControllingCharacter->SetCameraDistance( 1.f );
+      }
+}
+
+void ADemoPlayerController::MouseWheelDownPressed( )
+{
+   if( m_ControllingCharacter)
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "scrolling " );
+      m_ControllingCharacter->SetCameraDistance( -1.f );
+      }
+}
 
 
 void ADemoPlayerController::Possess( APawn * InPawn )
@@ -91,7 +112,7 @@ void ADemoPlayerController::MouseX( float amount )
 {
    if( m_ControllingCharacter && amount )
       {
-      m_ControllingCharacter->Yaw( amount );
+      m_ControllingCharacter->SetCameraYaw( amount );
       }
 }
 
@@ -99,9 +120,11 @@ void ADemoPlayerController::MouseY( float amount )
 {
    if( m_ControllingCharacter && amount )
       {
-      m_ControllingCharacter->Pitch( amount );
+      m_ControllingCharacter->SetCameraPitch( amount );
       }
 }
+
+
 
 
 
