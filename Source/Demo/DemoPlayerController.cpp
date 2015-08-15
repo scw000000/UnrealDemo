@@ -2,6 +2,7 @@
 
 #include "Demo.h"
 #include "BasicCharacter.h"
+#include "DemoEnums.h"
 #include "DemoPlayerController.h"
 
 void ADemoPlayerController::SetupInputComponent( )
@@ -24,11 +25,13 @@ void ADemoPlayerController::SetupInputComponent( )
    InputComponent->BindAction( "B", IE_Pressed, this, &ADemoPlayerController::BPressed );
    InputComponent->BindAction( "B", IE_Released, this, &ADemoPlayerController::BReleased );
 
+   InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
+   InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
+
    InputComponent->BindAction( "MouseWheelUp", IE_Pressed, this, &ADemoPlayerController::MouseWheelUpPressed );
    InputComponent->BindAction( "MouseWheelDown", IE_Pressed, this, &ADemoPlayerController::MouseWheelDownPressed );
 
-   InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
-   InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
+   
 
 }
 
@@ -44,7 +47,7 @@ void ADemoPlayerController::BPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewPointToFirstPerson();
+      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_FirstPerson );
       }
 }
 
@@ -52,8 +55,24 @@ void ADemoPlayerController::BReleased( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewPointToThirdPerson( );
+      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_ThirdPerson );
       }
+}
+
+void ADemoPlayerController::RMBPressed( )
+{
+   if( m_ControllingCharacter )
+      {
+      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_Aim );
+      }
+}
+
+void ADemoPlayerController::RMBReleased( )
+{
+   if( m_ControllingCharacter )
+   {
+   m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_ThirdPerson );
+   }
 }
 
 void ADemoPlayerController::MouseWheelUpPressed( )
@@ -72,17 +91,7 @@ void ADemoPlayerController::MouseWheelDownPressed( )
       }
 }
 
-void ADemoPlayerController::RMBPressed( )
-{
-    if( m_ControllingCharacter )
-       {
-       }
-}
 
-void ADemoPlayerController::RMBReleased( )
-{
-
-}
 
 void ADemoPlayerController::Possess( APawn * InPawn )
 {

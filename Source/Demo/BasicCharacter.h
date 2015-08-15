@@ -17,10 +17,6 @@ public:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-   void SetViewPointToThirdPerson();
-
-   void SetViewPointToFirstPerson();
 
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
@@ -33,6 +29,9 @@ public:
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       float m_CameraScrollSpeed;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float m_CameraRotateSpeed;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       float m_CameraDisUpperBound;
@@ -49,6 +48,9 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       UCameraComponent* m_PlayerCamera;
 
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* m_AimingArm;
+
    //custom function for movement
    void MoveForward( float amount );
 
@@ -61,7 +63,14 @@ public:
 
    void SetCameraDistance( float amount );
 
+   void SetViewType( PlayerViewTypes inViewType );
+
 private:
+   void SetViewTypeToThirdPerson( );
+
+   void SetViewTypeToAim( );
+
+   void SetViewTypeToFirstPerson( );
 
    void UpdateCameraLocationAndRotation( float DeltaSeconds );
    PlayerViewTypes m_CurrentViewType;

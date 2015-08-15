@@ -14,6 +14,9 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    m_PitchRotLowerBound = -50.f;
 
    m_CameraScrollSpeed = 1000.f;
+
+   m_CameraRotateSpeed = 150.f;
+
    m_CameraDisUpperBound = 700.f;
    m_CameraDisLowerBound = 100.f;
 
@@ -32,6 +35,11 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    m_PlayerCamera->AttachTo( m_ThirdPersonArmPitch );
    m_PlayerCamera->Activate( );
 
+   m_AimingArm = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For Aiming location setting" ) );
+   m_AimingArm->TargetArmLength = 50.0f;
+   m_AimingArm->AttachTo( RootComponent );
+
+
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
 
 }
@@ -43,14 +51,21 @@ void ABasicCharacter::BeginPlay()
 	
 }
 
-void ABasicCharacter::SetViewPointToThirdPerson( )
+void ABasicCharacter::SetViewTypeToThirdPerson( )
 {
    m_PlayerCamera->AttachTo( m_ThirdPersonArmPitch );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
 }
 
-void ABasicCharacter::SetViewPointToFirstPerson( )
+void ABasicCharacter::SetViewTypeToAim( )
+{
+   m_PlayerCamera->AttachTo( m_AimingArm );
+   m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
+   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_Aim;
+}
+
+void ABasicCharacter::SetViewTypeToFirstPerson( )
 {
    FVector viewLocation;
    FRotator viewRotation;
@@ -67,7 +82,8 @@ void ABasicCharacter::SetViewPointToFirstPerson( )
 void ABasicCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
+  // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString( "camera " ) + FString::SanitizeFloat( m_PlayerCamera->GetComponentRotation( ).Yaw ) );
+  // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Blue, FString( "root " ) + FString::SanitizeFloat( this->GetActorRotation( ).Yaw ) );
 }
 
 void ABasicCharacter::MoveForward( float amount )
@@ -84,38 +100,75 @@ void ABasicCharacter::MoveRight( float amount )
 
 void ABasicCharacter::SetCameraYaw( float amount )
 {
-   if( m_CurrentViewType == PlayerViewTypes::PlayerViewTypes_ThirdPerson )
+AddControllerYawInput( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ) );
+/*
+   switch( m_CurrentViewType )
       {
-      m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
-      }
-   else
-      {
-      AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
-      }
+         case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
+         //   m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+         AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            break;
+         case PlayerViewTypes::PlayerViewTypes_Aim :
+            AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            break;
+         case PlayerViewTypes::PlayerViewTypes_FirstPerson :
+            AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            break;
+       //  default:
+      }*/
 }
 
 void ABasicCharacter::SetCameraPitch( float amount )
 {
-   if( m_CurrentViewType == PlayerViewTypes::PlayerViewTypes_ThirdPerson )
+   float clampedPitch;
+   FRotator currentRotation;
+   FTransform cuttrntTransform;
+   switch( m_CurrentViewType )
       {
-      m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-      FRotator currentRotation = m_ThirdPersonArmPitch->GetComponentRotation( );
-      float clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
-      m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
-      }
-   else
-      {
-      m_PlayerCamera->AddRelativeRotation( FRotator( 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-      FTransform cuttrntTransform = m_PlayerCamera->GetRelativeTransform();
-      FRotator currentRotation = cuttrntTransform.Rotator();
-      float clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
-      m_PlayerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+      case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
+      m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         currentRotation = m_ThirdPersonArmPitch->GetComponentRotation( );
+         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
+         m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+         break;
+      case PlayerViewTypes::PlayerViewTypes_Aim :
+         m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
+         currentRotation = cuttrntTransform.Rotator( );
+         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
+         m_PlayerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+         break;
+      case PlayerViewTypes::PlayerViewTypes_FirstPerson:
+         m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
+         currentRotation = cuttrntTransform.Rotator( );
+         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
+         m_PlayerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+         break;
+  //    default:
       }
 }
 void ABasicCharacter::SetCameraDistance( float amount )
 {
    m_ThirdPersonArmPitch->TargetArmLength += m_CameraScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
    m_ThirdPersonArmPitch->TargetArmLength = FMath::Clamp<float>( m_ThirdPersonArmPitch->TargetArmLength, m_CameraDisLowerBound, m_CameraDisUpperBound );
+}
+
+void ABasicCharacter::SetViewType( PlayerViewTypes inViewType )
+{
+   switch( inViewType )
+      {
+      case PlayerViewTypes::PlayerViewTypes_ThirdPerson:
+         SetViewTypeToThirdPerson();
+         break;
+      case PlayerViewTypes::PlayerViewTypes_Aim:
+         SetViewTypeToAim();
+         break;
+      case PlayerViewTypes::PlayerViewTypes_FirstPerson:
+         SetViewTypeToFirstPerson();
+         break;
+      //    default:
+      }
 }
 
 void UpdateCameraLocationAndRotation( float DeltaSeconds )
