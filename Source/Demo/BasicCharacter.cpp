@@ -48,18 +48,26 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+   SetActorRotation( FRotator::ZeroRotator );
 }
 
 void ABasicCharacter::SetViewTypeToThirdPerson( )
 {
+   GetCharacterMovement( )->bOrientRotationToMovement = true;
+   GetMesh( )->SetVisibility( true );
    m_PlayerCamera->AttachTo( m_ThirdPersonArmPitch );
+   FRotator currentActorRotation = GetActorRotation();
+   m_ThirdPersonArmYaw->SetWorldRotation( FRotator( currentActorRotation.Pitch, currentActorRotation.Yaw , currentActorRotation.Roll ) );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
 }
 
 void ABasicCharacter::SetViewTypeToAim( )
 {
+   GetCharacterMovement( )->bOrientRotationToMovement = false;
+   GetMesh( )->SetVisibility( true );
+   m_AimingArm->SetRelativeRotation( FRotator::ZeroRotator );
+   SetActorRotation( FRotator( GetActorRotation( ).Pitch, m_PlayerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    m_PlayerCamera->AttachTo( m_AimingArm );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_Aim;
@@ -69,10 +77,14 @@ void ABasicCharacter::SetViewTypeToFirstPerson( )
 {
    FVector viewLocation;
    FRotator viewRotation;
+   GetCharacterMovement( )->bOrientRotationToMovement = false;
+   GetMesh( )->SetVisibility( false );
+   SetActorRotation( FRotator( GetActorRotation( ).Pitch, m_PlayerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    GetActorEyesViewPoint( viewLocation, viewRotation );
-  // m_PlayerCamera->SetWorldLocation( viewLocation );
    m_PlayerCamera->AttachTo( RootComponent );
-   m_PlayerCamera->SetWorldLocationAndRotation( viewLocation, viewRotation );
+   m_PlayerCamera->SetWorldLocation( viewLocation );
+   m_PlayerCamera->SetRelativeRotation( FRotator::ZeroRotator );
+   //m_PlayerCamera->SetWorldLocationAndRotation( viewLocation, viewRotation );
    
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_FirstPerson;
    //m_PlayerCamera->Att
@@ -82,40 +94,35 @@ void ABasicCharacter::SetViewTypeToFirstPerson( )
 void ABasicCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-  // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString( "camera " ) + FString::SanitizeFloat( m_PlayerCamera->GetComponentRotation( ).Yaw ) );
-  // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Blue, FString( "root " ) + FString::SanitizeFloat( this->GetActorRotation( ).Yaw ) );
 }
 
 void ABasicCharacter::MoveForward( float amount )
 {
-   FVector fwd = GetActorForwardVector( );
+   FVector fwd = m_PlayerCamera->GetForwardVector();
    AddMovementInput( fwd, amount );
 }
 
 void ABasicCharacter::MoveRight( float amount )
 {
-   FVector right = GetActorRightVector( );
+   FVector right = m_PlayerCamera->GetRightVector();
    AddMovementInput( right, amount );
 }
 
 void ABasicCharacter::SetCameraYaw( float amount )
 {
-AddControllerYawInput( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ) );
-/*
    switch( m_CurrentViewType )
       {
          case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
-         //   m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, 200.f * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
-         AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
          case PlayerViewTypes::PlayerViewTypes_Aim :
-            AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
          case PlayerViewTypes::PlayerViewTypes_FirstPerson :
-            AddControllerYawInput( 200.f * amount * GetWorld( )->GetDeltaSeconds( ) );
+            AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
        //  default:
-      }*/
+      }
 }
 
 void ABasicCharacter::SetCameraPitch( float amount )
@@ -126,7 +133,7 @@ void ABasicCharacter::SetCameraPitch( float amount )
    switch( m_CurrentViewType )
       {
       case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
-      m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
          currentRotation = m_ThirdPersonArmPitch->GetComponentRotation( );
          clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
          m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
