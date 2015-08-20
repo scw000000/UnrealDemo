@@ -65,6 +65,9 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       USpringArmComponent* m_AimingArm;
 
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+      PlayerViewTypes m_CurrentViewType;
+
 private:
    void SetViewTypeToThirdPerson( );
 
@@ -73,5 +76,4 @@ private:
    void SetViewTypeToFirstPerson( );
 
    void UpdateCameraLocationAndRotation( float DeltaSeconds );
-   PlayerViewTypes m_CurrentViewType;
 };

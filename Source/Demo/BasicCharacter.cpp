@@ -70,7 +70,7 @@ void ABasicCharacter::SetViewType( PlayerViewTypes inViewType )
          case PlayerViewTypes::PlayerViewTypes_ThirdPerson:
          SetViewTypeToThirdPerson( );
          break;
-         case PlayerViewTypes::PlayerViewTypes_Aim:
+         case PlayerViewTypes::PlayerViewTypes_IronSight:
          SetViewTypeToAim( );
          break;
          case PlayerViewTypes::PlayerViewTypes_FirstPerson:
@@ -100,7 +100,7 @@ void ABasicCharacter::SetCameraYaw( float amount )
          case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
             m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
-         case PlayerViewTypes::PlayerViewTypes_Aim :
+         case PlayerViewTypes::PlayerViewTypes_IronSight:
             AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
          case PlayerViewTypes::PlayerViewTypes_FirstPerson :
@@ -123,7 +123,7 @@ void ABasicCharacter::SetCameraPitch( float amount )
          clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
          m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
          break;
-      case PlayerViewTypes::PlayerViewTypes_Aim :
+      case PlayerViewTypes::PlayerViewTypes_IronSight:
          m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
          cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
          currentRotation = cuttrntTransform.Rotator( );
@@ -165,7 +165,7 @@ void ABasicCharacter::SetViewTypeToAim( )
    SetActorRotation( FRotator( GetActorRotation( ).Pitch, m_PlayerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    m_PlayerCamera->AttachTo( m_AimingArm );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_Aim;
+   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_IronSight;
 }
 
 void ABasicCharacter::SetViewTypeToFirstPerson( )

@@ -63,7 +63,7 @@ void ADemoPlayerController::RMBPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_Aim );
+      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_IronSight );
       }
 }
 
