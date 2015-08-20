@@ -21,6 +21,20 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+   void SetViewType( PlayerViewTypes inViewType );
+   
+   //custom function for movement
+   void MoveForward( float amount );
+
+   //custom function for movement
+   void MoveRight( float amount );
+
+   void SetCameraYaw( float amount );
+
+   void SetCameraPitch( float amount );
+
+   void SetCameraDistance( float amount );
+
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       float m_PitchRotUpperBound;
 
@@ -50,20 +64,6 @@ public:
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       USpringArmComponent* m_AimingArm;
-
-   //custom function for movement
-   void MoveForward( float amount );
-
-   //custom function for movement
-   void MoveRight( float amount );
-
-   void SetCameraYaw( float amount );
-
-   void SetCameraPitch( float amount );
-
-   void SetCameraDistance( float amount );
-
-   void SetViewType( PlayerViewTypes inViewType );
 
 private:
    void SetViewTypeToThirdPerson( );
