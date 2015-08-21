@@ -27,6 +27,10 @@ public:
 
    void RMBReleased( );
 
+   void LeftCtrlPressed( );
+
+   void LeftCtrlReleased( );
+
    void MouseWheelUpPressed();
 
    void MouseWheelDownPressed( );

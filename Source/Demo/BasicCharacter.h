@@ -18,8 +18,14 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+   virtual void Jump( ) override;
+
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
+
+   virtual void Crouch( bool bClientSimulation = false ) override;
+
+   virtual void UnCrouch( bool bClientSimulation = false ) override;
 
    void SetViewType( PlayerViewTypes inViewType );
    
@@ -53,6 +59,9 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       float m_CameraDisLowerBound;
 
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+      float m_IdleTime;
+
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
       USpringArmComponent* m_ThirdPersonArmYaw;
 
@@ -68,7 +77,12 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
       PlayerViewTypes m_CurrentViewType;
 
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+      PlayerMotionTypes m_CurrentMotionType;
+
 private:
+   void SetIdleTime( float inTime );
+
    void SetViewTypeToThirdPerson( );
 
    void SetViewTypeToAim( );

@@ -20,6 +20,8 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    m_CameraDisUpperBound = 700.f;
    m_CameraDisLowerBound = 100.f;
 
+   m_IdleTime = 0.f;
+
    bUseControllerRotationPitch = false;
    bUseControllerRotationYaw = false;
    bUseControllerRotationRoll = false;
@@ -44,9 +46,15 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    m_AimingArm = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For Aiming location setting" ) );
    m_AimingArm->TargetArmLength = 50.0f;
    m_AimingArm->AttachTo( RootComponent );
-
-
+   //m_AimingArm->AttachTo( GetMesh(), GetMesh()->GetSocketBoneName("Socket_ViewPoint") );
+   //m_AimingArm->CanAttachAsChild
+   //GetMesh()->GetSocketBoneName
+    //  GetMesh()->GetSOcket
+//   const USkeletalMeshSocket *socket = GetMesh( )->GetSocketByName("Socket_ViewPoint");
+ //  socket->AttachActor( m_AimingArm );
+   //Socket_ViewPoint
    m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
+   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Stand;
 
 }
 
@@ -57,23 +65,60 @@ void ABasicCharacter::BeginPlay()
    SetActorRotation( FRotator::ZeroRotator );
 }
 
+void ABasicCharacter::Jump( )
+{
+   Super::Jump();
+   SetIdleTime( 0.f );
+}
+
 // Called every frame
 void ABasicCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+   if( m_CurrentViewType == PlayerViewTypes::PlayerViewTypes_ThirdPerson && 
+       m_CurrentMotionType == PlayerMotionTypes::PlayerMotionTypes_Stand && GetVelocity( ).Size( ) < 5.f )
+      { 
+      m_IdleTime += DeltaTime;
+      }
+   else
+      {
+      SetIdleTime( 0.f );
+      }
+   
+}
+
+void ABasicCharacter::Crouch( bool bClientSimulation)
+{
+   Super::Crouch( bClientSimulation );
+   SetIdleTime( 0.f );
+   FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation();
+   m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 5.f ) );
+  // m_AimingArm->AddRelativeLocation( FVector( 0.f, 0.f, -65.f ) );
+   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Crouch;
+
+}
+
+void ABasicCharacter::UnCrouch( bool bClientSimulation)
+{
+   Super::UnCrouch( bClientSimulation );
+   SetIdleTime( 0.f );
+   FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation( );
+   m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
+  // m_AimingArm->AddRelativeLocation( FVector( 0.f, 0.f, 65.f ) );
+   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Stand;
 }
 
 void ABasicCharacter::SetViewType( PlayerViewTypes inViewType )
 {
    switch( inViewType )
       {
-         case PlayerViewTypes::PlayerViewTypes_ThirdPerson:
+      case PlayerViewTypes::PlayerViewTypes_ThirdPerson:
          SetViewTypeToThirdPerson( );
          break;
-         case PlayerViewTypes::PlayerViewTypes_IronSight:
+      case PlayerViewTypes::PlayerViewTypes_Aim:
          SetViewTypeToAim( );
          break;
-         case PlayerViewTypes::PlayerViewTypes_FirstPerson:
+      case PlayerViewTypes::PlayerViewTypes_FirstPerson:
          SetViewTypeToFirstPerson( );
          break;
          //    default:
@@ -83,12 +128,14 @@ void ABasicCharacter::SetViewType( PlayerViewTypes inViewType )
 
 void ABasicCharacter::MoveForward( float amount )
 {
+   SetIdleTime( 0.f );
    FVector fwd = m_PlayerCamera->GetForwardVector();
    AddMovementInput( fwd, amount );
 }
 
 void ABasicCharacter::MoveRight( float amount )
 {
+   SetIdleTime( 0.f );
    FVector right = m_PlayerCamera->GetRightVector();
    AddMovementInput( right, amount );
 }
@@ -100,7 +147,7 @@ void ABasicCharacter::SetCameraYaw( float amount )
          case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
             m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
-         case PlayerViewTypes::PlayerViewTypes_IronSight:
+         case PlayerViewTypes::PlayerViewTypes_Aim:
             AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
          case PlayerViewTypes::PlayerViewTypes_FirstPerson :
@@ -123,7 +170,7 @@ void ABasicCharacter::SetCameraPitch( float amount )
          clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
          m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
          break;
-      case PlayerViewTypes::PlayerViewTypes_IronSight:
+      case PlayerViewTypes::PlayerViewTypes_Aim:
          m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
          cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
          currentRotation = cuttrntTransform.Rotator( );
@@ -146,6 +193,11 @@ void ABasicCharacter::SetCameraDistance( float amount )
    m_ThirdPersonArmPitch->TargetArmLength = FMath::Clamp<float>( m_ThirdPersonArmPitch->TargetArmLength, m_CameraDisLowerBound, m_CameraDisUpperBound );
 }
 
+void ABasicCharacter::SetIdleTime( float inTime )
+{
+   m_IdleTime = 0.f;
+}
+
 void ABasicCharacter::SetViewTypeToThirdPerson( )
 {
    GetCharacterMovement( )->bOrientRotationToMovement = true;
@@ -165,7 +217,7 @@ void ABasicCharacter::SetViewTypeToAim( )
    SetActorRotation( FRotator( GetActorRotation( ).Pitch, m_PlayerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    m_PlayerCamera->AttachTo( m_AimingArm );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_IronSight;
+   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_Aim;
 }
 
 void ABasicCharacter::SetViewTypeToFirstPerson( )

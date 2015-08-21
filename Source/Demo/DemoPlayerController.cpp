@@ -28,6 +28,9 @@ void ADemoPlayerController::SetupInputComponent( )
    InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
    InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
 
+   InputComponent->BindAction( "LeftCtrl", IE_Pressed, this, &ADemoPlayerController::LeftCtrlPressed );
+   InputComponent->BindAction( "LeftCtrl", IE_Released, this, &ADemoPlayerController::LeftCtrlReleased );
+
    InputComponent->BindAction( "MouseWheelUp", IE_Pressed, this, &ADemoPlayerController::MouseWheelUpPressed );
    InputComponent->BindAction( "MouseWheelDown", IE_Pressed, this, &ADemoPlayerController::MouseWheelDownPressed );
 
@@ -63,7 +66,7 @@ void ADemoPlayerController::RMBPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_IronSight );
+      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_Aim );
       }
 }
 
@@ -74,6 +77,22 @@ void ADemoPlayerController::RMBReleased( )
    m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_ThirdPerson );
    }
 }
+
+void ADemoPlayerController::LeftCtrlPressed()
+{
+   if( m_ControllingCharacter )
+   {
+   m_ControllingCharacter->Crouch( );
+   }
+}
+void ADemoPlayerController::LeftCtrlReleased()
+{
+   if( m_ControllingCharacter )
+   {
+   m_ControllingCharacter->UnCrouch();
+   }
+}
+
 
 void ADemoPlayerController::MouseWheelUpPressed( )
 {
