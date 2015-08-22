@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
-#include "BasicCharacter.h"
+#include "MiliTaryCharacter.h"
 #include "DemoEnums.h"
 #include "DemoPlayerController.h"
 
@@ -24,6 +24,8 @@ void ADemoPlayerController::SetupInputComponent( )
 
    InputComponent->BindAction( "B", IE_Pressed, this, &ADemoPlayerController::BPressed );
    InputComponent->BindAction( "B", IE_Released, this, &ADemoPlayerController::BReleased );
+
+   InputComponent->BindAction( "C", IE_Pressed, this, &ADemoPlayerController::CPressed );
 
    InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
    InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
@@ -50,7 +52,7 @@ void ADemoPlayerController::BPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_FirstPerson );
+      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_FirstPerson );
       }
 }
 
@@ -58,7 +60,15 @@ void ADemoPlayerController::BReleased( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_ThirdPerson );
+      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_ThirdPerson );
+      }
+}
+
+void ADemoPlayerController::CPressed( )
+{
+   if( m_ControllingCharacter )
+      {
+      m_ControllingCharacter->ToggleProne( );
       }
 }
 
@@ -66,7 +76,7 @@ void ADemoPlayerController::RMBPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_Aim );
+      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_Aim );
       }
 }
 
@@ -74,7 +84,7 @@ void ADemoPlayerController::RMBReleased( )
 {
    if( m_ControllingCharacter )
    {
-   m_ControllingCharacter->SetViewType( PlayerViewTypes::PlayerViewTypes_ThirdPerson );
+   m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_ThirdPerson );
    }
 }
 
@@ -127,7 +137,7 @@ void ADemoPlayerController::Possess( APawn * InPawn )
 
 bool ADemoPlayerController::SetControllingCharacter( APawn* InPawn )
 {
-   ABasicCharacter *character = Cast<ABasicCharacter>( InPawn );
+   AMilitaryCharacter *character = Cast<AMilitaryCharacter>( InPawn );
 
    if( character )
       {

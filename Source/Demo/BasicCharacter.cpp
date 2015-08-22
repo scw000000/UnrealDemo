@@ -53,9 +53,11 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 //   const USkeletalMeshSocket *socket = GetMesh( )->GetSocketByName("Socket_ViewPoint");
  //  socket->AttachActor( m_AimingArm );
    //Socket_ViewPoint
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
-   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Stand;
-
+   m_CurrentView = PlayerViews::PlayerViews_ThirdPerson;
+   m_CurrentArmMotion = ArmMotions::ArmMotions_Default;
+   m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+   m_CurrentWeapon = WeaponCategories::WeaponCategories_BareHand;
+   m_Speed = 0.f;
 }
 
 // Called when the game starts or when spawned
@@ -67,90 +69,101 @@ void ABasicCharacter::BeginPlay()
 
 void ABasicCharacter::Jump( )
 {
-   Super::Jump();
-   SetIdleTime( 0.f );
+   WakePlayer();
+   if( m_CurrentBodyMotion == BodyMotions::BodyMotions_Jog || m_CurrentBodyMotion == BodyMotions::BodyMotions_Idle )
+      {
+      Super::Jump();
+      m_CurrentBodyMotion = ( m_CurrentBodyMotion == BodyMotions::BodyMotions_Jog )?
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_JogJump:
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_Jump;
+      }
 }
 
 // Called every frame
 void ABasicCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-   if( m_CurrentViewType == PlayerViewTypes::PlayerViewTypes_ThirdPerson && 
-       m_CurrentMotionType == PlayerMotionTypes::PlayerMotionTypes_Stand && GetVelocity( ).Size( ) < 5.f )
-      { 
-      m_IdleTime += DeltaTime;
-      }
-   else
-      {
-      SetIdleTime( 0.f );
-      }
-   
+   RefineMotionType( DeltaTime );
 }
-
+/**
+This may be useful:
+https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/ACharacter/OnStartCrouch/index.html
+https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/ACharacter/OnStartCrouch/index.html
+*/
 void ABasicCharacter::Crouch( bool bClientSimulation)
 {
-   Super::Crouch( bClientSimulation );
-   SetIdleTime( 0.f );
-   FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation();
-   m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 5.f ) );
-  // m_AimingArm->AddRelativeLocation( FVector( 0.f, 0.f, -65.f ) );
-   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Crouch;
+      
+   //   m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f - BaseEyeHeight + CrouchedEyeHeight ) );
+      if( m_CurrentBodyMotion == BodyMotions::BodyMotions_Jog || m_CurrentBodyMotion == BodyMotions::BodyMotions_Idle )
+         {     
+         Super::Crouch( bClientSimulation );
+         WakePlayer();
+         FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation();
+         m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 5.f ) );
 
+         m_CurrentBodyMotion = ( m_CurrentBodyMotion == BodyMotions::BodyMotions_Jog )?
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchJog:
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchIdle;
+         }
 }
 
-void ABasicCharacter::UnCrouch( bool bClientSimulation)
+void ABasicCharacter::UnCrouch( bool bClientSimulation )
 {
-   Super::UnCrouch( bClientSimulation );
-   SetIdleTime( 0.f );
-   FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation( );
-   m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
-  // m_AimingArm->AddRelativeLocation( FVector( 0.f, 0.f, 65.f ) );
-   m_CurrentMotionType = PlayerMotionTypes::PlayerMotionTypes_Stand;
+   if( m_CurrentBodyMotion == BodyMotions::BodyMotions_CrouchJog || m_CurrentBodyMotion == BodyMotions::BodyMotions_CrouchIdle)
+      {
+      Super::UnCrouch( bClientSimulation );
+      WakePlayer();
+      FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation( );
+      m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
+
+      m_CurrentBodyMotion = ( m_CurrentBodyMotion == BodyMotions::BodyMotions_CrouchJog )?
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_Jog:
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+      }
 }
 
-void ABasicCharacter::SetViewType( PlayerViewTypes inViewType )
+void ABasicCharacter::SetViewType( PlayerViews inViewType )
 {
    switch( inViewType )
       {
-      case PlayerViewTypes::PlayerViewTypes_ThirdPerson:
-         SetViewTypeToThirdPerson( );
-         break;
-      case PlayerViewTypes::PlayerViewTypes_Aim:
-         SetViewTypeToAim( );
-         break;
-      case PlayerViewTypes::PlayerViewTypes_FirstPerson:
-         SetViewTypeToFirstPerson( );
-         break;
-         //    default:
+         case PlayerViews::PlayerViews_ThirdPerson:
+            SetViewTypeToThirdPerson( );
+            break;
+      case PlayerViews::PlayerViews_Aim:
+            SetViewTypeToAim( );
+            break;
+      case PlayerViews::PlayerViews_FirstPerson:
+            SetViewTypeToFirstPerson( );
+            break;
+      //default:
       }
 }
 
-
 void ABasicCharacter::MoveForward( float amount )
 {
-   SetIdleTime( 0.f );
+   WakePlayer();
    FVector fwd = m_PlayerCamera->GetForwardVector();
    AddMovementInput( fwd, amount );
 }
 
 void ABasicCharacter::MoveRight( float amount )
 {
-   SetIdleTime( 0.f );
+   WakePlayer();
    FVector right = m_PlayerCamera->GetRightVector();
    AddMovementInput( right, amount );
 }
 
 void ABasicCharacter::SetCameraYaw( float amount )
 {
-   switch( m_CurrentViewType )
+   switch( m_CurrentView )
       {
-         case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
+         case PlayerViews::PlayerViews_ThirdPerson :
             m_ThirdPersonArmYaw->AddRelativeRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
-         case PlayerViewTypes::PlayerViewTypes_Aim:
-            AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
-            break;
-         case PlayerViewTypes::PlayerViewTypes_FirstPerson :
+         case PlayerViews::PlayerViews_Aim:
+      //      AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+    //        break;
+         case PlayerViews::PlayerViews_FirstPerson :
             AddActorWorldRotation( FRotator( 0, m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
        //  default:
@@ -162,22 +175,22 @@ void ABasicCharacter::SetCameraPitch( float amount )
    float clampedPitch;
    FRotator currentRotation;
    FTransform cuttrntTransform;
-   switch( m_CurrentViewType )
+   switch( m_CurrentView )
       {
-      case PlayerViewTypes::PlayerViewTypes_ThirdPerson :
+      case PlayerViews::PlayerViews_ThirdPerson :
          m_ThirdPersonArmPitch->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
          currentRotation = m_ThirdPersonArmPitch->GetComponentRotation( );
          clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
          m_ThirdPersonArmPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
          break;
-      case PlayerViewTypes::PlayerViewTypes_Aim:
-         m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-         cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
-         currentRotation = cuttrntTransform.Rotator( );
-         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
-         m_PlayerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
-         break;
-      case PlayerViewTypes::PlayerViewTypes_FirstPerson:
+      case PlayerViews::PlayerViews_Aim:
+        /// m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+     //    cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
+       //  currentRotation = cuttrntTransform.Rotator( );
+      //   clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, m_PitchRotLowerBound, m_PitchRotUpperBound );
+      //   m_PlayerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+      //   break;
+      case PlayerViews::PlayerViews_FirstPerson:
          m_PlayerCamera->AddRelativeRotation( FRotator( m_CameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
          cuttrntTransform = m_PlayerCamera->GetRelativeTransform( );
          currentRotation = cuttrntTransform.Rotator( );
@@ -193,9 +206,135 @@ void ABasicCharacter::SetCameraDistance( float amount )
    m_ThirdPersonArmPitch->TargetArmLength = FMath::Clamp<float>( m_ThirdPersonArmPitch->TargetArmLength, m_CameraDisLowerBound, m_CameraDisUpperBound );
 }
 
-void ABasicCharacter::SetIdleTime( float inTime )
+//reset idle time and set its bodymotion
+void ABasicCharacter::WakePlayer()
 {
    m_IdleTime = 0.f;
+   if( m_CurrentBodyMotion == BodyMotions::BodyMotions_Break )
+      {
+      m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+      }
+}
+
+void ABasicCharacter::AddIdleTime( float inTime )
+{
+   m_IdleTime += inTime;
+}
+
+void ABasicCharacter::RefineMotionType( float DeltaSeconds )
+{
+   switch( m_CurrentBodyMotion )
+      {
+         case BodyMotions::BodyMotions_Idle:
+         case BodyMotions::BodyMotions_Jog:
+            RefineMotionStand( DeltaSeconds );
+            break;
+         case BodyMotions::BodyMotions_CrouchIdle:
+         case BodyMotions::BodyMotions_CrouchJog:
+            RefineMotionCrouch();
+            break;
+         case BodyMotions::BodyMotions_Fall:
+            RefineMotionFall();
+            break;
+         case BodyMotions::BodyMotions_Jump:
+            RefineMotionJump();
+            break;
+         case BodyMotions::BodyMotions_JogJump:
+            RefineMotionJogJump();
+            break;
+         case BodyMotions::BodyMotions_Break:
+            break;
+      }
+
+}
+
+void ABasicCharacter::RefineMotionStand( float DeltaSeconds )
+{
+   //if NOT falling(stay on ground)
+   if( !GetMovementComponent( )->IsFalling( ) )
+      {
+      if( GetVelocity( ).Size( ) > 5.f )//On ground and moving
+         {
+         m_CurrentBodyMotion = BodyMotions::BodyMotions_Jog;
+         }
+      else //On ground and barely not moving
+         {
+         m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+         if( m_CurrentArmMotion == ArmMotions::ArmMotions_Default )//player is not busying using weapon
+            {
+            m_IdleTime += DeltaSeconds;
+            if( m_IdleTime >= 12.6f )
+               {
+               m_CurrentBodyMotion = BodyMotions::BodyMotions_Break;
+               }
+            }
+         }
+      }
+   else //is falling
+      {
+      m_CurrentBodyMotion = BodyMotions::BodyMotions_Fall;
+      }
+}
+
+void ABasicCharacter::RefineMotionCrouch( )
+{
+   if( !GetMovementComponent( )->IsFalling( ) )//Is NOT falling
+      {
+      if( GetVelocity( ).Size( ) <= 5.f )//On ground and barely not moving
+         {
+         m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchIdle;
+         }
+      else
+         {
+         m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchJog;
+         }
+      }
+   else //is falling
+      {
+       m_CurrentBodyMotion = BodyMotions::BodyMotions_Fall;
+      }
+ 
+}
+
+void ABasicCharacter::RefineMotionFall()
+{
+   if( !GetMovementComponent( )->IsFalling( ) )//Is NOT falling
+      {
+         if( GetVelocity( ).Size( ) <= 5.f )//On ground and barely not moving
+            {
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchIdle;
+            }
+         else
+            {
+            m_CurrentBodyMotion = BodyMotions::BodyMotions_CrouchJog;
+           }
+      }
+}
+
+void ABasicCharacter::RefineMotionJump( )
+{
+   //if NOT falling(stay on ground)
+   if( !GetMovementComponent( )->IsFalling( ) )
+      {
+      m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+      }
+}
+
+void ABasicCharacter::RefineMotionJogJump( )
+{
+   //if NOT falling(stay on ground)
+   if( !GetMovementComponent( )->IsFalling( ) )
+   {
+   m_CurrentBodyMotion = BodyMotions::BodyMotions_Jog;
+   }
+}
+
+void ABasicCharacter::RefineMotionBreak( )
+{
+   if( GetVelocity( ).Size( ) > 5.f )
+    {
+    m_CurrentBodyMotion = BodyMotions::BodyMotions_Idle;
+    }
 }
 
 void ABasicCharacter::SetViewTypeToThirdPerson( )
@@ -206,7 +345,7 @@ void ABasicCharacter::SetViewTypeToThirdPerson( )
    FRotator currentActorRotation = GetActorRotation( );
    m_ThirdPersonArmYaw->SetWorldRotation( FRotator( currentActorRotation.Pitch, currentActorRotation.Yaw, currentActorRotation.Roll ) );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_ThirdPerson;
+   m_CurrentView = PlayerViews::PlayerViews_ThirdPerson;
 }
 
 void ABasicCharacter::SetViewTypeToAim( )
@@ -217,7 +356,7 @@ void ABasicCharacter::SetViewTypeToAim( )
    SetActorRotation( FRotator( GetActorRotation( ).Pitch, m_PlayerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    m_PlayerCamera->AttachTo( m_AimingArm );
    m_PlayerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_Aim;
+   m_CurrentView = PlayerViews::PlayerViews_Aim;
 }
 
 void ABasicCharacter::SetViewTypeToFirstPerson( )
@@ -233,7 +372,7 @@ void ABasicCharacter::SetViewTypeToFirstPerson( )
    m_PlayerCamera->SetRelativeRotation( FRotator::ZeroRotator );
    //m_PlayerCamera->SetWorldLocationAndRotation( viewLocation, viewRotation );
 
-   m_CurrentViewType = PlayerViewTypes::PlayerViewTypes_FirstPerson;
+   m_CurrentView = PlayerViews::PlayerViews_FirstPerson;
    //m_PlayerCamera->Att
 }
 

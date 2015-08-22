@@ -27,13 +27,13 @@ public:
 
    virtual void UnCrouch( bool bClientSimulation = false ) override;
 
-   void SetViewType( PlayerViewTypes inViewType );
+   void SetViewType( PlayerViews inViewType );
    
    //custom function for movement
-   void MoveForward( float amount );
+   virtual void MoveForward( float amount );
 
    //custom function for movement
-   void MoveRight( float amount );
+   virtual void MoveRight( float amount );
 
    void SetCameraYaw( float amount );
 
@@ -75,14 +75,41 @@ public:
       USpringArmComponent* m_AimingArm;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
-      PlayerViewTypes m_CurrentViewType;
+      PlayerViews m_CurrentView;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+      ArmMotions m_CurrentArmMotion;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      PlayerMotionTypes m_CurrentMotionType;
+      BodyMotions m_CurrentBodyMotion;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+      WeaponCategories m_CurrentWeapon;
+
+protected:
+  void WakePlayer();
+
+  void AddIdleTime( float inTime );
+
+  void RefineMotionType( float DeltaSeconds );
+
+  void RefineMotionStand( float DeltaSeconds );
+
+  void RefineMotionJog( );
+
+  void RefineMotionCrouch( );
+
+  void RefineMotionFall();
+
+  void RefineMotionJump( );
+
+  void RefineMotionJogJump( );
+
+  void RefineMotionBreak( );
+
+  float m_Speed;
 
 private:
-   void SetIdleTime( float inTime );
-
    void SetViewTypeToThirdPerson( );
 
    void SetViewTypeToAim( );

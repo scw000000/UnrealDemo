@@ -6,26 +6,42 @@
  * 
  */
 
-UENUM( BlueprintType )		//"BlueprintType" is essential to include
-enum class PlayerViewTypes : uint8 
+UENUM( BlueprintType )		
+enum class PlayerViews : uint8 
 {
-   PlayerViewTypes_FirstPerson 	UMETA( DisplayName = "FirstPerson" ),
-   PlayerViewTypes_Aim 	UMETA( DisplayName = "Aim" ),
-   PlayerViewTypes_ThirdPerson 	UMETA( DisplayName = "ThirdPerson" )
+   PlayerViews_FirstPerson 	UMETA( DisplayName = "FirstPerson" ),
+   PlayerViews_Aim        	UMETA( DisplayName = "Aim" ),
+   PlayerViews_ThirdPerson 	UMETA( DisplayName = "ThirdPerson" )
 };
 
-UENUM( BlueprintType )		//"BlueprintType" is essential to include
-enum class PlayerMotionTypes : uint8 {
-   PlayerMotionTypes_Stand 	UMETA( DisplayName = "Stand" ),
-   PlayerMotionTypes_Crouch 	UMETA( DisplayName = "Crouch" ),
-   PlayerMotionTypes_Prone 	UMETA( DisplayName = "Prone" ),
-   PlayerMotionTypes_Jump   	UMETA( DisplayName = "Jump" )
+UENUM( BlueprintType )		
+enum class BodyMotions : uint8 
+{
+   BodyMotions_Idle        UMETA( DisplayName = "Idle" ),
+   BodyMotions_Break    	UMETA( DisplayName = "Break" ),
+   BodyMotions_Jog       	UMETA( DisplayName = "Jog" ),
+   BodyMotions_Jump      	UMETA( DisplayName = "Jump" ),
+   BodyMotions_JogJump   	UMETA( DisplayName = "JogJump" ),
+   BodyMotions_CrouchJog   UMETA( DisplayName = "CrouchJog" ),
+   BodyMotions_CrouchIdle  UMETA( DisplayName = "CrouchIdle" ),
+   BodyMotions_Fall    	   UMETA( DisplayName = "Fall" ),
+   BodyMotions_Prone    	UMETA( DisplayName = "Prone" )
 };
 
-UENUM( BlueprintType )		//"BlueprintType" is essential to include
-enum class PlayerAimTypes : uint8 {
-   PlayerAimTypes_BareHand       	UMETA( DisplayName = "BareHand" ),
-   PlayerAimTypes_RifleHip 	      UMETA( DisplayName = "RifleHip" ),
-   PlayerAimTypes_RifleIronSight 	UMETA( DisplayName = "RifleIronSight" )
+UENUM( BlueprintType )		
+enum class ArmMotions : uint8 
+{
+   ArmMotions_Default   UMETA( DisplayName = "Default" ),
+   ArmMotions_IronSight UMETA( DisplayName = "IronSight" ),
+   ArmMotions_Fire      UMETA( DisplayName = "Fire" ),
+   ArmMotions_Reload    UMETA( DisplayName = "Reload" )
+};
+
+UENUM( BlueprintType )		
+enum class WeaponCategories : uint8
+{
+   WeaponCategories_BareHand       UMETA( DisplayName = "BareHand" ),
+   WeaponCategories_Rifle          UMETA( DisplayName = "Rifle" ),
+   WeaponCategories_ShotGun 	      UMETA( DisplayName = "ShotGun" )
 };
 
