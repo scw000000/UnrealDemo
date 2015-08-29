@@ -29,6 +29,10 @@ public:
 
    void RMBReleased( );
 
+   void LeftMouseButtonPressed();
+
+   void LeftMouseButtonReleased();
+
    void LeftCtrlPressed( );
 
    void LeftCtrlReleased( );
@@ -36,8 +40,6 @@ public:
    void MouseWheelUpPressed();
 
    void MouseWheelDownPressed( );
-
-   
 
    UFUNCTION( BlueprintCallable, BlueprintAuthorityOnly, Category = "Pawn" )
       virtual void Possess( APawn * InPawn ) override;

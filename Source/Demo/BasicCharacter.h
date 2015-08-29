@@ -19,6 +19,10 @@ public:
 	virtual void BeginPlay() override;
 
    virtual void Jump( ) override;
+   	
+   void StartAttack();
+
+   void EndAttack();
 
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
@@ -75,16 +79,16 @@ public:
       USpringArmComponent* m_AimingArm;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
-      PlayerViews m_CurrentView;
-
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
-      ArmMotions m_CurrentArmMotion;
+      PlayerViews m_PlayerView;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      BodyMotions m_CurrentBodyMotion;
+      ArmMotions m_ArmMotion;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      WeaponCategories m_CurrentWeapon;
+      BodyMotions m_BodyMotion;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerMotion )
+      WeaponCategories m_EquippedWeapon;
 
 protected:
   void WakePlayer();

@@ -31,10 +31,14 @@ enum class BodyMotions : uint8
 UENUM( BlueprintType )		
 enum class ArmMotions : uint8 
 {
-   ArmMotions_Default   UMETA( DisplayName = "Default" ),
-   ArmMotions_IronSight UMETA( DisplayName = "IronSight" ),
-   ArmMotions_Fire      UMETA( DisplayName = "Fire" ),
-   ArmMotions_Reload    UMETA( DisplayName = "Reload" )
+   ArmMotions_Default          UMETA( DisplayName = "Default" ),
+   ArmMotions_IronSight        UMETA( DisplayName = "IronSight" ),
+   ArmMotions_IronSightFire    UMETA( DisplayName = "IronSightFire" ),
+   ArmMotions_DefaultFire      UMETA( DisplayName = "DefaultFire" ),
+   ArmMotions_DefaultReload    UMETA( DisplayName = "DefaultReload" ),
+   ArmMotions_IronSightReload  UMETA( DisplayName = "IronSIghtReload" ),
+   ArmMotions_Equip            UMETA( DisplayName = "Equip" )
+
 };
 
 UENUM( BlueprintType )		
@@ -42,6 +46,6 @@ enum class WeaponCategories : uint8
 {
    WeaponCategories_BareHand       UMETA( DisplayName = "BareHand" ),
    WeaponCategories_Rifle          UMETA( DisplayName = "Rifle" ),
-   WeaponCategories_ShotGun 	      UMETA( DisplayName = "ShotGun" )
+   WeaponCategories_ShotGun 	     UMETA( DisplayName = "ShotGun" )
 };
 

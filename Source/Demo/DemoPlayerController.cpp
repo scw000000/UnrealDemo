@@ -30,6 +30,9 @@ void ADemoPlayerController::SetupInputComponent( )
    InputComponent->BindAction( "RightMouseButton", IE_Pressed, this, &ADemoPlayerController::RMBPressed );
    InputComponent->BindAction( "RightMouseButton", IE_Released, this, &ADemoPlayerController::RMBReleased );
 
+   InputComponent->BindAction( "LMB", IE_Pressed, this, &ADemoPlayerController::LeftMouseButtonPressed );
+   InputComponent->BindAction( "LMB", IE_Released, this, &ADemoPlayerController::LeftMouseButtonReleased );
+
    InputComponent->BindAction( "LeftCtrl", IE_Pressed, this, &ADemoPlayerController::LeftCtrlPressed );
    InputComponent->BindAction( "LeftCtrl", IE_Released, this, &ADemoPlayerController::LeftCtrlReleased );
 
@@ -85,6 +88,22 @@ void ADemoPlayerController::RMBReleased( )
    if( m_ControllingCharacter )
    {
    m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_ThirdPerson );
+   }
+}
+
+void ADemoPlayerController::LeftMouseButtonPressed()
+{
+   if( m_ControllingCharacter )
+   {
+   m_ControllingCharacter->StartAttack( );
+   }
+}
+
+void ADemoPlayerController::LeftMouseButtonReleased()
+{
+   if( m_ControllingCharacter )
+   {
+   m_ControllingCharacter->EndAttack( );
    }
 }
 

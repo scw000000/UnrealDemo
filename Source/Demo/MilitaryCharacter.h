@@ -3,6 +3,7 @@
 #pragma once
 
 #include "BasicCharacter.h"
+#include "AnimMontageProperties.h"
 #include "MilitaryCharacter.generated.h"
 
 /**
@@ -19,6 +20,10 @@ public:
 
    void ToggleProne();
 
+   void StartReload();
+
+   void EndReload();
+
    //custom function for movement
    virtual void MoveForward( float amount ) override;
 
@@ -26,5 +31,6 @@ public:
    virtual void MoveRight( float amount ) override;
 
    virtual void Crouch( bool bClientSimulation = false ) override;
-	
+
+   
 };
