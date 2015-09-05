@@ -19,15 +19,13 @@ public:
 
    virtual void Tick( float DeltaSeconds ) override;
 
-   UFUNCTION( BlueprintNativeEvent, Category = Item )
-         void Prox( AActor * OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult );
+   virtual void OnHit_Implementation( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
 
-   virtual void Prox_Implementation( AActor * OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult );
+   UFUNCTION( BlueprintNativeEvent, Category = Collision )
+         void OnHit( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
-      class USphereComponent* ProxSphere;
 private:
-  // void Parasitize( ABasicCharacter* target );
+   void Parasitize( ABasicCharacter* target );
 	
-	
+	bool parasitizingHuman;
 };

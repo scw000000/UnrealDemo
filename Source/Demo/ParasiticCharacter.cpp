@@ -5,9 +5,10 @@
 
 AParasiticCharacter::AParasiticCharacter( const FObjectInitializer& ObjectInitializer ) : ABasicCharacter( ObjectInitializer ) 
 {
-ProxSphere = ObjectInitializer.CreateDefaultSubobject<USphereComponent>( this, TEXT( "Proximity SPhere" ) );
-   ProxSphere->AttachTo( GetRootComponent() );
-   ProxSphere->OnComponentBeginOverlap.AddDynamic( this, &AParasiticCharacter::Prox );
+  // ProxSphere->OnComponentBeginOverlap.AddDynamic( this, &AParasiticCharacter::Prox );
+   GetCapsuleComponent()->OnComponentHit.AddDynamic( this, &AParasiticCharacter::OnHit );
+   parasitizingHuman = false;
+   //capsuleComponent->
  //  UCapsuleComponent* capsuleComponent = GetCapsuleComponent();
   // capsuleComponent->OnComponentBeginOverlap.AddDynamic( this, &AParasiticCharacter::Prox );
   // ProxSphere->OnComponentBeginOverlap.AddDynamic( this, &APickupItem::Prox );
@@ -19,15 +20,13 @@ void AParasiticCharacter::Tick( float DeltaTime )
    
 }
 
-void AParasiticCharacter::Prox_Implementation( AActor * OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult )
+void AParasiticCharacter::OnHit_Implementation( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit )
 {
-   APlayerController* pController = GetWorld( )->GetFirstPlayerController( );
-
-   ABasicCharacter *character = Cast<ABasicCharacter>( OtherActor );
-   if( character != nullptr )
+   ABasicCharacter *otherCharacter = Cast<ABasicCharacter>( OtherActor );
+   if( otherCharacter != nullptr )
       {
       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess enter" );
-      pController->Possess( character );
+      Parasitize( otherCharacter );
       }
    else
       {
@@ -35,4 +34,20 @@ void AParasiticCharacter::Prox_Implementation( AActor * OtherActor, UPrimitiveCo
       }
    GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess end" );
 }
+
+void AParasiticCharacter::Parasitize( ABasicCharacter* target )
+{
+   if( !parasitizingHuman )
+      {
+    //  GetCapsuleComponent()->SetCollisionObjectType();
+      GetCapsuleComponent()->SetCollisionEnabled( ECollisionEnabled::NoCollision );
+      APlayerController* pController = GetWorld( )->GetFirstPlayerController( );
+      pController->Possess( target );
+      this->AttachRootComponentTo( target->GetCapsuleComponent(), NAME_None, EAttachLocation::SnapToTarget );
+     // this->AttachRootComponentToActor( target, NAME_None, EAttachLocation::KeepRelativeOffset );
+      parasitizingHuman = true;
+      }
+   
+}
+
 
