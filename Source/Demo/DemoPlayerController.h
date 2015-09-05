@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "DemoPlayerController.generated.h"
 
-class AMilitaryCharacter;
+class ABasicCharacter;
 /**
  * 
  */
@@ -59,6 +59,6 @@ public:
    
 
 protected:
-   AMilitaryCharacter* m_ControllingCharacter;
+   ABasicCharacter* m_ControllingCharacter;
    virtual bool SetControllingCharacter( APawn* InPawn );
 };

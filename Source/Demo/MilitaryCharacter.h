@@ -18,7 +18,7 @@ public:
 
    AMilitaryCharacter( const FObjectInitializer& ObjectInitializer );
 
-   void ToggleProne();
+   virtual void ToggleProne() override;
 
    void StartReload();
 
@@ -32,5 +32,6 @@ public:
 
    virtual void Crouch( bool bClientSimulation = false ) override;
 
-   
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
+      WeaponCategories equippedWeapon;
 };

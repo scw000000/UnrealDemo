@@ -6,52 +6,54 @@
 AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) : ABasicCharacter( ObjectInitializer )
 {
    PrimaryActorTick.bCanEverTick = false;
+
+   equippedWeapon = WeaponCategories::WeaponCategories_BareHand;
 }
 
 void AMilitaryCharacter::ToggleProne( )
 {
    WakePlayer();
-   if( m_BodyMotion == BodyMotions::BodyMotions_Idle )
+   if( bodyMotion == BodyMotions::BodyMotions_Idle )
       {
-      FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation( );
-      m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, -50.f ) );
-      m_BodyMotion = BodyMotions::BodyMotions_Prone;
+      FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation( );
+      aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, -50.f ) );
+      bodyMotion = BodyMotions::BodyMotions_Prone;
       }
-   else if( m_BodyMotion == BodyMotions::BodyMotions_Prone )
+   else if( bodyMotion == BodyMotions::BodyMotions_Prone )
       {
-      FVector aimArmRelativeLocation = m_AimingArm->GetRelativeTransform( ).GetLocation( );
-      m_AimingArm->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
-      m_BodyMotion = BodyMotions::BodyMotions_Idle;
+      FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation( );
+      aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
+      bodyMotion = BodyMotions::BodyMotions_Idle;
       }
 }
 
 void AMilitaryCharacter::StartReload()
 {
-   if( m_PlayerView == PlayerViews::PlayerViews_Aim )
+   if( playerView == PlayerViews::PlayerViews_Aim )
       {
-      m_ArmMotion = ArmMotions::ArmMotions_IronSightReload;
+      armMotion = ArmMotions::ArmMotions_IronSightReload;
       }
    else
       {
-      m_ArmMotion = ArmMotions::ArmMotions_DefaultReload;
+      armMotion = ArmMotions::ArmMotions_DefaultReload;
       }
 }
 
 void AMilitaryCharacter::EndReload()
 {
-   if( m_PlayerView == PlayerViews::PlayerViews_Aim )
+   if( playerView == PlayerViews::PlayerViews_Aim )
       {
-      m_ArmMotion = ArmMotions::ArmMotions_IronSight;
+      armMotion = ArmMotions::ArmMotions_IronSight;
       }
    else
       {
-      m_ArmMotion = ArmMotions::ArmMotions_Default;
+      armMotion = ArmMotions::ArmMotions_Default;
       }
 }
 
 void AMilitaryCharacter::MoveForward( float amount )
 {
-    if( m_BodyMotion != BodyMotions::BodyMotions_Prone )
+    if( bodyMotion != BodyMotions::BodyMotions_Prone )
       {
       Super::MoveForward( amount );
       }
@@ -60,7 +62,7 @@ void AMilitaryCharacter::MoveForward( float amount )
 //custom function for movement
 void AMilitaryCharacter::MoveRight( float amount )
 {
-   if( m_BodyMotion != BodyMotions::BodyMotions_Prone )
+   if( bodyMotion != BodyMotions::BodyMotions_Prone )
       {
       Super::MoveRight( amount );
       }
@@ -68,7 +70,7 @@ void AMilitaryCharacter::MoveRight( float amount )
 
 void AMilitaryCharacter::Crouch( bool bClientSimulation )
 {
-   if( m_BodyMotion != BodyMotions::BodyMotions_Prone )
+   if( bodyMotion != BodyMotions::BodyMotions_Prone )
       {
       Super::Crouch( bClientSimulation );
       }

@@ -19,6 +19,8 @@ public:
 	virtual void BeginPlay() override;
 
    virtual void Jump( ) override;
+
+   virtual void ToggleProne();
    	
    void StartAttack();
 
@@ -31,7 +33,9 @@ public:
 
    virtual void UnCrouch( bool bClientSimulation = false ) override;
 
-   void SetViewType( PlayerViews inViewType );
+   
+
+   void SetPlayerView( PlayerViews inViewType );
    
    //custom function for movement
    virtual void MoveForward( float amount );
@@ -39,56 +43,54 @@ public:
    //custom function for movement
    virtual void MoveRight( float amount );
 
-   void SetCameraYaw( float amount );
+   void SetCamYaw( float amount );
 
-   void SetCameraPitch( float amount );
+   void SetCamPitch( float amount );
 
-   void SetCameraDistance( float amount );
-
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_PitchRotUpperBound;
+   void SetCamDistance( float amount );
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_PitchRotLowerBound;
+      float camPitchMax;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_CameraScrollSpeed;
+      float camPitchMin;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_CameraRotateSpeed;
+      float camScrollSpeed;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_CameraDisUpperBound;
+      float camRotSpeed;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float m_CameraDisLowerBound;
+      float camDistanceMax;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float camDistanceMin;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      float m_IdleTime;
+      float idleTime;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* m_ThirdPersonArmYaw;
+      USpringArmComponent* thirdPersonCamBoomYaw;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* m_ThirdPersonArmPitch;
+      USpringArmComponent* thirdPersonCamBoomPitch;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      UCameraComponent* m_PlayerCamera;
+      UCameraComponent* playerCam;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* m_AimingArm;
+      USpringArmComponent* aimingCamBoom;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
-      PlayerViews m_PlayerView;
+      PlayerViews playerView;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      ArmMotions m_ArmMotion;
+      ArmMotions armMotion;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
-      BodyMotions m_BodyMotion;
+      BodyMotions bodyMotion;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerMotion )
-      WeaponCategories m_EquippedWeapon;
 
 protected:
   void WakePlayer();
@@ -114,11 +116,11 @@ protected:
   float m_Speed;
 
 private:
-   void SetViewTypeToThirdPerson( );
+   void SetPlayerViewToThirdPerson( );
 
-   void SetViewTypeToAim( );
+   void SetPlayerViewToAim( );
 
-   void SetViewTypeToFirstPerson( );
+   void SetPlayerViewToFirstPerson( );
 
    void UpdateCameraLocationAndRotation( float DeltaSeconds );
 };

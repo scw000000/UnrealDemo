@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
-#include "MiliTaryCharacter.h"
+#include "BasicCharacter.h"
 #include "DemoEnums.h"
 #include "DemoPlayerController.h"
 
@@ -55,7 +55,7 @@ void ADemoPlayerController::BPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_FirstPerson );
+      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_FirstPerson );
       }
 }
 
@@ -63,7 +63,7 @@ void ADemoPlayerController::BReleased( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_ThirdPerson );
+      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
       }
 }
 
@@ -79,7 +79,7 @@ void ADemoPlayerController::RMBPressed( )
 {
    if( m_ControllingCharacter )
       {
-      m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_Aim );
+      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_Aim );
       }
 }
 
@@ -87,7 +87,7 @@ void ADemoPlayerController::RMBReleased( )
 {
    if( m_ControllingCharacter )
    {
-   m_ControllingCharacter->SetViewType( PlayerViews::PlayerViews_ThirdPerson );
+   m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
    }
 }
 
@@ -127,7 +127,7 @@ void ADemoPlayerController::MouseWheelUpPressed( )
 {
    if( m_ControllingCharacter)
       {
-      m_ControllingCharacter->SetCameraDistance( 1.f );
+      m_ControllingCharacter->SetCamDistance( 1.f );
       }
 }
 
@@ -135,7 +135,7 @@ void ADemoPlayerController::MouseWheelDownPressed( )
 {
    if( m_ControllingCharacter)
       {
-      m_ControllingCharacter->SetCameraDistance( -1.f );
+      m_ControllingCharacter->SetCamDistance( -1.f );
       }
 }
 
@@ -156,7 +156,7 @@ void ADemoPlayerController::Possess( APawn * InPawn )
 
 bool ADemoPlayerController::SetControllingCharacter( APawn* InPawn )
 {
-   AMilitaryCharacter *character = Cast<AMilitaryCharacter>( InPawn );
+   ABasicCharacter *character = Cast<ABasicCharacter>( InPawn );
 
    if( character )
       {
@@ -187,7 +187,7 @@ void ADemoPlayerController::MouseX( float amount )
 {
    if( m_ControllingCharacter && amount )
       {
-      m_ControllingCharacter->SetCameraYaw( amount );
+      m_ControllingCharacter->SetCamYaw( amount );
       }
 }
 
@@ -195,7 +195,7 @@ void ADemoPlayerController::MouseY( float amount )
 {
    if( m_ControllingCharacter && amount )
       {
-      m_ControllingCharacter->SetCameraPitch( amount );
+      m_ControllingCharacter->SetCamPitch( amount );
       }
 }
 
