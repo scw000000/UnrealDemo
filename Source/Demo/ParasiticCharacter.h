@@ -25,7 +25,14 @@ public:
          void OnHit( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
 
 private:
+   void OnParasitize( ABasicCharacter* target );
    void Parasitize( ABasicCharacter* target );
 	
 	bool parasitizingHuman;
+
+   float parasitizingTimeMax;
+
+   FTimerHandle parasitizingTimerHandle;
+
+   FTimerDelegate parasitizingDelegate;
 };

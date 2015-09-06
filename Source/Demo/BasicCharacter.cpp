@@ -169,14 +169,14 @@ void ABasicCharacter::MoveForward( float amount )
 {
    WakePlayer();
    FVector fwd = playerCam->GetForwardVector();
-   AddMovementInput( fwd, amount );
+   AddMovementInput( fwd, amount, false );
 }
 
 void ABasicCharacter::MoveRight( float amount )
 {
    WakePlayer();
    FVector right = playerCam->GetRightVector();
-   AddMovementInput( right, amount );
+   AddMovementInput( right, amount, false );
 }
 
 void ABasicCharacter::SetCamYaw( float amount )
