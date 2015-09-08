@@ -45,97 +45,97 @@ void ADemoPlayerController::SetupInputComponent( )
 
 void ADemoPlayerController::SpacePressed( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
       {
-      m_ControllingCharacter->Jump( );
+      controllingCharacter->Jump( );
       }
 }
 
 void ADemoPlayerController::BPressed( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
       {
-      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_FirstPerson );
+      controllingCharacter->SetPlayerView( PlayerViews::PlayerViews_FirstPerson );
       }
 }
 
 void ADemoPlayerController::BReleased( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
       {
-      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
+      controllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
       }
 }
 
 void ADemoPlayerController::CPressed( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
       {
-      m_ControllingCharacter->ToggleProne( );
+      controllingCharacter->ToggleProne( );
       }
 }
 
 void ADemoPlayerController::RMBPressed( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
       {
-      m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_Aim );
+      controllingCharacter->SetPlayerView( PlayerViews::PlayerViews_Aim );
       }
 }
 
 void ADemoPlayerController::RMBReleased( )
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
    {
-   m_ControllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
+   controllingCharacter->SetPlayerView( PlayerViews::PlayerViews_ThirdPerson );
    }
 }
 
 void ADemoPlayerController::LeftMouseButtonPressed()
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
    {
-   m_ControllingCharacter->StartAttack( );
+   controllingCharacter->StartAttack( );
    }
 }
 
 void ADemoPlayerController::LeftMouseButtonReleased()
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
    {
-   m_ControllingCharacter->EndAttack( );
+   controllingCharacter->EndAttack( );
    }
 }
 
 void ADemoPlayerController::LeftCtrlPressed()
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
    {
-   m_ControllingCharacter->Crouch( );
+   controllingCharacter->Crouch( );
    }
 }
 void ADemoPlayerController::LeftCtrlReleased()
 {
-   if( m_ControllingCharacter )
+   if( controllingCharacter )
    {
-   m_ControllingCharacter->UnCrouch();
+   controllingCharacter->UnCrouch();
    }
 }
 
 
 void ADemoPlayerController::MouseWheelUpPressed( )
 {
-   if( m_ControllingCharacter)
+   if( controllingCharacter)
       {
-      m_ControllingCharacter->SetCamDistance( 1.f );
+      controllingCharacter->SetCamDistance( 1.f );
       }
 }
 
 void ADemoPlayerController::MouseWheelDownPressed( )
 {
-   if( m_ControllingCharacter)
+   if( controllingCharacter)
       {
-      m_ControllingCharacter->SetCamDistance( -1.f );
+      controllingCharacter->SetCamDistance( -1.f );
       }
 }
 
@@ -160,7 +160,7 @@ bool ADemoPlayerController::SetControllingCharacter( APawn* InPawn )
 
    if( character )
       {
-      m_ControllingCharacter = character;
+      controllingCharacter = character;
       return true;
       }
    GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: possess cast fail" );
@@ -169,33 +169,33 @@ bool ADemoPlayerController::SetControllingCharacter( APawn* InPawn )
 
 void ADemoPlayerController::WS( float amount )
 {
-   if( m_ControllingCharacter && amount )
+   if( controllingCharacter && amount )
       {
-      m_ControllingCharacter->MoveForward( amount );
+      controllingCharacter->MoveForward( amount );
       }
 }
 
 void ADemoPlayerController::AD( float amount )
 {
-   if( m_ControllingCharacter && amount )
+   if( controllingCharacter && amount )
       {
-      m_ControllingCharacter->MoveRight( amount );
+      controllingCharacter->MoveRight( amount );
       }
 }
 
 void ADemoPlayerController::MouseX( float amount )
 {
-   if( m_ControllingCharacter && amount )
+   if( controllingCharacter && amount )
       {
-      m_ControllingCharacter->SetCamYaw( amount );
+      controllingCharacter->SetCamYaw( amount );
       }
 }
 
 void ADemoPlayerController::MouseY( float amount )
 {
-   if( m_ControllingCharacter && amount )
+   if( controllingCharacter && amount )
       {
-      m_ControllingCharacter->SetCamPitch( amount );
+      controllingCharacter->SetCamPitch( amount );
       }
 }
 

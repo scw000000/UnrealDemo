@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Equipment.h"
+#include "Item.h"
 #include "DemoEnums.h"
 #include "Weapon.generated.h"
 
@@ -10,14 +10,13 @@
  * 
  */
 UCLASS()
-class DEMO_API AWeapon : public AEquipment
+class DEMO_API AWeapon : public AItem
 {
 	GENERATED_BODY()
 public:
-	void Attack( int AttackType = 0 );
-	void Reload();
-   void Aim();
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = WeaponProperties )
-      WeaponCategories m_Category; 
+	//virtual void Attack( int attackType = 0 );
+
+   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Weapon )
+      WeaponCategories weaponCategory; 
 };

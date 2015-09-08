@@ -33,6 +33,8 @@ private:
    float parasitizingTimeMax;
 
    FTimerHandle parasitizingTimerHandle;
+ //  FTimerHandle graduateAwayTimerHandle;
 
    FTimerDelegate parasitizingDelegate;
+ //  FTimerDelegate graduateAwayDelegate;
 };

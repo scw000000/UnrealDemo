@@ -10,12 +10,12 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-   camPitchMax = 50.f;
-   camPitchMin = -50.f;
-   camScrollSpeed = 1000.f;
-   camRotSpeed = 100.f;
-   camDistanceMax = 700.f;
-   camDistanceMin = 100.f;
+   maxCameraPitch = 50.f;
+   minCameraPitch = -50.f;
+   cameraScrollSpeed = 1000.f;
+   cameraRotateSpeed = 100.f;
+   maxCameraDistance = 700.f;
+   minCameraDistance = 100.f;
 
    idleTime = 0.f;
 
@@ -25,30 +25,30 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 
    GetCharacterMovement( )->bOrientRotationToMovement = true;
 
-   thirdPersonCamBoomYaw = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Yaw Rotation" ) );
-   thirdPersonCamBoomYaw->AttachTo( RootComponent );
-   thirdPersonCamBoomYaw->TargetArmLength = 75.0f;
-   thirdPersonCamBoomYaw->bUsePawnControlRotation = false;
-   thirdPersonCamBoomYaw->SetAbsolute( false, true, false );
+   thirdPersonCameraBoomYaw = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Yaw Rotation" ) );
+   thirdPersonCameraBoomYaw->AttachTo( RootComponent );
+   thirdPersonCameraBoomYaw->TargetArmLength = 75.0f;
+   thirdPersonCameraBoomYaw->bUsePawnControlRotation = false;
+   thirdPersonCameraBoomYaw->SetAbsolute( false, true, false );
 
-   thirdPersonCamBoomPitch = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Pitch Rotation" ) );
-   thirdPersonCamBoomPitch->AttachTo( thirdPersonCamBoomYaw );
-   thirdPersonCamBoomPitch->TargetArmLength = 150.0f;
-   thirdPersonCamBoomPitch->bUsePawnControlRotation = false;
+   thirdPersonCameraBoomPitch = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Pitch Rotation" ) );
+   thirdPersonCameraBoomPitch->AttachTo( thirdPersonCameraBoomYaw );
+   thirdPersonCameraBoomPitch->TargetArmLength = 150.0f;
+   thirdPersonCameraBoomPitch->bUsePawnControlRotation = false;
 
-   playerCam = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>( this, TEXT( "ThirdPerson Player Camera" ) );
-   playerCam->AttachTo( thirdPersonCamBoomPitch );
-   playerCam->Activate( );
+   playerCamera = ObjectInitializer.CreateDefaultSubobject<UCameraComponent>( this, TEXT( "ThirdPerson Player Camera" ) );
+   playerCamera->AttachTo( thirdPersonCameraBoomPitch );
+   playerCamera->Activate( );
 
-   aimingCamBoom = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For Aiming location setting" ) );
-   aimingCamBoom->TargetArmLength = 50.0f;
-   aimingCamBoom->AttachTo( RootComponent );
-   //aimingCamBoom->AttachTo( GetMesh(), GetMesh()->GetSocketBoneName("Socket_ViewPoint") );
-   //aimingCamBoom->CanAttachAsChild
+   aimingCameraBoom = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For Aiming location setting" ) );
+   aimingCameraBoom->TargetArmLength = 50.0f;
+   aimingCameraBoom->AttachTo( RootComponent );
+   //aimingCameraBoom->AttachTo( GetMesh(), GetMesh()->GetSocketBoneName("Socket_ViewPoint") );
+   //aimingCameraBoom->CanAttachAsChild
    //GetMesh()->GetSocketBoneName
     //  GetMesh()->GetSOcket
 //   const USkeletalMeshSocket *socket = GetMesh( )->GetSocketByName("Socket_ViewPoint");
- //  socket->AttachActor( aimingCamBoom );
+ //  socket->AttachActor( aimingCameraBoom );
    //Socket_ViewPoint
    playerView = PlayerViews::PlayerViews_ThirdPerson;
    armMotion = ArmMotions::ArmMotions_Default;
@@ -119,13 +119,13 @@ https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/AChara
 void ABasicCharacter::Crouch( bool bClientSimulation)
 {
       
-   //   aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f - BaseEyeHeight + CrouchedEyeHeight ) );
+   //   aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f - BaseEyeHeight + CrouchedEyeHeight ) );
       if( bodyMotion == BodyMotions::BodyMotions_Jog || bodyMotion == BodyMotions::BodyMotions_Idle )
          {     
          Super::Crouch( bClientSimulation );
          WakePlayer();
-         FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation();
-         aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 5.f ) );
+         FVector aimArmRelativeLocation = aimingCameraBoom->GetRelativeTransform( ).GetLocation();
+         aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 5.f ) );
 
          bodyMotion = ( bodyMotion == BodyMotions::BodyMotions_Jog )?
             bodyMotion = BodyMotions::BodyMotions_CrouchJog:
@@ -139,8 +139,8 @@ void ABasicCharacter::UnCrouch( bool bClientSimulation )
       {
       Super::UnCrouch( bClientSimulation );
       WakePlayer();
-      FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation( );
-      aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
+      FVector aimArmRelativeLocation = aimingCameraBoom->GetRelativeTransform( ).GetLocation( );
+      aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
 
       bodyMotion = ( bodyMotion == BodyMotions::BodyMotions_CrouchJog )?
             bodyMotion = BodyMotions::BodyMotions_Jog:
@@ -168,14 +168,14 @@ void ABasicCharacter::SetPlayerView( PlayerViews inViewType )
 void ABasicCharacter::MoveForward( float amount )
 {
    WakePlayer();
-   FVector fwd = playerCam->GetForwardVector();
+   FVector fwd = playerCamera->GetForwardVector();
    AddMovementInput( fwd, amount, false );
 }
 
 void ABasicCharacter::MoveRight( float amount )
 {
    WakePlayer();
-   FVector right = playerCam->GetRightVector();
+   FVector right = playerCamera->GetRightVector();
    AddMovementInput( right, amount, false );
 }
 
@@ -184,13 +184,13 @@ void ABasicCharacter::SetCamYaw( float amount )
    switch( playerView )
       {
          case PlayerViews::PlayerViews_ThirdPerson :
-            thirdPersonCamBoomYaw->AddRelativeRotation( FRotator( 0, camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+            thirdPersonCameraBoomYaw->AddRelativeRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
          case PlayerViews::PlayerViews_Aim:
-      //      AddActorWorldRotation( FRotator( 0, camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+      //      AddActorWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
     //        break;
          case PlayerViews::PlayerViews_FirstPerson :
-            AddActorWorldRotation( FRotator( 0, camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+            AddActorWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
             break;
        //  default:
       }
@@ -204,32 +204,32 @@ void ABasicCharacter::SetCamPitch( float amount )
    switch( playerView )
       {
       case PlayerViews::PlayerViews_ThirdPerson :
-         thirdPersonCamBoomPitch->AddRelativeRotation( FRotator( camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-         currentRotation = thirdPersonCamBoomPitch->GetComponentRotation( );
-         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, camPitchMin, camPitchMax );
-         thirdPersonCamBoomPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+         thirdPersonCameraBoomPitch->AddRelativeRotation( FRotator( cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         currentRotation = thirdPersonCameraBoomPitch->GetComponentRotation( );
+         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, minCameraPitch, maxCameraPitch );
+         thirdPersonCameraBoomPitch->SetWorldRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
          break;
       case PlayerViews::PlayerViews_Aim:
-        /// playerCam->AddRelativeRotation( FRotator( camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-     //    cuttrntTransform = playerCam->GetRelativeTransform( );
+        /// playerCamera->AddRelativeRotation( FRotator( cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+     //    cuttrntTransform = playerCamera->GetRelativeTransform( );
        //  currentRotation = cuttrntTransform.Rotator( );
-      //   clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, camPitchMin, camPitchMax );
-      //   playerCam->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+      //   clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, minCameraPitch, maxCameraPitch );
+      //   playerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
       //   break;
       case PlayerViews::PlayerViews_FirstPerson:
-         playerCam->AddRelativeRotation( FRotator( camRotSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
-         cuttrntTransform = playerCam->GetRelativeTransform( );
+         playerCamera->AddRelativeRotation( FRotator( cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0, 0 ) );
+         cuttrntTransform = playerCamera->GetRelativeTransform( );
          currentRotation = cuttrntTransform.Rotator( );
-         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, camPitchMin, camPitchMax );
-         playerCam->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
+         clampedPitch = FMath::Clamp<float>( currentRotation.Pitch, minCameraPitch, maxCameraPitch );
+         playerCamera->SetRelativeRotation( FRotator( clampedPitch, currentRotation.Yaw, currentRotation.Roll ) );
          break;
   //    default:
       }
 }
 void ABasicCharacter::SetCamDistance( float amount )
 {
-   thirdPersonCamBoomPitch->TargetArmLength += camScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
-   thirdPersonCamBoomPitch->TargetArmLength = FMath::Clamp<float>( thirdPersonCamBoomPitch->TargetArmLength, camDistanceMin, camDistanceMax );
+   thirdPersonCameraBoomPitch->TargetArmLength += cameraScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
+   thirdPersonCameraBoomPitch->TargetArmLength = FMath::Clamp<float>( thirdPersonCameraBoomPitch->TargetArmLength, minCameraDistance, maxCameraDistance );
 }
 
 //reset idle time and set its bodymotion
@@ -367,10 +367,10 @@ void ABasicCharacter::SetPlayerViewToThirdPerson( )
 {
    GetCharacterMovement( )->bOrientRotationToMovement = true;
    GetMesh( )->SetVisibility( true );
-   playerCam->AttachTo( thirdPersonCamBoomPitch );
+   playerCamera->AttachTo( thirdPersonCameraBoomPitch );
    FRotator currentActorRotation = GetActorRotation( );
-   thirdPersonCamBoomYaw->SetWorldRotation( FRotator( currentActorRotation.Pitch, currentActorRotation.Yaw, currentActorRotation.Roll ) );
-   playerCam->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
+   thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( currentActorRotation.Pitch, currentActorRotation.Yaw, currentActorRotation.Roll ) );
+   playerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
    playerView = PlayerViews::PlayerViews_ThirdPerson;
    armMotion = ArmMotions::ArmMotions_Default;
 }
@@ -379,10 +379,10 @@ void ABasicCharacter::SetPlayerViewToAim( )
 {
    GetCharacterMovement( )->bOrientRotationToMovement = false;
    GetMesh( )->SetVisibility( true );
-   aimingCamBoom->SetRelativeRotation( FRotator::ZeroRotator );
-   SetActorRotation( FRotator( GetActorRotation( ).Pitch, playerCam->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
-   playerCam->AttachTo( aimingCamBoom );
-   playerCam->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
+   aimingCameraBoom->SetRelativeRotation( FRotator::ZeroRotator );
+   SetActorRotation( FRotator( GetActorRotation( ).Pitch, playerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
+   playerCamera->AttachTo( aimingCameraBoom );
+   playerCamera->SetRelativeLocationAndRotation( FVector::ZeroVector, FRotator::ZeroRotator );
    playerView = PlayerViews::PlayerViews_Aim;
    armMotion = ArmMotions::ArmMotions_IronSight;
 }
@@ -393,15 +393,15 @@ void ABasicCharacter::SetPlayerViewToFirstPerson( )
    FRotator viewRotation;
    GetCharacterMovement( )->bOrientRotationToMovement = false;
    GetMesh( )->SetVisibility( false );
-   SetActorRotation( FRotator( GetActorRotation( ).Pitch, playerCam->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
+   SetActorRotation( FRotator( GetActorRotation( ).Pitch, playerCamera->GetComponentRotation( ).Yaw, GetActorRotation( ).Roll ) );
    GetActorEyesViewPoint( viewLocation, viewRotation );
-   playerCam->AttachTo( RootComponent );
-   playerCam->SetWorldLocation( viewLocation );
-   playerCam->SetRelativeRotation( FRotator::ZeroRotator );
-   //playerCam->SetWorldLocationAndRotation( viewLocation, viewRotation );
+   playerCamera->AttachTo( RootComponent );
+   playerCamera->SetWorldLocation( viewLocation );
+   playerCamera->SetRelativeRotation( FRotator::ZeroRotator );
+   //playerCamera->SetWorldLocationAndRotation( viewLocation, viewRotation );
    armMotion = ArmMotions::ArmMotions_IronSight;
    playerView = PlayerViews::PlayerViews_FirstPerson;
-   //playerCam->Att
+   //playerCamera->Att
 }
 
 void UpdateCameraLocationAndRotation( float DeltaSeconds )

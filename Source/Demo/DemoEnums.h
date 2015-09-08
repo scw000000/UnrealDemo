@@ -49,3 +49,11 @@ enum class WeaponCategories : uint8
    WeaponCategories_ShotGun 	     UMETA( DisplayName = "ShotGun" )
 };
 
+UENUM( BlueprintType )		
+enum class FiringModes : uint8
+{
+   FiringModes_Auto              UMETA( DisplayName = "Auto" ),
+   FiringModes_SemiAuto          UMETA( DisplayName = "SemiAuto" ),
+
+};
+

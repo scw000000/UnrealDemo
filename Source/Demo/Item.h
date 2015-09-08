@@ -3,23 +3,44 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "BasicCharacter.h"
 #include "Item.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
 class DEMO_API AItem : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:
 	// Sets default values for this actor's properties
-	AItem();
+	AItem(const FObjectInitializer& ObjectInitializer );
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
 
-	
-	
+	//virtual void Used();
+
+   void PickedUp( ABasicCharacter *character );
+
+   void Dropped( FVector location, FRotator rotation );
+   
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
+      FString Name;
+
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+		UStaticMeshComponent* Mesh;
+
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
+      bool pickedUpable;
+
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+      float pickUpDistance;
+
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+      int32 quantity;
+	// Called every frame
+	//virtual void Tick( float DeltaSeconds ) override;
 };

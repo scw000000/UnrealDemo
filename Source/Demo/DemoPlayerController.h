@@ -59,6 +59,6 @@ public:
    
 
 protected:
-   ABasicCharacter* m_ControllingCharacter;
+   ABasicCharacter* controllingCharacter;
    virtual bool SetControllingCharacter( APawn* InPawn );
 };

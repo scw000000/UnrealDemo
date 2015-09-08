@@ -15,14 +15,14 @@ void AMilitaryCharacter::ToggleProne( )
    WakePlayer();
    if( bodyMotion == BodyMotions::BodyMotions_Idle )
       {
-      FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation( );
-      aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, -50.f ) );
+      FVector aimArmRelativeLocation = aimingCameraBoom->GetRelativeTransform( ).GetLocation( );
+      aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, -50.f ) );
       bodyMotion = BodyMotions::BodyMotions_Prone;
       }
    else if( bodyMotion == BodyMotions::BodyMotions_Prone )
       {
-      FVector aimArmRelativeLocation = aimingCamBoom->GetRelativeTransform( ).GetLocation( );
-      aimingCamBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
+      FVector aimArmRelativeLocation = aimingCameraBoom->GetRelativeTransform( ).GetLocation( );
+      aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
       bodyMotion = BodyMotions::BodyMotions_Idle;
       }
 }

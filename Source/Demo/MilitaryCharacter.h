@@ -3,7 +3,6 @@
 #pragma once
 
 #include "BasicCharacter.h"
-#include "AnimMontageProperties.h"
 #include "MilitaryCharacter.generated.h"
 
 /**

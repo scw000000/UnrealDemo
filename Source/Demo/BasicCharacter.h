@@ -49,46 +49,46 @@ public:
 
    void SetCamDistance( float amount );
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camPitchMax;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float maxCameraPitch;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camPitchMin;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float minCameraPitch;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camScrollSpeed;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float cameraScrollSpeed;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camRotSpeed;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float cameraRotateSpeed;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camDistanceMax;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float maxCameraDistance;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      float camDistanceMin;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      float minCameraDistance;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerMotion )
       float idleTime;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* thirdPersonCamBoomYaw;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* thirdPersonCameraBoomYaw;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* thirdPersonCamBoomPitch;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* thirdPersonCameraBoomPitch;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      UCameraComponent* playerCam;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      UCameraComponent* playerCamera;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = PlayerView )
-      USpringArmComponent* aimingCamBoom;
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
+      USpringArmComponent* aimingCameraBoom;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
       PlayerViews playerView;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerMotion )
       ArmMotions armMotion;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerMotion )
       BodyMotions bodyMotion;
 
 
