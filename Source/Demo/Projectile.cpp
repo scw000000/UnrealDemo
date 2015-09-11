@@ -20,7 +20,7 @@ AProjectile::AProjectile( const FObjectInitializer& ObjectInitializer ) : Super(
    projectileMovement->Bounciness  = 0.3f;
 }
 
-void AProjectile::InitVelocity(const FVector& shootDirection)
+void AProjectile::InitVelocity( const FVector & shootDirection )
 {
    if ( projectileMovement )
       {

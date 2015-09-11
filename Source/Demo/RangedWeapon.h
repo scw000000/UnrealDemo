@@ -33,10 +33,7 @@ public:
       FVector nozzleOffset;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
-      UClass* bPAmmo;
-
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
-      TSubclassOf<class AProjectile> projectileClass;
+      TSubclassOf<class AProjectile> bpProjectile;
 
    
 private:

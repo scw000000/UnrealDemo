@@ -31,7 +31,7 @@ switch( firingMode )
 
 void ARangedWeapon::Fire()
 {
-   if ( projectileClass )
+   if ( bpProjectile )
       {
       FVector const nozzleLocation = mesh->GetSocketLocation( "nozzleSocket" );
       FVector const barrelLocation = mesh->GetSocketLocation( "barrelSocket" );
@@ -43,13 +43,13 @@ void ARangedWeapon::Fire()
          SpawnParams.Owner = this;
          SpawnParams.Instigator = Instigator;
          // spawn the projectile at the muzzle
-         AProjectile* const Projectile = GetWorld()->SpawnActor<AProjectile>(projectileClass, nozzleLocation, nozzleRotation );
+         AProjectile* const Projectile = GetWorld()->SpawnActor<AProjectile>( bpProjectile, nozzleLocation, nozzleRotation );
             if (Projectile)
             {
             // find launch direction
             FVector LaunchDir = nozzleLocation - barrelLocation;
             LaunchDir.Normalize();
-            Projectile->InitVelocity(LaunchDir);
+            Projectile->InitVelocity( LaunchDir );
             }
          }
       }

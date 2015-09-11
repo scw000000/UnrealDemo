@@ -24,16 +24,16 @@ void InventoryManager::Fire()
       }
 }
 
-void InventoryManager::SetControllingCharacter( ABasicCharacter *character )
+void InventoryManager::SetControllingCharacter( ABasicCharacter *const character )
 {
    controllingCharacter = character;
 }
 
-void InventoryManager::EquipWeapon( UClass* bpWeapon )
+void InventoryManager::EquipWeapon( TSubclassOf<class AWeapon> weapon )
 { 
-   if( bpWeapon && controllingCharacter)
+   if( weapon && controllingCharacter)
       {
-      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
+      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( weapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
       if( equippedWeapon )
          {
          const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "hand_rSocket" );

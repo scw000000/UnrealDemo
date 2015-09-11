@@ -6,6 +6,7 @@
 #include "InventoryManager.h"
 #include "MilitaryCharacter.generated.h"
 
+class AWeapon;
 /**
  * 
  */
@@ -45,14 +46,11 @@ public:
       WeaponCategories equippedWeapon;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
-      UClass* bpWeapon;
+      TSubclassOf<class AWeapon> bpWeapon;
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void EquipWeapon( UClass* weapon );
-
-   
+      void EquipWeapon( TSubclassOf<class AWeapon> weapon );
 
 private:
    InventoryManager inventoryManager;
-   bool fuck;
 };

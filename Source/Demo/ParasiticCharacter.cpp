@@ -32,7 +32,7 @@ void AParasiticCharacter::OnHit_Implementation( AActor* OtherActor, UPrimitiveCo
       }
 }
 
-void AParasiticCharacter::OnParasitize( ABasicCharacter* target )
+void AParasiticCharacter::OnParasitize( ABasicCharacter *const target )
 {
    //disable collision, movement and gravity
    GetCapsuleComponent()->SetCollisionEnabled( ECollisionEnabled::NoCollision );
@@ -46,7 +46,7 @@ void AParasiticCharacter::OnParasitize( ABasicCharacter* target )
    GetRootComponent()->SetRelativeLocation( FVector( 0.f, 0.f, relativeHeight ) );
 }
 
-void AParasiticCharacter::Parasitize( ABasicCharacter* target )
+void AParasiticCharacter::Parasitize( ABasicCharacter *const target )
 {
    APlayerController* pController = GetWorld( )->GetFirstPlayerController( );
    pController->Possess( target );

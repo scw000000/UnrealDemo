@@ -170,7 +170,7 @@ void ABasicCharacter::MoveRight( float amount )
    AddMovementInput( right, amount, false );
 }
 
-void ABasicCharacter::SetCamYaw( float amount )
+void ABasicCharacter::SetCamYaw( const float& amount )
 {
    switch( playerView )
       {
@@ -187,7 +187,7 @@ void ABasicCharacter::SetCamYaw( float amount )
       }
 }
 
-void ABasicCharacter::SetCamPitch( float amount )
+void ABasicCharacter::SetCamPitch( const float& amount )
 {
    float clampedPitch;
    FRotator currentRotation;
@@ -217,7 +217,7 @@ void ABasicCharacter::SetCamPitch( float amount )
   //    default:
       }
 }
-void ABasicCharacter::SetCamDistance( float amount )
+void ABasicCharacter::SetCamDistance( const float& amount )
 {
    thirdPersonCameraBoomPitch->TargetArmLength += cameraScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
    thirdPersonCameraBoomPitch->TargetArmLength = FMath::Clamp<float>( thirdPersonCameraBoomPitch->TargetArmLength, minCameraDistance, maxCameraDistance );
@@ -233,12 +233,12 @@ void ABasicCharacter::WakePlayer()
       }
 }
 
-void ABasicCharacter::AddIdleTime( float inTime )
+void ABasicCharacter::AddIdleTime( const float& inTime )
 {
    idleTime += inTime;
 }
 
-void ABasicCharacter::RefineMotionType( float DeltaSeconds )
+void ABasicCharacter::RefineMotionType( const float& DeltaSeconds )
 {
    switch( bodyMotion )
       {
@@ -265,7 +265,7 @@ void ABasicCharacter::RefineMotionType( float DeltaSeconds )
 
 }
 
-void ABasicCharacter::RefineMotionStand( float DeltaSeconds )
+void ABasicCharacter::RefineMotionStand( const float& DeltaSeconds )
 {
    //if NOT falling(stay on ground)
    if( !GetMovementComponent( )->IsFalling( ) )
@@ -395,6 +395,6 @@ void ABasicCharacter::SetPlayerViewToFirstPerson( )
    //playerCamera->Att
 }
 
-void UpdateCameraLocationAndRotation( float DeltaSeconds )
+void UpdateCameraLocationAndRotation( const float& DeltaSeconds )
  {
  }

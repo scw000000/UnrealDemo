@@ -20,9 +20,9 @@ public:
 
    void Fire();
 
-   void SetControllingCharacter( ABasicCharacter *character );
+   void SetControllingCharacter( ABasicCharacter *const character );
    
-   void EquipWeapon( UClass* bpWeapon );
+   void EquipWeapon( TSubclassOf<class AWeapon> weapon );
 
 private:
    

@@ -28,8 +28,8 @@ public:
    float parasitizeTimeMax;
 
 private:
-   void OnParasitize( ABasicCharacter* target );
-   void Parasitize( ABasicCharacter* target );
+   void OnParasitize( ABasicCharacter *const target );
+   void Parasitize( ABasicCharacter *const target );
 	
 	bool parasitizingHuman;
 

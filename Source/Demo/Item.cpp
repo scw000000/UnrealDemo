@@ -29,7 +29,7 @@ void AItem::Tick( float DeltaTime )
    
 }
 
-void AItem::PickedUp( ABasicCharacter *character )
+void AItem::PickedUp( ABasicCharacter *const character )
 {
    if ( mesh && this->GetDistanceTo( character ) < pickUpDistance )
 	   {
@@ -37,7 +37,7 @@ void AItem::PickedUp( ABasicCharacter *character )
 	   }
 }
 
-void AItem::Dropped( FVector location, FRotator rotation )
+void AItem::Dropped( const FVector& location, const FRotator& rotation )
 { 
    
 }

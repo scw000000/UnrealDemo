@@ -25,9 +25,9 @@ public:
 
 	//virtual void Used();
 
-   void PickedUp( ABasicCharacter *character );
+   void PickedUp( ABasicCharacter *const character );
 
-   void Dropped( FVector location, FRotator rotation );
+   void Dropped( const FVector& location, const FRotator& rotation );
    
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
       FString name;

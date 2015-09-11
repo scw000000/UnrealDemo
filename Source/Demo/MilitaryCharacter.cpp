@@ -9,7 +9,6 @@ AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitiali
    PrimaryActorTick.bCanEverTick = false;
 
    equippedWeapon = WeaponCategories::WeaponCategories_BareHand;
-   fuck = false;
 }
 
 void AMilitaryCharacter::PostInitializeComponents( )
@@ -99,7 +98,7 @@ void AMilitaryCharacter::Crouch( bool bClientSimulation )
       }
 }
 
-void AMilitaryCharacter::EquipWeapon( UClass* bpWeapon )
+void AMilitaryCharacter::EquipWeapon( TSubclassOf<class AWeapon> weapon )
 {
-   inventoryManager.EquipWeapon( bpWeapon );
+   inventoryManager.EquipWeapon( weapon );
 }

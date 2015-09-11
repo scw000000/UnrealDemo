@@ -43,11 +43,11 @@ public:
    //custom function for movement
    virtual void MoveRight( float amount );
 
-   void SetCamYaw( float amount );
+   void SetCamYaw( const float& amount );
 
-   void SetCamPitch( float amount );
+   void SetCamPitch( const float& amount );
 
-   void SetCamDistance( float amount );
+   void SetCamDistance( const float& amount );
 
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
       float maxCameraPitch;
@@ -95,11 +95,11 @@ public:
 protected:
   void WakePlayer();
 
-  void AddIdleTime( float inTime );
+  void AddIdleTime( const float& inTime );
 
-  void RefineMotionType( float DeltaSeconds );
+  void RefineMotionType( const float& DeltaSeconds );
 
-  void RefineMotionStand( float DeltaSeconds );
+  void RefineMotionStand( const float& DeltaSeconds );
 
   void RefineMotionJog( );
 
@@ -120,5 +120,5 @@ private:
 
    void SetPlayerViewToFirstPerson( );
 
-   void UpdateCameraLocationAndRotation( float DeltaSeconds );
+   void UpdateCameraLocationAndRotation( const float& DeltaSeconds );
 };
