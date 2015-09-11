@@ -43,25 +43,16 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    aimingCameraBoom = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For Aiming location setting" ) );
    aimingCameraBoom->TargetArmLength = 50.0f;
    aimingCameraBoom->AttachTo( RootComponent );
-   //aimingCameraBoom->AttachTo( GetMesh(), GetMesh()->GetSocketBoneName("Socket_ViewPoint") );
-   //aimingCameraBoom->CanAttachAsChild
-   //GetMesh()->GetSocketBoneName
-    //  GetMesh()->GetSOcket
-//   const USkeletalMeshSocket *socket = GetMesh( )->GetSocketByName("Socket_ViewPoint");
- //  socket->AttachActor( aimingCameraBoom );
-   //Socket_ViewPoint
+
    playerView = PlayerViews::PlayerViews_ThirdPerson;
    armMotion = ArmMotions::ArmMotions_Default;
    bodyMotion = BodyMotions::BodyMotions_Idle;
-
-   m_Speed = 0.f;
 }
 
 // Called when the game starts or when spawned
 void ABasicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-   SetActorRotation( FRotator::ZeroRotator );
 }
 
 void ABasicCharacter::Jump( )

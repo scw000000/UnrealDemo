@@ -21,16 +21,17 @@ public:
 
    virtual void OnHit_Implementation( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
 
-   UFUNCTION( BlueprintNativeEvent, Category = Collision )
+   UFUNCTION( BlueprintNativeEvent, Category = Parasite )
          void OnHit( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Parasite)
+   float parasitizeTimeMax;
 
 private:
    void OnParasitize( ABasicCharacter* target );
    void Parasitize( ABasicCharacter* target );
 	
 	bool parasitizingHuman;
-
-   float parasitizingTimeMax;
 
    FTimerHandle parasitizingTimerHandle;
  //  FTimerHandle graduateAwayTimerHandle;

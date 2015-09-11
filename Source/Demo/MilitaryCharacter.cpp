@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
+#include "Weapon.h"
 #include "MilitaryCharacter.h"
 
 AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) : ABasicCharacter( ObjectInitializer )
@@ -8,6 +9,18 @@ AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitiali
    PrimaryActorTick.bCanEverTick = false;
 
    equippedWeapon = WeaponCategories::WeaponCategories_BareHand;
+   fuck = false;
+}
+
+void AMilitaryCharacter::PostInitializeComponents( )
+{
+   Super::PostInitializeComponents();
+}  
+
+void AMilitaryCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+   inventoryManager.SetControllingCharacter( this );
 }
 
 void AMilitaryCharacter::ToggleProne( )
@@ -25,6 +38,11 @@ void AMilitaryCharacter::ToggleProne( )
       aimingCameraBoom->SetRelativeLocation( FVector( aimArmRelativeLocation.X, aimArmRelativeLocation.Y, 70.f ) );
       bodyMotion = BodyMotions::BodyMotions_Idle;
       }
+}
+
+void AMilitaryCharacter::Fire()
+{
+   inventoryManager.Fire();
 }
 
 void AMilitaryCharacter::StartReload()
@@ -49,6 +67,11 @@ void AMilitaryCharacter::EndReload()
       {
       armMotion = ArmMotions::ArmMotions_Default;
       }
+}
+
+void AMilitaryCharacter::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
 }
 
 void AMilitaryCharacter::MoveForward( float amount )
@@ -76,3 +99,7 @@ void AMilitaryCharacter::Crouch( bool bClientSimulation )
       }
 }
 
+void AMilitaryCharacter::EquipWeapon( UClass* bpWeapon )
+{
+   inventoryManager.EquipWeapon( bpWeapon );
+}

@@ -113,8 +113,6 @@ protected:
 
   void RefineMotionBreak( );
 
-  float m_Speed;
-
 private:
    void SetPlayerViewToThirdPerson( );
 

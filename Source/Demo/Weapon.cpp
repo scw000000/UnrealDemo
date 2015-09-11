@@ -3,6 +3,10 @@
 #include "Demo.h"
 #include "Weapon.h"
 
-
+void AWeapon::Initialize( ABasicCharacter *character, FName socketName )
+{
+   const USkeletalMeshSocket *socket = character->GetMesh()->GetSocketByName( socketName );
+   socket->AttachActor( this, character->GetMesh() );  
+}
 
 

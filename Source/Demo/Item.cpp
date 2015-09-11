@@ -9,9 +9,9 @@
 AItem::AItem( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
-	Mesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Mesh"));
-	RootComponent = Mesh;
+	PrimaryActorTick.bCanEverTick = true;
+	mesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Mesh"));
+	RootComponent = mesh;
    quantity = 1;
 }
 
@@ -19,13 +19,19 @@ AItem::AItem( const FObjectInitializer& ObjectInitializer ) : Super( ObjectIniti
 void AItem::BeginPlay()
 {
 	Super::BeginPlay();
-	Mesh->SetSimulatePhysics(true);
-	Mesh->WakeRigidBody();
+	//Mesh->SetSimulatePhysics(true);
+	//Mesh->WakeRigidBody();
+}
+
+void AItem::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+   
 }
 
 void AItem::PickedUp( ABasicCharacter *character )
 {
-   if ( Mesh && this->GetDistanceTo( character ) < pickUpDistance )
+   if ( mesh && this->GetDistanceTo( character ) < pickUpDistance )
 	   {
 		Destroy();
 	   }

@@ -3,28 +3,41 @@
 #include "Demo.h"
 #include "InventoryManager.h"
 #include "Weapon.h"
+#include "RangedWeapon.h"
 #include "BasicCharacter.h"
-
-InventoryManager* InventoryManager::instance;
 
 InventoryManager::InventoryManager()
 {
+   equippedWeapon = NULL;
 }
 
 InventoryManager::~InventoryManager()
 {
 }
 
-void InventoryManager::EquipWeapon( UClass* bpWeapon )
+void InventoryManager::Fire()
 {
-   if( bpWeapon )
+   ARangedWeapon *const rangedWeapon= Cast<ARangedWeapon>( equippedWeapon );
+   if( rangedWeapon )
       {
-      AWeapon *weapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpWeapon, FVector::ZeroVector, FRotator::ZeroRotator );
-    //  MeleeWeapon = NULL;
-      if( weapon )
+      rangedWeapon->Fire();
+      }
+}
+
+void InventoryManager::SetControllingCharacter( ABasicCharacter *character )
+{
+   controllingCharacter = character;
+}
+
+void InventoryManager::EquipWeapon( UClass* bpWeapon )
+{ 
+   if( bpWeapon && controllingCharacter)
+      {
+      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
+      if( equippedWeapon )
          {
-         const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "RightHandSocket" );
-         socket->AttachActor( weapon, controllingCharacter->GetMesh() );
+         const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "hand_rSocket" );
+         socket->AttachActor( equippedWeapon, controllingCharacter->GetMesh() );
          }
       }
 }  

@@ -7,13 +7,12 @@ AParasiticCharacter::AParasiticCharacter( const FObjectInitializer& ObjectInitia
 {
    GetCapsuleComponent()->OnComponentHit.AddDynamic( this, &AParasiticCharacter::OnHit );
    parasitizingHuman = false;
-   parasitizingTimeMax = 5.0f;
+   parasitizeTimeMax = 5.0f;
 }
 
 void AParasiticCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-   //GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::SanitizeFloat( GetRootComponent()->GetRelativeTransform().GetLocation().Z ) );
 }
 
 void AParasiticCharacter::OnHit_Implementation( AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit )
@@ -21,19 +20,16 @@ void AParasiticCharacter::OnHit_Implementation( AActor* OtherActor, UPrimitiveCo
    ABasicCharacter *otherCharacter = Cast<ABasicCharacter>( OtherActor );
    if( otherCharacter != nullptr && !parasitizingHuman)
       {  
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess enter" );
       //attach to otherCharacter
       OnParasitize( otherCharacter );    
       //start timer
       parasitizingDelegate = FTimerDelegate::CreateUObject( this, &AParasiticCharacter::Parasitize, otherCharacter );
-      GetWorld()->GetTimerManager().SetTimer( parasitizingTimerHandle, parasitizingDelegate, parasitizingTimeMax, false);
+      GetWorld()->GetTimerManager().SetTimer( parasitizingTimerHandle, parasitizingDelegate, parasitizeTimeMax, false);
       parasitizingHuman = true;
       }
    else
       {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "cast fail" );
       }
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "possess end" );
 }
 
 void AParasiticCharacter::OnParasitize( ABasicCharacter* target )

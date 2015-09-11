@@ -6,6 +6,7 @@
 #include "DemoEnums.h"
 #include "Weapon.generated.h"
 
+class ABasicCharacter;
 /**
  * 
  */
@@ -14,7 +15,7 @@ class DEMO_API AWeapon : public AItem
 {
 	GENERATED_BODY()
 public:
-
+   void Initialize( ABasicCharacter *character, FName socketName );
 	//virtual void Attack( int attackType = 0 );
 
    UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Weapon )

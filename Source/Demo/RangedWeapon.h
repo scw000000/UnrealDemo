@@ -13,18 +13,32 @@ class DEMO_API ARangedWeapon : public AWeapon
 {
 	GENERATED_BODY()
 public:
-
-   void Fire();
-	void Reload();
+   ARangedWeapon();
+   
    void OnTriggerPressed();
    void OnTriggerReleased();
+   void Fire();
+	void Reload();
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   void SetcanFire( const bool& inCanFire );
+   bool GetcanFire();
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
       FiringModes firingMode; 
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+      int32 maxAmmo; 
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+      FVector nozzleOffset;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
       UClass* bPAmmo;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = RangedWeapon )
-      int32 maxAmmo;
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+      TSubclassOf<class AProjectile> projectileClass;
+
+   
+private:
+   bool canFire;
 };

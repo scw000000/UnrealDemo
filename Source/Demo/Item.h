@@ -21,6 +21,8 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+   virtual void Tick( float DeltaSeconds ) override;
+
 	//virtual void Used();
 
    void PickedUp( ABasicCharacter *character );
@@ -28,10 +30,10 @@ public:
    void Dropped( FVector location, FRotator rotation );
    
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
-      FString Name;
+      FString name;
 
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
-		UStaticMeshComponent* Mesh;
+		UStaticMeshComponent* mesh;
 
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
       bool pickedUpable;
@@ -41,6 +43,4 @@ public:
 
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
       int32 quantity;
-	// Called every frame
-	//virtual void Tick( float DeltaSeconds ) override;
 };

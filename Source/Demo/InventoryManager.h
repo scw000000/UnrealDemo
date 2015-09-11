@@ -3,6 +3,7 @@
 #pragma once
 
 class ABasicCharacter;
+class AWeapon;
 /**
  * 
  */
@@ -10,22 +11,21 @@ class ABasicCharacter;
 class DEMO_API InventoryManager
 {
 public:
-   static InventoryManager* GetInstance();
-   void InventoryManager::EquipWeapon( UClass* bpWeapon );
-   
-private:
+  // static InventoryManager* GetInstance();
    InventoryManager();
-	~InventoryManager();
-   ABasicCharacter* controllingCharacter;
-   static InventoryManager* instance;
-  // virtual bool SetControllingCharacter( APawn* InPawn );
-};
 
-InventoryManager* InventoryManager::GetInstance()
-{
-   if( !instance )
-      {
-      instance = new InventoryManager;
-      }
-   return instance;
-}
+	~InventoryManager();
+   
+   //virtual void PostInitializeComponents() override;
+
+   void Fire();
+
+   void SetControllingCharacter( ABasicCharacter *character );
+   
+   void EquipWeapon( UClass* bpWeapon );
+
+private:
+   
+   ABasicCharacter* controllingCharacter;
+   AWeapon* equippedWeapon;
+};
