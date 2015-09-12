@@ -50,10 +50,10 @@ enum class WeaponCategories : uint8
 };
 
 UENUM( BlueprintType )		
-enum class FiringModes : uint8
+enum class FireModes : uint8
 {
-   FiringModes_Auto              UMETA( DisplayName = "Auto" ),
-   FiringModes_SemiAuto          UMETA( DisplayName = "SemiAuto" ),
+   FireModes_Auto              UMETA( DisplayName = "Auto" ),
+   FireModes_SemiAuto          UMETA( DisplayName = "SemiAuto" ),
 
 };
 

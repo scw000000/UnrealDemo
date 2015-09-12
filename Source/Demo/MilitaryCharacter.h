@@ -28,6 +28,9 @@ public:
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void Fire();
 
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void StopFire();
+
    void StartReload();
 
    void EndReload();

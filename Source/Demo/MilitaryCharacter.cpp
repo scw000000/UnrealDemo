@@ -41,7 +41,12 @@ void AMilitaryCharacter::ToggleProne( )
 
 void AMilitaryCharacter::Fire()
 {
-   inventoryManager.Fire();
+   inventoryManager.Fire( true );
+}
+
+void AMilitaryCharacter::StopFire()
+{
+   inventoryManager.Fire( false );
 }
 
 void AMilitaryCharacter::StartReload()

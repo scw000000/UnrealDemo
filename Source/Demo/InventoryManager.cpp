@@ -15,12 +15,13 @@ InventoryManager::~InventoryManager()
 {
 }
 
-void InventoryManager::Fire()
+void InventoryManager::Fire( bool trigger )
 {
    ARangedWeapon *const rangedWeapon= Cast<ARangedWeapon>( equippedWeapon );
    if( rangedWeapon )
       {
-      rangedWeapon->Fire();
+      rangedWeapon->SetisTriggerOn( trigger );
+    //  rangedWeapon->Fire();
       }
 }
 

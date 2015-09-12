@@ -18,7 +18,7 @@ public:
    
    //virtual void PostInitializeComponents() override;
 
-   void Fire();
+   void Fire( bool trigger );
 
    void SetControllingCharacter( ABasicCharacter *const character );
    
