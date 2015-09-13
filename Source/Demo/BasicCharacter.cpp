@@ -84,7 +84,7 @@ void ABasicCharacter::StartAttack()
       }
 }
 
-void ABasicCharacter::EndAttack()
+void ABasicCharacter::StopAttack()
 {
    if( playerView == PlayerViews::PlayerViews_Aim )
       {

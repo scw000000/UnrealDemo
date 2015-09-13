@@ -26,10 +26,16 @@ public:
    virtual void ToggleProne() override;
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void Fire();
+      virtual void StartAttack() override;
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void StopFire();
+      virtual void StopAttack() override;
+   
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void StopEquipWeapon();
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void ShowEquipWeapon( );
 
    void StartReload();
 
@@ -51,8 +57,13 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       TSubclassOf<class AWeapon> bpWeapon;
 
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
+      TSubclassOf<class AWeapon> bpWeapon2;
+
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void EquipWeapon( TSubclassOf<class AWeapon> weapon );
+      void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
+
+    //  void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
 private:
    InventoryManager inventoryManager;

@@ -23,24 +23,28 @@ public:
 
    virtual void Tick( float DeltaSeconds ) override;
 
+   bool Equals( AItem* otherItem );
+
 	//virtual void Used();
 
    void PickedUp( ABasicCharacter *const character );
 
    void Dropped( const FVector& location, const FRotator& rotation );
+
    
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
+   
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
       FString name;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item)
 		UStaticMeshComponent* mesh;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item )
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
       bool pickedUpable;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item)
       float pickUpDistance;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Item)
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item)
       int32 quantity;
 };

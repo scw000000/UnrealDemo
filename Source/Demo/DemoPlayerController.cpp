@@ -103,7 +103,7 @@ void ADemoPlayerController::LeftMouseButtonReleased()
 {
    if( controllingCharacter )
    {
-   controllingCharacter->EndAttack( );
+   controllingCharacter->StopAttack( );
    }
 }
 

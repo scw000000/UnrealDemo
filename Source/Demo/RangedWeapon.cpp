@@ -45,8 +45,9 @@ void ARangedWeapon::Fire()
             Projectile->InitVelocity( LaunchDir );
             //set ammo num
             ammo--;
-            StartCoolDownTimer();
             SetisCoolDownOver( false );
+            StartCoolDownTimer();
+            
             }
          }
       }
@@ -87,20 +88,7 @@ bool ARangedWeapon::GetcanFire()
 
 void ARangedWeapon::OnTriggerPressed()
 {
-   UWorld *const world = GetWorld();
-   if( world )
-      {
-      switch( fireMode )
-         {
-         case FireModes::FireModes_Auto :
-            TryAutoFire();
-            break;
-         case FireModes::FireModes_SemiAuto :
-            TrySemiAutoFire();
-          //  world->GetTimerManager().SetTimer( autoFireTimerHandle, this, &ARangedWeapon::TrySingleFire, 1.f / fireRate, false, 0.f );
-            break;
-         }
-      }
+   TryFire( true );
 }
 
 void ARangedWeapon::OnTriggerReleased()
@@ -114,33 +102,39 @@ void ARangedWeapon::OnTriggerReleased()
          }
       }
 }
-
-void ARangedWeapon::TryAutoFire()
+//on TriggerPressed indicates that is this is the first shot
+//test condition for cooldown
+void ARangedWeapon::TryFire( bool onTriggerPressed )
 {
-   //test cool down time since last time released trigger
-   if( ammo > 0 && isCoolDownOver)
+   if( isCoolDownOver )
       {
-      UWorld *const world = GetWorld();
-      if( world )
+      switch( fireMode )
          {
-         //keep firing and ignred the cooldown limitation, since the timer already call Fire() based on cooldown time
-         world->GetTimerManager().SetTimer( autoFireTimerHandle, this, &ARangedWeapon::TrySingleFire, coolDownTime, true, 0.f );
+         case FireModes::FireModes_Auto :
+            TryAutoFire();
+            break;
+         case FireModes::FireModes_SemiAuto :
+            TrySemiAutoFire( onTriggerPressed );
+            break;
          }
-      }
-   else
-      {
       }
 }
 
-void ARangedWeapon::TrySemiAutoFire()
+void ARangedWeapon::TryAutoFire()
 {
-   if( ammo > 0 && isCoolDownOver )
+   UWorld *const world = GetWorld();
+   if( world )
+      {
+         //keep firing and ignred the cooldown limitation, since the timer already call Fire() based on cooldown time
+      world->GetTimerManager().SetTimer( autoFireTimerHandle, this, &ARangedWeapon::TrySingleFire, coolDownTime, true, 0.f );
+      }
+}
+
+void ARangedWeapon::TrySemiAutoFire( bool onTriggerPressed )
+{
+   if( onTriggerPressed )
       {
       TrySingleFire();
-      }
-   else
-      {
-      
       }
 }
 //TrySingleFire should always be called by TryAutoFire() or TrySemiAutoFire() since it negelects isCoolDownOver condition
@@ -155,6 +149,10 @@ void ARangedWeapon::TrySingleFire()
 void ARangedWeapon::ResetisCoolDownOver()
 {  
    isCoolDownOver = true;
+   if( isTriggerOn )
+      {
+      TryFire( false );
+      }
 }
 
 void ARangedWeapon::StartCoolDownTimer()

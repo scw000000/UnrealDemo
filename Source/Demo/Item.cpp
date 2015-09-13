@@ -29,6 +29,15 @@ void AItem::Tick( float DeltaTime )
    
 }
 
+bool AItem::Equals( AItem* otherItem )
+{
+   if( otherItem && ( name.Equals( otherItem->name ) ) )
+      {
+      return true;
+      }   
+   return false;
+}
+
 void AItem::PickedUp( ABasicCharacter *const character )
 {
    if ( mesh && this->GetDistanceTo( character ) < pickUpDistance )

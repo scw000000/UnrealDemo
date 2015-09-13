@@ -18,14 +18,21 @@ public:
    
    //virtual void PostInitializeComponents() override;
 
-   void Fire( bool trigger );
+   void SetAttack( bool isAttackOn );
 
    void SetControllingCharacter( ABasicCharacter *const character );
    
-   void EquipWeapon( TSubclassOf<class AWeapon> weapon );
+   void SetbpEquippingWeapon( TSubclassOf<class AWeapon> weapon );
+
+   void EquipWeapon();
+
+   void DestroyEquippedWeapon();
+
+   AWeapon* GetEquippedWeapon();
 
 private:
    
    ABasicCharacter* controllingCharacter;
    AWeapon* equippedWeapon;
+   TSubclassOf<class AWeapon> bpEquippingWeapon;
 };

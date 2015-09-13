@@ -22,9 +22,9 @@ public:
 
    virtual void ToggleProne();
    	
-   void StartAttack();
+   virtual void StartAttack();
 
-   void EndAttack();
+   virtual void StopAttack();
 
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;

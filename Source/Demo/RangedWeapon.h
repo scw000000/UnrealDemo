@@ -49,9 +49,11 @@ private:
 
    void OnTriggerReleased();
 
+   void TryFire( bool onTriggerPressed );
+
    void TryAutoFire();
 
-   void TrySemiAutoFire();
+   void TrySemiAutoFire( bool onTriggerPressed );
 
    void TrySingleFire();
 

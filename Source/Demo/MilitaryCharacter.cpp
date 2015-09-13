@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
-#include "Weapon.h"
+#include "RangedWeapon.h"
 #include "MilitaryCharacter.h"
 
 AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) : ABasicCharacter( ObjectInitializer )
@@ -39,14 +39,38 @@ void AMilitaryCharacter::ToggleProne( )
       }
 }
 
-void AMilitaryCharacter::Fire()
+void AMilitaryCharacter::StartAttack()
 {
-   inventoryManager.Fire( true );
+   Super::StartAttack();
+   inventoryManager.SetAttack( true );
 }
 
-void AMilitaryCharacter::StopFire()
+void AMilitaryCharacter::StopAttack()
 {
-   inventoryManager.Fire( false );
+   Super::StopAttack();
+   inventoryManager.SetAttack( false );
+}
+
+void AMilitaryCharacter::StopEquipWeapon( )
+{ 
+   if( playerView == PlayerViews::PlayerViews_Aim )
+      {
+      armMotion = ArmMotions::ArmMotions_IronSight;
+      }
+   else
+      {
+      armMotion = ArmMotions::ArmMotions_Default;
+      }
+}
+
+void AMilitaryCharacter::ShowEquipWeapon()
+{           
+   //before spawn new weapon, destroy the old weapon
+   if( inventoryManager.GetEquippedWeapon() )
+      {
+      inventoryManager.DestroyEquippedWeapon();
+      }
+   inventoryManager.EquipWeapon();
 }
 
 void AMilitaryCharacter::StartReload()
@@ -103,7 +127,30 @@ void AMilitaryCharacter::Crouch( bool bClientSimulation )
       }
 }
 
-void AMilitaryCharacter::EquipWeapon( TSubclassOf<class AWeapon> weapon )
+
+
+void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
 {
-   inventoryManager.EquipWeapon( weapon );
+   if( playerView == PlayerViews::PlayerViews_ThirdPerson && 
+        ( bodyMotion == BodyMotions::BodyMotions_Idle || 
+          bodyMotion == BodyMotions::BodyMotions_Jog || 
+          bodyMotion == BodyMotions::BodyMotions_CrouchIdle || 
+          bodyMotion == BodyMotions::BodyMotions_CrouchJog ) )
+      {
+      ARangedWeapon* castedWeapon = Cast<ARangedWeapon>( weapon );
+      if( castedWeapon && !castedWeapon->Equals( inventoryManager.GetEquippedWeapon() ) )
+         {
+         this->equippedWeapon = WeaponCategories::WeaponCategories_Rifle;
+         armMotion = ArmMotions::ArmMotions_Equip;
+      //   inventoryManager.SetbpEquippingWeapon( weapon );
+         }
+      else if( !castedWeapon )
+         {
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: cast failed" );
+         }
+      }
+   else
+      {
+      
+      }
 }
