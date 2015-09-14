@@ -28,11 +28,14 @@ public:
 
    void DestroyEquippedWeapon();
 
-   AWeapon* GetEquippedWeapon();
+   TSubclassOf<class AWeapon> GetEquippedWeapon();
 
 private:
    
    ABasicCharacter* controllingCharacter;
+   
    AWeapon* equippedWeapon;
+
+   TSubclassOf<class AWeapon> bpEquippedWeapon;
    TSubclassOf<class AWeapon> bpEquippingWeapon;
 };

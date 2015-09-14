@@ -137,16 +137,17 @@ void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
           bodyMotion == BodyMotions::BodyMotions_CrouchIdle || 
           bodyMotion == BodyMotions::BodyMotions_CrouchJog ) )
       {
-      ARangedWeapon* castedWeapon = Cast<ARangedWeapon>( weapon );
-      if( castedWeapon && !castedWeapon->Equals( inventoryManager.GetEquippedWeapon() ) )
+    //  ARangedWeapon* castedWeapon = Cast<ARangedWeapon>( weapon );
+      if( weapon && weapon != inventoryManager.GetEquippedWeapon() ) 
          {
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "start equip" );
          this->equippedWeapon = WeaponCategories::WeaponCategories_Rifle;
          armMotion = ArmMotions::ArmMotions_Equip;
-      //   inventoryManager.SetbpEquippingWeapon( weapon );
+         inventoryManager.SetbpEquippingWeapon( weapon );
          }
-      else if( !castedWeapon )
+      else if( weapon && weapon == inventoryManager.GetEquippedWeapon() )
          {
-         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: cast failed" );
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: same weapon" );
          }
       }
    else

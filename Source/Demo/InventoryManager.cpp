@@ -9,6 +9,7 @@
 InventoryManager::InventoryManager()
 {
    equippedWeapon = NULL;
+   bpEquippedWeapon = NULL;
    bpEquippingWeapon = NULL;
 }
 
@@ -40,12 +41,17 @@ void InventoryManager::EquipWeapon()
 { 
    if( bpEquippingWeapon && controllingCharacter)
       {
-      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpEquippingWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
+      bpEquippedWeapon = bpEquippingWeapon;
+      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpEquippedWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
       if( equippedWeapon )
          {
          const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "hand_rSocket" );
          socket->AttachActor( equippedWeapon, controllingCharacter->GetMesh() );
          bpEquippingWeapon = NULL;
+         }
+      else
+         {
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "spawnfailed" );
          }
       }
 }  
@@ -54,11 +60,13 @@ void InventoryManager::DestroyEquippedWeapon()
 {
    if( equippedWeapon && controllingCharacter)
       {
-      equippedWeapon->BeginDestroy();
+      equippedWeapon->Destroy();
+      equippedWeapon = NULL;
+      bpEquippedWeapon = NULL;
       }
 }
 
-AWeapon* InventoryManager::GetEquippedWeapon()
+TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
 {
-   return equippedWeapon;
+   return bpEquippedWeapon;
 }
