@@ -22,15 +22,16 @@ public:
 
    void SetControllingCharacter( ABasicCharacter *const character );
    
-   void SetbpEquippingWeapon( TSubclassOf<class AWeapon> weapon );
+   bool InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
-   void EquipWeapon();
+   void FinishEquipWeapon();
 
    void DestroyEquippedWeapon();
 
    TSubclassOf<class AWeapon> GetEquippedWeapon();
 
 private:
+   void SpawnAndAttachWeapon();
    
    ABasicCharacter* controllingCharacter;
    

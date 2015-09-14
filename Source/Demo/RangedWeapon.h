@@ -27,8 +27,6 @@ public:
    
    bool GetcanFire();
 
-   
-
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
       FireModes fireMode; 
 

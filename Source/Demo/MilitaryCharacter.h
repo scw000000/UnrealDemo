@@ -32,10 +32,10 @@ public:
       virtual void StopAttack() override;
    
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void StopEquipWeapon();
+      void EndEquipWeapon();
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void ShowEquipWeapon( );
+      void InstantiateEquipWeapon( );
 
    void StartReload();
 

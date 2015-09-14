@@ -51,7 +51,7 @@ void AMilitaryCharacter::StopAttack()
    inventoryManager.SetAttack( false );
 }
 
-void AMilitaryCharacter::StopEquipWeapon( )
+void AMilitaryCharacter::EndEquipWeapon( )
 { 
    if( playerView == PlayerViews::PlayerViews_Aim )
       {
@@ -61,16 +61,12 @@ void AMilitaryCharacter::StopEquipWeapon( )
       {
       armMotion = ArmMotions::ArmMotions_Default;
       }
+
 }
 
-void AMilitaryCharacter::ShowEquipWeapon()
+void AMilitaryCharacter::InstantiateEquipWeapon()
 {           
-   //before spawn new weapon, destroy the old weapon
-   if( inventoryManager.GetEquippedWeapon() )
-      {
-      inventoryManager.DestroyEquippedWeapon();
-      }
-   inventoryManager.EquipWeapon();
+   inventoryManager.FinishEquipWeapon();
 }
 
 void AMilitaryCharacter::StartReload()
@@ -127,8 +123,6 @@ void AMilitaryCharacter::Crouch( bool bClientSimulation )
       }
 }
 
-
-
 void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
 {
    if( playerView == PlayerViews::PlayerViews_ThirdPerson && 
@@ -137,21 +131,10 @@ void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
           bodyMotion == BodyMotions::BodyMotions_CrouchIdle || 
           bodyMotion == BodyMotions::BodyMotions_CrouchJog ) )
       {
-    //  ARangedWeapon* castedWeapon = Cast<ARangedWeapon>( weapon );
-      if( weapon && weapon != inventoryManager.GetEquippedWeapon() ) 
+      if( inventoryManager.InitializeEquipWeapon( weapon ) ) 
          {
-         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "start equip" );
          this->equippedWeapon = WeaponCategories::WeaponCategories_Rifle;
          armMotion = ArmMotions::ArmMotions_Equip;
-         inventoryManager.SetbpEquippingWeapon( weapon );
          }
-      else if( weapon && weapon == inventoryManager.GetEquippedWeapon() )
-         {
-         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: same weapon" );
-         }
-      }
-   else
-      {
-      
       }
 }

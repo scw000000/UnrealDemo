@@ -32,12 +32,41 @@ void InventoryManager::SetControllingCharacter( ABasicCharacter *const character
    controllingCharacter = character;
 }
 
-void InventoryManager::SetbpEquippingWeapon( TSubclassOf<class AWeapon> weapon )
+bool InventoryManager::InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon )
 {
    bpEquippingWeapon = weapon;
+   if( weapon && bpEquippedWeapon != weapon )
+      {
+      return true;
+      }
+   return false;
 }
 
-void InventoryManager::EquipWeapon()
+void InventoryManager::FinishEquipWeapon()
+{
+   if( GetEquippedWeapon() )
+      {
+      DestroyEquippedWeapon();
+      }
+   SpawnAndAttachWeapon();
+}
+
+void InventoryManager::DestroyEquippedWeapon()
+{
+   if( equippedWeapon && controllingCharacter)
+      {
+      equippedWeapon->Destroy();
+      equippedWeapon = NULL;
+      bpEquippedWeapon = NULL;
+      }
+}
+
+TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
+{
+   return bpEquippedWeapon;
+}
+
+void InventoryManager::SpawnAndAttachWeapon()
 { 
    if( bpEquippingWeapon && controllingCharacter)
       {
@@ -55,18 +84,3 @@ void InventoryManager::EquipWeapon()
          }
       }
 }  
-
-void InventoryManager::DestroyEquippedWeapon()
-{
-   if( equippedWeapon && controllingCharacter)
-      {
-      equippedWeapon->Destroy();
-      equippedWeapon = NULL;
-      bpEquippedWeapon = NULL;
-      }
-}
-
-TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
-{
-   return bpEquippedWeapon;
-}
