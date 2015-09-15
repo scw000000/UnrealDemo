@@ -17,6 +17,35 @@ InventoryManager::~InventoryManager()
 {
 }
 
+void InventoryManager::FinishEquipWeapon()
+{
+   if( GetEquippedWeapon() )
+      {
+      AddItem( equippedWeapon );
+      DestroyEquippedWeapon();
+      }
+   SpawnAndAttachWeapon();
+}
+
+void InventoryManager::DestroyEquippedWeapon()
+{
+   if( equippedWeapon && controllingCharacter)
+      {
+      equippedWeapon->Destroy();
+      equippedWeapon = NULL;
+      bpEquippedWeapon = NULL;
+      }
+}
+
+void InventoryManager::ShowBackpack()
+{
+  for( TMap< TSubclassOf<class AItem>, BackpackItem >::TIterator it = backpack.CreateIterator(); it; ++it )
+     {
+     GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, it->Key->GetName() );
+     GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf( TEXT(" x %d "), it->Value.GetQuantity() ) );
+     }
+}
+
 void InventoryManager::SetAttack( bool isAttackOn )
 {
    ARangedWeapon *const rangedWeapon= Cast<ARangedWeapon>( equippedWeapon );
@@ -42,28 +71,48 @@ bool InventoryManager::InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon 
    return false;
 }
 
-void InventoryManager::FinishEquipWeapon()
+void InventoryManager::AddItem( AItem *const inItem )
 {
-   if( GetEquippedWeapon() )
-      {
-      DestroyEquippedWeapon();
-      }
-   SpawnAndAttachWeapon();
+   BackpackItem *searchItem = backpack.Find( inItem->GetClass() );
+   if( inItem ){
+      if( searchItem )
+         {
+         searchItem->SetQuantity( searchItem->GetQuantity() + inItem->GetQuantity() );
+    //  backpack[ inItem->GetClass()].SetQuantity( 0 );
+    //  searchItem->SetQuantity( searchItem->GetQuantity() + inItem->GetQuantity() );
+         }
+      else
+         {
+         backpack.Add( inItem->GetClass(), BackpackItem( inItem->GetIcon( ), inItem->GetName(), inItem->GetQuantity() ) ); 
+         }
+   }
+   
 }
-
-void InventoryManager::DestroyEquippedWeapon()
+/*
+void InventoryManager::AddItem( TSubclassOf<class AItem> inItem, int32 quantity )
 {
-   if( equippedWeapon && controllingCharacter)
-      {
-      equippedWeapon->Destroy();
-      equippedWeapon = NULL;
-      bpEquippedWeapon = NULL;
-      }
-}
+   BackpackItem *searchItem = backpack.Find( inItem );
+   if( inItem ){
+      if( searchItem )
+         {
+         searchItem->SetQuantity( searchItem->GetQuantity() + quantity );
+         }
+      else
+         {
+       //  backpack.Add( inItem->GetClass(), BackpackItem( inItem->GetIcon( ), inItem->GetName(), inItem->GetQuantity() ) ); 
+         }
+   }
+   
+}*/
 
 TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
 {
    return bpEquippedWeapon;
+}
+
+BackpackItem * InventoryManager::FindItem( TSubclassOf<class AItem> searchItem )
+{
+   return backpack.Find( searchItem );
 }
 
 void InventoryManager::SpawnAndAttachWeapon()
@@ -84,3 +133,4 @@ void InventoryManager::SpawnAndAttachWeapon()
          }
       }
 }  
+

@@ -23,18 +23,21 @@ public:
 
    virtual void Tick( float DeltaSeconds ) override;
 
-   bool Equals( AItem* otherItem );
-
 	//virtual void Used();
 
    void PickedUp( ABasicCharacter *const character );
 
    void Dropped( const FVector& location, const FRotator& rotation );
 
-   
+   int32 GetQuantity();
+
+   UTexture2D * GetIcon();
    
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
       FString name;
+
+   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
+      UTexture2D *icon;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item)
 		UStaticMeshComponent* mesh;

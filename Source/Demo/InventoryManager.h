@@ -2,21 +2,30 @@
 
 #pragma once
 
+#include "BackpackItem.h"
 class ABasicCharacter;
+class AItem;
+//class BackpackItem;
 class AWeapon;
+
 /**
  * 
  */
-
 class DEMO_API InventoryManager
 {
 public:
+
   // static InventoryManager* GetInstance();
    InventoryManager();
 
 	~InventoryManager();
    
    //virtual void PostInitializeComponents() override;
+   void FinishEquipWeapon();
+
+   void DestroyEquippedWeapon();
+
+   void ShowBackpack();
 
    void SetAttack( bool isAttackOn );
 
@@ -24,11 +33,15 @@ public:
    
    bool InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
-   void FinishEquipWeapon();
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void AddItem( AItem *const inItem );
 
-   void DestroyEquippedWeapon();
+ //  UFUNCTION( BlueprintCallable, Category = Equipment )
+//      void AddItem( TSubclassOf<class AItem> inItem, int32 quantity );
 
    TSubclassOf<class AWeapon> GetEquippedWeapon();
+
+   BackpackItem * FindItem( TSubclassOf<class AItem> searchItem );
 
 private:
    void SpawnAndAttachWeapon();
@@ -39,4 +52,6 @@ private:
 
    TSubclassOf<class AWeapon> bpEquippedWeapon;
    TSubclassOf<class AWeapon> bpEquippingWeapon;
+
+   TMap< TSubclassOf<class AItem>, BackpackItem > backpack;
 };

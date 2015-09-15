@@ -49,7 +49,13 @@ public:
    //custom function for movement
    virtual void MoveRight( float amount ) override;
 
-   virtual void Crouch( bool bClientSimulation = false ) override;
+   virtual void Crouch( bool bClientSimulation = false ) override; 
+   
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
+
+  // UFUNCTION( BlueprintCallable, Category = Equipment )
+  //    void AddItem( TSubclassOf<class AItem> inItem );
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       WeaponCategories equippedWeapon;
@@ -60,11 +66,11 @@ public:
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       TSubclassOf<class AWeapon> bpWeapon2;
 
-   UFUNCTION( BlueprintCallable, Category = Equipment )
-      void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
+  
 
     //  void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
-
+   //UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Equipment )
+      
 private:
    InventoryManager inventoryManager;
 };

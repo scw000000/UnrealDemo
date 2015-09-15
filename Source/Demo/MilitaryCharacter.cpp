@@ -96,6 +96,7 @@ void AMilitaryCharacter::EndReload()
 void AMilitaryCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+   inventoryManager.ShowBackpack();
 }
 
 void AMilitaryCharacter::MoveForward( float amount )
@@ -138,3 +139,9 @@ void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
          }
       }
 }
+/*
+void AddItem( TSubclassOf<class AItem> inItem )
+{
+      
+}
+*/

@@ -29,15 +29,6 @@ void AItem::Tick( float DeltaTime )
    
 }
 
-bool AItem::Equals( AItem* otherItem )
-{
-   if( otherItem && ( name.Equals( otherItem->name ) ) )
-      {
-      return true;
-      }   
-   return false;
-}
-
 void AItem::PickedUp( ABasicCharacter *const character )
 {
    if ( mesh && this->GetDistanceTo( character ) < pickUpDistance )
@@ -49,6 +40,16 @@ void AItem::PickedUp( ABasicCharacter *const character )
 void AItem::Dropped( const FVector& location, const FRotator& rotation )
 { 
    
+}
+
+int32 AItem::GetQuantity()
+{
+   return quantity;
+}
+
+UTexture2D * AItem::GetIcon()
+{
+   return icon;
 }
 /*
 // Called every frame
