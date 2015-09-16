@@ -34,10 +34,10 @@ public:
    bool InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void AddItem( AItem *const inItem );
+      void AddBackpackItemByInstance( AItem *const inItemInstance );
 
- //  UFUNCTION( BlueprintCallable, Category = Equipment )
-//      void AddItem( TSubclassOf<class AItem> inItem, int32 quantity );
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass );
 
    TSubclassOf<class AWeapon> GetEquippedWeapon();
 

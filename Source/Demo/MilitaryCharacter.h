@@ -54,8 +54,11 @@ public:
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
-  // UFUNCTION( BlueprintCallable, Category = Equipment )
-  //    void AddItem( TSubclassOf<class AItem> inItem );
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void AddBackpackItemByInstance( AItem *const inItemInstance );
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass );
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       WeaponCategories equippedWeapon;

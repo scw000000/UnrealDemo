@@ -139,9 +139,13 @@ void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
          }
       }
 }
-/*
-void AddItem( TSubclassOf<class AItem> inItem )
+
+void AMilitaryCharacter::AddBackpackItemByInstance( AItem *const inItemInstance )
 {
-      
+   inventoryManager.AddBackpackItemByInstance( inItemInstance );
 }
-*/
+
+void AMilitaryCharacter::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass )
+{
+   inventoryManager.AddBackpackItemByClass( inItemClass );
+}

@@ -21,7 +21,7 @@ void InventoryManager::FinishEquipWeapon()
 {
    if( GetEquippedWeapon() )
       {
-      AddItem( equippedWeapon );
+      AddBackpackItemByInstance( equippedWeapon );
       DestroyEquippedWeapon();
       }
    SpawnAndAttachWeapon();
@@ -71,39 +71,44 @@ bool InventoryManager::InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon 
    return false;
 }
 
-void InventoryManager::AddItem( AItem *const inItem )
+void InventoryManager::AddBackpackItemByInstance( AItem *const inItemInstance )
 {
-   BackpackItem *searchItem = backpack.Find( inItem->GetClass() );
-   if( inItem ){
+   BackpackItem *searchItem = backpack.Find( inItemInstance->GetClass() );
+   if( inItemInstance ){
       if( searchItem )
          {
-         searchItem->SetQuantity( searchItem->GetQuantity() + inItem->GetQuantity() );
+         searchItem->SetQuantity( searchItem->GetQuantity() + inItemInstance->GetQuantity() );
     //  backpack[ inItem->GetClass()].SetQuantity( 0 );
     //  searchItem->SetQuantity( searchItem->GetQuantity() + inItem->GetQuantity() );
          }
       else
          {
-         backpack.Add( inItem->GetClass(), BackpackItem( inItem->GetIcon( ), inItem->GetName(), inItem->GetQuantity() ) ); 
+         backpack.Add( inItemInstance->GetClass(), BackpackItem( inItemInstance->GetIcon( ), inItemInstance->GetName(), inItemInstance->GetQuantity() ) ); 
          }
    }
    
 }
-/*
-void InventoryManager::AddItem( TSubclassOf<class AItem> inItem, int32 quantity )
+
+void InventoryManager::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass )
 {
-   BackpackItem *searchItem = backpack.Find( inItem );
-   if( inItem ){
-      if( searchItem )
+   BackpackItem *searchItem = backpack.Find( inItemClass );
+   
+   if( inItemClass ){
+      AItem* defaultObject = Cast<AItem>( inItemClass->GetDefaultObject() ); 
+      if( searchItem && defaultObject )
          {
-         searchItem->SetQuantity( searchItem->GetQuantity() + quantity );
+         searchItem->SetQuantity( searchItem->GetQuantity() + defaultObject->GetQuantity() );
          }
       else
          {
-       //  backpack.Add( inItem->GetClass(), BackpackItem( inItem->GetIcon( ), inItem->GetName(), inItem->GetQuantity() ) ); 
+            if( defaultObject )
+               {
+               backpack.Add( inItemClass, BackpackItem( defaultObject->GetIcon( ), defaultObject->GetName(), defaultObject->GetQuantity() ) ); 
+               }
          }
    }
    
-}*/
+}
 
 TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
 {
