@@ -2,9 +2,10 @@
 
 #include "Demo.h"
 #include "InventoryManager.h"
+#include "BasicCharacter.h"
 #include "Weapon.h"
 #include "RangedWeapon.h"
-#include "BasicCharacter.h"
+#include "Projectile.h"
 
 InventoryManager::InventoryManager()
 {
@@ -17,7 +18,7 @@ InventoryManager::~InventoryManager()
 {
 }
 
-void InventoryManager::FinishEquipWeapon()
+void InventoryManager::EquipWeapon()
 {
    if( GetEquippedWeapon() )
       {
@@ -34,6 +35,26 @@ void InventoryManager::DestroyEquippedWeapon()
       equippedWeapon->Destroy();
       equippedWeapon = NULL;
       bpEquippedWeapon = NULL;
+      }
+}
+
+void InventoryManager::ReloadWeapon()
+{
+   if( CanReload() )
+      {
+      ARangedWeapon* rangedWeapon = Cast< ARangedWeapon >( equippedWeapon );
+
+      BackpackItem* backpackAmmo = FindItem( rangedWeapon->bpProjectile );
+
+      int32 backpackAmmoNum = backpackAmmo->GetQuantity();
+
+      int32 reloadAmmoNum = rangedWeapon->maxAmmo - rangedWeapon->ammo;
+
+      reloadAmmoNum = FMath::Clamp<int32>( reloadAmmoNum, 0, backpackAmmoNum );
+
+      RemoveBackpackItemByClass( rangedWeapon->bpProjectile, reloadAmmoNum );
+
+      rangedWeapon->Reload( reloadAmmoNum );
       }
 }
 
@@ -61,14 +82,9 @@ void InventoryManager::SetControllingCharacter( ABasicCharacter *const character
    controllingCharacter = character;
 }
 
-bool InventoryManager::InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon )
+void InventoryManager::SetEquippingWeapon( TSubclassOf<class AWeapon> weapon )
 {
    bpEquippingWeapon = weapon;
-   if( weapon && bpEquippedWeapon != weapon )
-      {
-      return true;
-      }
-   return false;
 }
 
 void InventoryManager::AddBackpackItemByInstance( AItem *const inItemInstance )
@@ -89,30 +105,69 @@ void InventoryManager::AddBackpackItemByInstance( AItem *const inItemInstance )
    
 }
 
-void InventoryManager::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass )
+void InventoryManager::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass, int32 itemNum )
 {
-   BackpackItem *searchItem = backpack.Find( inItemClass );
+   BackpackItem *backpackItem = backpack.Find( inItemClass );
    
-   if( inItemClass ){
+   if( inItemClass && itemNum > 0 ){
       AItem* defaultObject = Cast<AItem>( inItemClass->GetDefaultObject() ); 
-      if( searchItem && defaultObject )
+      if( backpackItem && defaultObject )
          {
-         searchItem->SetQuantity( searchItem->GetQuantity() + defaultObject->GetQuantity() );
+         backpackItem->SetQuantity( backpackItem->GetQuantity() + defaultObject->GetQuantity() * itemNum );
          }
       else
          {
             if( defaultObject )
                {
-               backpack.Add( inItemClass, BackpackItem( defaultObject->GetIcon( ), defaultObject->GetName(), defaultObject->GetQuantity() ) ); 
+               backpack.Add( inItemClass, BackpackItem( defaultObject->GetIcon( ), defaultObject->GetName(), defaultObject->GetQuantity() * itemNum ) ); 
                }
          }
    }
+}
+
+void InventoryManager::RemoveBackpackItemByClass( TSubclassOf<class AItem> inItemClass, int32 itemNum )
+{
+   BackpackItem *backpackItem = backpack.Find( inItemClass );
    
+   if( inItemClass && itemNum > 0 ){
+      AItem* defaultObject = Cast<AItem>( inItemClass->GetDefaultObject() ); 
+      if( backpackItem && defaultObject )
+         {
+         backpackItem->SetQuantity( backpackItem->GetQuantity() - itemNum );
+         }
+      if( backpackItem->GetQuantity() <= 0 )
+         {
+         backpack.Remove( inItemClass );
+         }
+   }
+}
+
+bool InventoryManager::CanReload()
+{
+   ARangedWeapon* rangedWeapon = Cast< ARangedWeapon >( equippedWeapon );
+   if( rangedWeapon && rangedWeapon->CanReload() )
+      {
+      BackpackItem* projectile = FindItem( rangedWeapon->bpProjectile );
+         if( projectile && projectile->GetQuantity() > 0 )
+            {
+            return true;
+            }
+      }
+   return false;
 }
 
 TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
 {
    return bpEquippedWeapon;
+}
+
+bool InventoryManager::CanEquipWeapon( TSubclassOf<class AWeapon> weapon )
+{
+   if( weapon && bpEquippedWeapon != weapon )
+      {
+      return true;
+      }
+   return false;
 }
 
 BackpackItem * InventoryManager::FindItem( TSubclassOf<class AItem> searchItem )

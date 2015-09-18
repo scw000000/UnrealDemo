@@ -25,16 +25,16 @@ Global
 		Shipping|Win64 = Shipping|Win64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win32.ActiveCfg = DebugGame_Editor|Win32
-		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win32.Build.0 = DebugGame_Editor|Win32
+		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win32.ActiveCfg = DebugGame_Editor|x64
+		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win32.Build.0 = DebugGame_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win64.ActiveCfg = DebugGame_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame Editor|Win64.Build.0 = DebugGame_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame|Win32.ActiveCfg = DebugGame_Game|Win32
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame|Win32.Build.0 = DebugGame_Game|Win32
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame|Win64.ActiveCfg = DebugGame_Game|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.DebugGame|Win64.Build.0 = DebugGame_Game|x64
-		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win32.ActiveCfg = Development_Editor|Win32
-		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win32.Build.0 = Development_Editor|Win32
+		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win32.ActiveCfg = Development_Editor|x64
+		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win32.Build.0 = Development_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win64.ActiveCfg = Development_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development Editor|Win64.Build.0 = Development_Editor|x64
 		{A8512F19-4142-47D6-ACAD-DCDE93C3003D}.Development|Win32.ActiveCfg = Development_Game|Win32

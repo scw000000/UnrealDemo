@@ -30,16 +30,24 @@ public:
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
       virtual void StopAttack() override;
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void StartReloadWeapon();
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void ReloadWeaponAnimSync();
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void EndReloadWeapon();
    
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void EndEquipWeapon();
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void InstantiateEquipWeapon( );
+      void EquipWeaponAnimSync( );
 
-   void StartReload();
-
-   void EndReload();
+  // UFUNCTION( BlueprintCallable, Category = Equipment )
+  //    void ReloadWeaponAnimSync( );
 
    virtual void Tick( float DeltaSeconds ) override;
 
@@ -55,10 +63,10 @@ public:
       void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void AddBackpackItemByInstance( AItem *const inItemInstance );
+      void AddBackpackItemByInstance( AItem *const itemInstance );
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass );
+      void AddBackpackItemByClass( TSubclassOf<class AItem> itemClass, int32 itemNum );
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       WeaponCategories equippedWeapon;

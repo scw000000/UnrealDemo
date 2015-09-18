@@ -53,14 +53,9 @@ void ARangedWeapon::Fire()
       }
 }
 
-void ARangedWeapon::Reload()
+void ARangedWeapon::Reload( int32 reloadAmmoNum )
 {
-   
-}
-
-void ARangedWeapon::SetcanFire( const bool& inCanFire )
-{
-   canFire = inCanFire;
+   ammo = FMath::Clamp<int32>( ammo + reloadAmmoNum, 0, maxAmmo );
 }
 
 //set trigger on/off, also detect trigger transition state
@@ -80,11 +75,17 @@ void ARangedWeapon::SetisTriggerOn( const bool& isSwitchedOn )
       }
 }
 
-bool ARangedWeapon::GetcanFire()
+bool ARangedWeapon::CanReload()
 {
-   return canFire;
+   if( ammo < maxAmmo && bpProjectile )
+      {
+      return true;
+      }
+   else 
+      {
+      return false;
+      }
 }
-
 
 void ARangedWeapon::OnTriggerPressed()
 {

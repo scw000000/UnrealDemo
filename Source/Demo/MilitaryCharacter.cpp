@@ -51,6 +51,38 @@ void AMilitaryCharacter::StopAttack()
    inventoryManager.SetAttack( false );
 }
 
+void AMilitaryCharacter::StartReloadWeapon()
+{
+   if( inventoryManager.CanReload() ){
+      if( playerView == PlayerViews::PlayerViews_Aim )
+         {
+         armMotion = ArmMotions::ArmMotions_IronSightReload;
+         }
+      else
+         {
+         armMotion = ArmMotions::ArmMotions_DefaultReload;
+         }
+      }
+}
+
+void AMilitaryCharacter::ReloadWeaponAnimSync()
+{
+   inventoryManager.ReloadWeapon();
+}
+
+void AMilitaryCharacter::EndReloadWeapon()
+{
+   
+   if( playerView == PlayerViews::PlayerViews_Aim )
+      {
+      armMotion = ArmMotions::ArmMotions_IronSight;
+      }
+   else
+      {
+      armMotion = ArmMotions::ArmMotions_Default;
+      }
+}
+
 void AMilitaryCharacter::EndEquipWeapon( )
 { 
    if( playerView == PlayerViews::PlayerViews_Aim )
@@ -64,33 +96,9 @@ void AMilitaryCharacter::EndEquipWeapon( )
 
 }
 
-void AMilitaryCharacter::InstantiateEquipWeapon()
+void AMilitaryCharacter::EquipWeaponAnimSync()
 {           
-   inventoryManager.FinishEquipWeapon();
-}
-
-void AMilitaryCharacter::StartReload()
-{
-   if( playerView == PlayerViews::PlayerViews_Aim )
-      {
-      armMotion = ArmMotions::ArmMotions_IronSightReload;
-      }
-   else
-      {
-      armMotion = ArmMotions::ArmMotions_DefaultReload;
-      }
-}
-
-void AMilitaryCharacter::EndReload()
-{
-   if( playerView == PlayerViews::PlayerViews_Aim )
-      {
-      armMotion = ArmMotions::ArmMotions_IronSight;
-      }
-   else
-      {
-      armMotion = ArmMotions::ArmMotions_Default;
-      }
+   inventoryManager.EquipWeapon();
 }
 
 void AMilitaryCharacter::Tick( float DeltaTime )
@@ -132,20 +140,21 @@ void AMilitaryCharacter::StartEquipWeapon( TSubclassOf<class AWeapon> weapon )
           bodyMotion == BodyMotions::BodyMotions_CrouchIdle || 
           bodyMotion == BodyMotions::BodyMotions_CrouchJog ) )
       {
-      if( inventoryManager.InitializeEquipWeapon( weapon ) ) 
+      if( inventoryManager.CanEquipWeapon( weapon ) ) 
          {
+         inventoryManager.SetEquippingWeapon( weapon );
          this->equippedWeapon = WeaponCategories::WeaponCategories_Rifle;
          armMotion = ArmMotions::ArmMotions_Equip;
          }
       }
 }
 
-void AMilitaryCharacter::AddBackpackItemByInstance( AItem *const inItemInstance )
+void AMilitaryCharacter::AddBackpackItemByInstance( AItem *const itemInstance )
 {
-   inventoryManager.AddBackpackItemByInstance( inItemInstance );
+   inventoryManager.AddBackpackItemByInstance( itemInstance );
 }
 
-void AMilitaryCharacter::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass )
+void AMilitaryCharacter::AddBackpackItemByClass( TSubclassOf<class AItem> itemClass, int32 itemNum )
 {
-   inventoryManager.AddBackpackItemByClass( inItemClass );
+   inventoryManager.AddBackpackItemByClass( itemClass, itemNum );
 }

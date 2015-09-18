@@ -19,13 +19,14 @@ public:
 
    void Fire();
 	
-   void Reload();
+   void Reload(  int32 reloadAmmoNum  );
 
    void SetisTriggerOn( const bool& isSwitchedOn );
 
-   void SetcanFire( const bool& inCanFire );
+   /** return true if this weapon have empty room for reload, and has specified projectile class */
+   bool CanReload();
    
-   bool GetcanFire();
+   int32 ammo;
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
       FireModes fireMode; 
@@ -67,7 +68,7 @@ private:
 
    bool isCoolDownOver;
 
-   int ammo;
+   
    //unit = seconds / shot = 1 / fireRate * 60.f
    float coolDownTime;
 

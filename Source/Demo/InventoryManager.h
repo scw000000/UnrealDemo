@@ -5,7 +5,6 @@
 #include "BackpackItem.h"
 class ABasicCharacter;
 class AItem;
-//class BackpackItem;
 class AWeapon;
 
 /**
@@ -21,25 +20,34 @@ public:
 	~InventoryManager();
    
    //virtual void PostInitializeComponents() override;
-   void FinishEquipWeapon();
+   void EquipWeapon();
 
    void DestroyEquippedWeapon();
+
+   void ReloadWeapon();
 
    void ShowBackpack();
 
    void SetAttack( bool isAttackOn );
 
    void SetControllingCharacter( ABasicCharacter *const character );
-   
-   bool InitializeEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
+   void SetEquippingWeapon( TSubclassOf<class AWeapon> weapon );
+   
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void AddBackpackItemByInstance( AItem *const inItemInstance );
 
    UFUNCTION( BlueprintCallable, Category = Equipment )
-      void AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass );
+      void AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass, int32 itemNum = 1 );
+
+   UFUNCTION( BlueprintCallable, Category = Equipment )
+      void RemoveBackpackItemByClass( TSubclassOf<class AItem> inItemClass, int32 itemNum = 1 );
+
+   bool CanReload();
 
    TSubclassOf<class AWeapon> GetEquippedWeapon();
+
+   bool CanEquipWeapon( TSubclassOf<class AWeapon> weapon );
 
    BackpackItem * FindItem( TSubclassOf<class AItem> searchItem );
 
