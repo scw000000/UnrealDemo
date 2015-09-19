@@ -172,10 +172,26 @@ void ABasicCharacter::MoveRight( float amount )
 
 void ABasicCharacter::SetCamYaw( const float& amount )
 {
+   FRotator currentRotation;
+   FRotator clampedRotation;
+   FTransform cuttrntTransform;
    switch( playerView )
       {
          case PlayerViews::PlayerViews_ThirdPerson :
-            thirdPersonCameraBoomYaw->AddRelativeRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+            thirdPersonCameraBoomYaw->AddWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
+            currentRotation = thirdPersonCameraBoomYaw->GetComponentRotation() - GetRootComponent()->GetComponentRotation();
+            //clamped to (0, 360]
+            clampedRotation = currentRotation.Clamp();
+            //shifted to ( -180, 180 ]
+            clampedRotation.Yaw -= 180.f;
+            if( 0.f <= clampedRotation.Yaw && clampedRotation.Yaw < 90.f )
+               {
+               thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw - 90.f , 0.f ) );
+               } 
+            else if( clampedRotation.Yaw <= 0.f && -90.f < clampedRotation.Yaw )
+               {
+               thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw + 90.f, 0.f ) );
+               }
             break;
          case PlayerViews::PlayerViews_Aim:
       //      AddActorWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
