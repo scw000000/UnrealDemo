@@ -68,6 +68,8 @@ public:
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void AddBackpackItemByClass( TSubclassOf<class AItem> itemClass, int32 itemNum );
 
+   AWeapon* GetEquippedWeapon();
+
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       WeaponCategories equippedWeapon;
 

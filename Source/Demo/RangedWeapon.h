@@ -13,7 +13,7 @@ class DEMO_API ARangedWeapon : public AWeapon
 {
 	GENERATED_BODY()
 public:
-   ARangedWeapon();
+   ARangedWeapon( const FObjectInitializer& ObjectInitializer );
 
    virtual void BeginPlay() override;
 
@@ -28,14 +28,14 @@ public:
    
    int32 ammo;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
       FireModes fireMode; 
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
       int32 maxAmmo; 
 
    //unit = RPM
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
       float fireRate; 
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )

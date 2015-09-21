@@ -4,7 +4,7 @@
 #include "RangedWeapon.h"
 #include "MilitaryCharacter.h"
 
-AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) : ABasicCharacter( ObjectInitializer )
+AMilitaryCharacter::AMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
    PrimaryActorTick.bCanEverTick = false;
 
@@ -157,4 +157,9 @@ void AMilitaryCharacter::AddBackpackItemByInstance( AItem *const itemInstance )
 void AMilitaryCharacter::AddBackpackItemByClass( TSubclassOf<class AItem> itemClass, int32 itemNum )
 {
    inventoryManager.AddBackpackItemByClass( itemClass, itemNum );
+}
+
+AWeapon* AMilitaryCharacter::GetEquippedWeapon()
+{
+   return inventoryManager.GetEquippedWeapon();
 }

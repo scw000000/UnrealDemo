@@ -4,7 +4,7 @@
 #include "RangedWeapon.h"
 #include "Projectile.h"
 
-ARangedWeapon::ARangedWeapon()
+ARangedWeapon::ARangedWeapon( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
    fireMode = FireModes::FireModes_Auto; 
    maxAmmo = 30;

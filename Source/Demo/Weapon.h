@@ -15,9 +15,26 @@ class DEMO_API AWeapon : public AItem
 {
 	GENERATED_BODY()
 public:
+   AWeapon( const FObjectInitializer& ObjectInitializer );
+
    void Initialize( ABasicCharacter *const character, const FName &socketName );
 	//virtual void Attack( int attackType = 0 );
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Weapon )
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
       WeaponCategories weaponCategory; 
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
+      float minCrossHairSize;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
+      float maxCrossHairSize;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
+      float crossHairSize;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
+      float crossHairSizeDecrRate;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
+      float crossHairSizeIncrAmount;
 };

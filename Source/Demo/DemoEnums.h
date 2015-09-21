@@ -57,3 +57,12 @@ enum class FireModes : uint8
 
 };
 
+enum CrosshairDirections : uint8
+{
+	CrosshairDirections_Left = 0,
+	CrosshairDirections_Right = 1,
+	CrosshairDirections_Top = 2,
+	CrosshairDirections_Bottom = 3,
+	CrosshairDirections_Center = 4
+};
+

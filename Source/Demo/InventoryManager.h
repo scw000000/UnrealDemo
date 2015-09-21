@@ -45,7 +45,7 @@ public:
 
    bool CanReload();
 
-   TSubclassOf<class AWeapon> GetEquippedWeapon();
+   AWeapon* GetEquippedWeapon();
 
    bool CanEquipWeapon( TSubclassOf<class AWeapon> weapon );
 

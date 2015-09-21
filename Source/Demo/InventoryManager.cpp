@@ -156,9 +156,9 @@ bool InventoryManager::CanReload()
    return false;
 }
 
-TSubclassOf<class AWeapon> InventoryManager::GetEquippedWeapon()
+AWeapon* InventoryManager::GetEquippedWeapon()
 {
-   return bpEquippedWeapon;
+   return equippedWeapon;
 }
 
 bool InventoryManager::CanEquipWeapon( TSubclassOf<class AWeapon> weapon )
