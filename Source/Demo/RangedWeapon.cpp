@@ -3,6 +3,7 @@
 #include "Demo.h"
 #include "RangedWeapon.h"
 #include "Projectile.h"
+#include "MilitaryCharacter.h"
 
 ARangedWeapon::ARangedWeapon( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
@@ -22,7 +23,26 @@ void ARangedWeapon::BeginPlay()
    ammo = maxAmmo;
 }
 
-void ARangedWeapon::Fire()
+bool ARangedWeapon::CanReload()
+{
+   if( ammo < maxAmmo && bpProjectile )
+      {
+      return true;
+      }
+   else 
+      {
+      return false;
+      }
+}
+
+void ARangedWeapon::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+   crossHairSize -= DeltaTime * crossHairSizeDecrSpeed;
+   crossHairSize = FMath::Clamp<float>( crossHairSize, minCrossHairSize, maxCrossHairSize );
+}
+
+void ARangedWeapon::Fire( FVector hitPoint )
 {
    if ( bpProjectile )
       {
@@ -36,18 +56,19 @@ void ARangedWeapon::Fire()
          SpawnParams.Owner = this;
          SpawnParams.Instigator = Instigator;
          // spawn the projectile at the muzzle
-         AProjectile* const Projectile = GetWorld()->SpawnActor<AProjectile>( bpProjectile, nozzleLocation, nozzleRotation );
+         AProjectile* const Projectile = GetWorld()->SpawnActor<AProjectile>( bpProjectile, nozzleLocation, nozzleRotation, SpawnParams );
          if (Projectile)
             {
             // find launch direction
-            FVector LaunchDir = nozzleLocation - barrelLocation;
+            FVector LaunchDir = hitPoint - nozzleLocation;
             LaunchDir.Normalize();
             Projectile->InitVelocity( LaunchDir );
             //set ammo num
             ammo--;
             SetisCoolDownOver( false );
             StartCoolDownTimer();
-            
+            crossHairSize += crossHairSizeIncrSpeed;
+            crossHairSize = FMath::Clamp<float>( crossHairSize, minCrossHairSize, maxCrossHairSize );
             }
          }
       }
@@ -72,18 +93,6 @@ void ARangedWeapon::SetisTriggerOn( const bool& isSwitchedOn )
          {
          OnTriggerReleased();
          }
-      }
-}
-
-bool ARangedWeapon::CanReload()
-{
-   if( ammo < maxAmmo && bpProjectile )
-      {
-      return true;
-      }
-   else 
-      {
-      return false;
       }
 }
 
@@ -141,9 +150,37 @@ void ARangedWeapon::TrySemiAutoFire( bool onTriggerPressed )
 //TrySingleFire should always be called by TryAutoFire() or TrySemiAutoFire() since it negelects isCoolDownOver condition
 void ARangedWeapon::TrySingleFire()
 {
-   if( ammo > 0 )
+   AMilitaryCharacter *character = Cast<AMilitaryCharacter>( GetOwner() );
+   if( character &&  ammo > 0 )
       {
-      Fire();
+      UCameraComponent *playerCamera = character->playerCamera;
+      FCollisionQueryParams lineTraceParams = FCollisionQueryParams(FName( TEXT( "Line_Trace" ) ), true, this);
+      lineTraceParams.bTraceComplex = true;
+      lineTraceParams.bTraceAsyncScene = true;
+      lineTraceParams.bReturnPhysicalMaterial = false;
+      lineTraceParams.AddIgnoredActor( GetOwner() );
+ 
+      FHitResult line_HitResult( ForceInit );
+
+      const FVector traceStart = playerCamera->GetComponentLocation();      
+      const FVector traceEnd = traceStart + playerCamera->GetForwardVector() * 4096; 
+      
+      bool isHitImpactPointExist = GetWorld()->LineTraceSingleByObjectType( 
+                                      line_HitResult,        //result
+                                      traceStart + playerCamera->GetForwardVector() * 10,    //start
+                                      traceEnd, //end
+                                      FCollisionObjectQueryParams::AllObjects, //collision channel
+                                      lineTraceParams 
+                                      );    
+      if( isHitImpactPointExist )
+         {
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, line_HitResult.GetActor()->GetName() );
+         Fire( line_HitResult.ImpactPoint );
+         }
+      else
+         {
+         Fire( traceEnd );
+         }
       }
 }
 

@@ -33,8 +33,8 @@ public:
       float crossHairSize;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
-      float crossHairSizeDecrRate;
+      float crossHairSizeDecrSpeed;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Weapon )
-      float crossHairSizeIncrAmount;
+      float crossHairSizeIncrSpeed;
 };

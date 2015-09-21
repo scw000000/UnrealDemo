@@ -72,13 +72,6 @@ public:
 
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
       WeaponCategories equippedWeapon;
-
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
-      TSubclassOf<class AWeapon> bpWeapon;
-
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Equipment )
-      TSubclassOf<class AWeapon> bpWeapon2;
-
   
 
     //  void StartEquipWeapon( TSubclassOf<class AWeapon> weapon );

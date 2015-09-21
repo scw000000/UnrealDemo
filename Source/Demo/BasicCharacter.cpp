@@ -179,18 +179,24 @@ void ABasicCharacter::SetCamYaw( const float& amount )
       {
          case PlayerViews::PlayerViews_ThirdPerson :
             thirdPersonCameraBoomYaw->AddWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
-            currentRotation = thirdPersonCameraBoomYaw->GetComponentRotation() - GetRootComponent()->GetComponentRotation();
-            //clamped to (0, 360]
-            clampedRotation = currentRotation.Clamp();
-            //shifted to ( -180, 180 ]
-            clampedRotation.Yaw -= 180.f;
-            if( 0.f <= clampedRotation.Yaw && clampedRotation.Yaw < 90.f )
-               {
-               thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw - 90.f , 0.f ) );
-               } 
-            else if( clampedRotation.Yaw <= 0.f && -90.f < clampedRotation.Yaw )
-               {
-               thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw + 90.f, 0.f ) );
+                           currentRotation = thirdPersonCameraBoomYaw->GetComponentRotation() - GetRootComponent()->GetComponentRotation();
+               //clamped to (0, 360]
+               clampedRotation = currentRotation.Clamp();
+               //shifted to ( -180, 180 ]
+               clampedRotation.Yaw -= 180.f;
+               if( 0.f <= clampedRotation.Yaw && clampedRotation.Yaw < 90.f )
+                  {
+                  GetRootComponent()->SetWorldRotation( FRotator( 0.f, thirdPersonCameraBoomYaw->GetComponentRotation().Yaw + 90.f , 0.f ) );
+                 // GetRootComponent()->GetComponentRotation()->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw - 90.f , 0.f ) );
+                //  thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw - 90.f , 0.f ) );
+                  } 
+               else if( clampedRotation.Yaw <= 0.f && -90.f < clampedRotation.Yaw )
+                  {
+                  GetRootComponent()->SetWorldRotation( FRotator( 0.f, thirdPersonCameraBoomYaw->GetComponentRotation().Yaw - 90.f , 0.f ) );
+                //  thirdPersonCameraBoomYaw->SetWorldRotation( FRotator( 0.f, GetRootComponent()->GetComponentRotation().Yaw + 90.f, 0.f ) );
+                  }
+            if( GetVelocity().Size() <= 0.5f ){
+
                }
             break;
          case PlayerViews::PlayerViews_Aim:
@@ -372,7 +378,7 @@ void ABasicCharacter::RefineMotionBreak( )
 
 void ABasicCharacter::SetPlayerViewToThirdPerson( )
 {
-   GetCharacterMovement( )->bOrientRotationToMovement = true;
+   GetCharacterMovement( )->bOrientRotationToMovement = false;
    GetMesh( )->SetVisibility( true );
    playerCamera->AttachTo( thirdPersonCameraBoomPitch );
    FRotator currentActorRotation = GetActorRotation( );

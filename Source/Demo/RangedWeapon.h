@@ -17,14 +17,16 @@ public:
 
    virtual void BeginPlay() override;
 
-   void Fire();
+   /** return true if this weapon have empty room for reload, and has specified projectile class */
+   bool CanReload();
+
+   virtual void Tick( float DeltaSeconds ) override;
+
+   void Fire( FVector hitPoint );
 	
    void Reload(  int32 reloadAmmoNum  );
 
    void SetisTriggerOn( const bool& isSwitchedOn );
-
-   /** return true if this weapon have empty room for reload, and has specified projectile class */
-   bool CanReload();
    
    int32 ammo;
 

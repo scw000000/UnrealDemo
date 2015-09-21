@@ -180,7 +180,10 @@ void InventoryManager::SpawnAndAttachWeapon()
    if( bpEquippingWeapon && controllingCharacter)
       {
       bpEquippedWeapon = bpEquippingWeapon;
-      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpEquippedWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation() );
+      FActorSpawnParameters spawnParams = FActorSpawnParameters();
+      spawnParams.Owner = controllingCharacter;
+      spawnParams.Instigator = controllingCharacter;
+      equippedWeapon = ( AWeapon * ) controllingCharacter->GetWorld()->SpawnActor<AWeapon>( bpEquippedWeapon, controllingCharacter->GetActorLocation(), controllingCharacter->GetActorRotation(), spawnParams );
       if( equippedWeapon )
          {
          const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "hand_rSocket" );

@@ -6,11 +6,11 @@
 AWeapon::AWeapon( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
 
-  // float minCrossHairSize;
- //  float maxCrossHairSize;
-   crossHairSize = 0.f;
-  // float crossHairSizeDecrRate;
- //  float crossHairSizeIncrRate;
+   minCrossHairSize = 30.f;
+   maxCrossHairSize = 100.f;
+   crossHairSize = 3.f;
+   crossHairSizeDecrSpeed = 70.f;
+   crossHairSizeIncrSpeed = 30.f;
 }
 
 //this function is abandoned right now
