@@ -5,6 +5,7 @@
 #include "GameFramework/HUD.h"
 #include "DemoHUD.generated.h"
 
+class AMilitaryCharacter;
 /**
  * 
  */
@@ -17,13 +18,27 @@ class DEMO_API ADemoHUD : public AHUD
 
    virtual void DrawHUD() override;
 
+   void DrawHealth();
+
    void DrawCrossHair();
+
+  // bool SetControllingCharacter( APawn* InPawn );
 
    UPROPERTY()
 	UTexture2D* HUDMainTexture;
 
+   UPROPERTY()
+   UTexture2D* HUDAssets02Texture;
+
 	UPROPERTY()
 	FCanvasIcon Crosshair[5];
+
+   UPROPERTY()
+	FCanvasIcon healthBar;
+
+   UPROPERTY()
+	FCanvasIcon healthBarBg;
 	
-	
+protected:
+	AMilitaryCharacter* controllingCharacter;
 };

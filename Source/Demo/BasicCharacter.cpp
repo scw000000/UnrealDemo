@@ -19,6 +19,9 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
 
    idleTime = 0.f;
 
+   health = 100.f;
+   maxHealth = 100.f;
+
    bUseControllerRotationPitch = false;
    bUseControllerRotationYaw = false;
    bUseControllerRotationRoll = false;

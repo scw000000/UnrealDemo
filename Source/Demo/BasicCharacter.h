@@ -70,6 +70,10 @@ public:
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerMotion )
       float idleTime;
 
+   float health;
+
+   float maxHealth;
+
    UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = PlayerView )
       USpringArmComponent* thirdPersonCameraBoomYaw;
 
