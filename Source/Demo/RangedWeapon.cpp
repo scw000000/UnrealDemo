@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
+#include "DemoGame.h"
 #include "RangedWeapon.h"
 #include "Projectile.h"
 #include "MilitaryCharacter.h"
@@ -164,17 +165,16 @@ void ARangedWeapon::TrySingleFire()
 
       const FVector traceStart = playerCamera->GetComponentLocation();      
       const FVector traceEnd = traceStart + playerCamera->GetForwardVector() * 4096; 
-      
-      bool isHitImpactPointExist = GetWorld()->LineTraceSingleByObjectType( 
+      bool isHitImpactPointExist = GetWorld()->LineTraceSingleByChannel( 
                                       line_HitResult,        //result
                                       traceStart + playerCamera->GetForwardVector() * 10,    //start
                                       traceEnd, //end
-                                      FCollisionObjectQueryParams::AllObjects, //collision channel
-                                      lineTraceParams 
-                                      );    
+                                      COLLISION_WEAPON,
+                                      lineTraceParams
+                                      );
+       
       if( isHitImpactPointExist )
          {
-         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, line_HitResult.GetActor()->GetName() );
          Fire( line_HitResult.ImpactPoint );
          }
       else

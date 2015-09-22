@@ -2,10 +2,10 @@
 
 #include "Demo.h"
 #include "BasicCharacter.h"
-
+#include "DemoGame.h"
 
 // Sets default values
-ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
+ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -25,6 +25,19 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer )
    bUseControllerRotationPitch = false;
    bUseControllerRotationYaw = false;
    bUseControllerRotationRoll = false;
+   /*
+   GetMesh()->SetCollisionObjectType( ECC_Pawn );
+	GetMesh()->SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+	GetMesh()->SetCollisionResponseToChannel( COLLISION_WEAPON, ECR_Block );
+	GetMesh()->SetCollisionResponseToChannel( COLLISION_PROJECTILE, ECR_Block );
+	GetMesh()->SetCollisionResponseToChannel( ECC_Visibility, ECR_Block );
+
+   GetCapsuleComponent()->SetCollisionObjectType( ECC_PhysicsBody );
+   GetCapsuleComponent()->SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+   GetCapsuleComponent()->SetCollisionResponseToAllChannels( ECR_Block );
+   GetCapsuleComponent()->SetCollisionResponseToChannel( ECC_Camera, ECR_Ignore );
+	GetCapsuleComponent()->SetCollisionResponseToChannel( COLLISION_PROJECTILE, ECR_Ignore );
+	GetCapsuleComponent()->SetCollisionResponseToChannel( COLLISION_WEAPON, ECR_Ignore );*/
 
    GetCharacterMovement( )->bOrientRotationToMovement = true;
 

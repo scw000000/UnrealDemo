@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Item.h"
+#include "DemoGame.h"
 #include "Projectile.generated.h"
 
 /**
