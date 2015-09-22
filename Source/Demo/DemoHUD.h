@@ -38,7 +38,11 @@ class DEMO_API ADemoHUD : public AHUD
 
    UPROPERTY()
 	FCanvasIcon healthBarBg;
+
+   UPROPERTY()
+	FCanvasIcon healthIcon;
 	
 protected:
 	AMilitaryCharacter* controllingCharacter;
+   float uiScale;
 };

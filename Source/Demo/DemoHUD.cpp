@@ -23,39 +23,39 @@ ADemoHUD::ADemoHUD( const FObjectInitializer& ObjectInitializer ) : Super( Objec
 
    healthBar = UCanvas::MakeIcon( HUDAssets02Texture, 67, 212, 372, 50 );
 	healthBarBg = UCanvas::MakeIcon( HUDAssets02Texture, 67, 162, 372, 50 );
-
+   healthIcon = UCanvas::MakeIcon(HUDAssets02Texture, 78, 262, 28, 28);
    controllingCharacter = NULL;
 }
 
 void ADemoHUD::DrawHUD()
 {
    Super::DrawHUD();
+   if( !Canvas )
+      {
+      return;
+      }
+   uiScale = Canvas->ClipY / 1080.0f;
    ADemoPlayerController* PCOwner = Cast<ADemoPlayerController>( PlayerOwner );
    controllingCharacter =  Cast<AMilitaryCharacter>( PCOwner->GetPawn() );
   // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "drawing" );
-   if( Canvas )
-	{
       DrawCrossHair();
       DrawHealth();
 		return;
-	}
 }
 
 void ADemoHUD::DrawHealth()
 {
-
    if( controllingCharacter )
       {
       Canvas->SetDrawColor(FColor::White);
-   	const float healthPosX = 20.f;
-	   const float healthPosY = Canvas->ClipY - 20.f - healthBarBg.VL ;
-	   Canvas->DrawIcon( healthBarBg, healthPosX, healthPosY );
+   	const float healthPosX = 20.f * uiScale;
+	   const float healthPosY = Canvas->ClipY - ( 20.f + healthBarBg.VL ) * uiScale;
+	   Canvas->DrawIcon( healthBarBg, healthPosX, healthPosY, uiScale );
 	   const float healthPercent =  FMath::Min( 1.0f, controllingCharacter->health / controllingCharacter->maxHealth );
 
 	   FCanvasTileItem tileItem( FVector2D( healthPosX, healthPosY ), healthBar.Texture->Resource, 
-							 FVector2D( healthBar.UL * healthPercent, healthBar.VL ), FLinearColor::White );
+							 FVector2D( healthBar.UL * healthPercent * uiScale, healthBar.VL * uiScale ), FLinearColor::Green );
 
-     // MakeUV( FCanvasIcon& Icon, FVector2D& UV0, FVector2D& UV1, uint16 U, uint16 V, uint16 UL, uint16 VL )
       const float iconWidth = healthBar.Texture->GetSurfaceWidth();
 		const float iconHeight = healthBar.Texture->GetSurfaceHeight();
 		tileItem.UV0 = FVector2D( healthBar.U / iconWidth, healthBar.V / iconHeight );
@@ -63,11 +63,8 @@ void ADemoHUD::DrawHealth()
 
 	   tileItem.BlendMode = SE_BLEND_Translucent;
 	   Canvas->DrawItem( tileItem );
-
-	//   Canvas->DrawIcon( HealthIcon, HealthPosX + Offset * ScaleUI, HealthPosY + (HealthBar.VL - HealthIcon.VL) / 2.0f * ScaleUI, ScaleUI );
+      Canvas->DrawIcon( healthIcon, healthPosX + 20.f * uiScale, healthPosY + ( healthBar.VL - healthIcon.VL ) / 2.0f * uiScale, uiScale);
       }
-
-	
 }
 
 void ADemoHUD::DrawCrossHair()
@@ -82,24 +79,24 @@ void ADemoHUD::DrawCrossHair()
       if( characterWeapon )
          {
         Canvas->DrawIcon(Crosshair[ CrosshairDirections::CrosshairDirections_Center ], 
-	      	CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Center ]).UL / 2.0f, 
-	      	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Center ]).VL / 2.0f );
+	      	CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Center ]).UL * uiScale / 2.0f, 
+	      	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Center ]).VL * uiScale / 2.0f, uiScale );
 
 	      Canvas->DrawIcon(Crosshair[ CrosshairDirections::CrosshairDirections_Left ],
-	        CenterX - 1 - (Crosshair[ CrosshairDirections::CrosshairDirections_Left ]).UL - characterWeapon->crossHairSize, 
-	      	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Left ]).VL / 2.0f );
+	        CenterX - 1 - (Crosshair[ CrosshairDirections::CrosshairDirections_Left ]).UL * uiScale - characterWeapon->crossHairSize * uiScale, 
+	      	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Left ]).VL * uiScale / 2.0f, uiScale );
 
       	Canvas->DrawIcon(Crosshair[ CrosshairDirections::CrosshairDirections_Right ], 
-	      	CenterX + characterWeapon->crossHairSize, 
-	        	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Right ]).VL / 2.0f );
+	      	CenterX + characterWeapon->crossHairSize * uiScale, 
+	        	CenterY - (Crosshair[ CrosshairDirections::CrosshairDirections_Right ]).VL * uiScale / 2.0f, uiScale );
 
 	      Canvas->DrawIcon(Crosshair[ CrosshairDirections::CrosshairDirections_Top ], 
-         	CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Top ]).UL / 2.0f,
-	      	CenterY - 1 - (Crosshair[ CrosshairDirections::CrosshairDirections_Top ]).VL - characterWeapon->crossHairSize );
+         	CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Top ]).UL * uiScale / 2.0f,
+	      	CenterY - 1 - (Crosshair[ CrosshairDirections::CrosshairDirections_Top ]).VL * uiScale - characterWeapon->crossHairSize * uiScale, uiScale );
 
 	      Canvas->DrawIcon(Crosshair[ CrosshairDirections::CrosshairDirections_Bottom ],
-		      CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Bottom ]).UL / 2.0f,
-		      CenterY + characterWeapon->crossHairSize );
+		      CenterX - (Crosshair[ CrosshairDirections::CrosshairDirections_Bottom ]).UL * uiScale / 2.0f,
+		      CenterY + characterWeapon->crossHairSize * uiScale, uiScale );
          }
       }
 }

@@ -8,6 +8,12 @@ AProjectile::AProjectile( const FObjectInitializer& ObjectInitializer ) : Super(
  	
    proxSphere = ObjectInitializer.CreateDefaultSubobject<USphereComponent>(this, TEXT("ProxSphere"));
    proxSphere->InitSphereRadius( 15.0f );
+   proxSphere->SetCollisionEnabled( ECollisionEnabled::QueryOnly );
+	//proxSphere->SetCollisionObjectType( COLLISION_PROJECTILE );
+	proxSphere->SetCollisionResponseToAllChannels( ECR_Ignore );
+	proxSphere->SetCollisionResponseToChannel( ECC_WorldStatic, ECR_Block );
+	proxSphere->SetCollisionResponseToChannel( ECC_WorldDynamic, ECR_Block );
+	proxSphere->SetCollisionResponseToChannel( ECC_Pawn, ECR_Block );
    RootComponent = proxSphere;
    mesh->AttachTo( RootComponent );
 
