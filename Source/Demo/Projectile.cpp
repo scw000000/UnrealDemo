@@ -15,23 +15,58 @@ AProjectile::AProjectile( const FObjectInitializer& ObjectInitializer ) : Super(
 	proxSphere->SetCollisionResponseToChannel( ECC_WorldDynamic, ECR_Block );
 	proxSphere->SetCollisionResponseToChannel( ECC_Pawn, ECR_Block );
    RootComponent = proxSphere;
+
    mesh->AttachTo( RootComponent );
 
-   projectileMovement = ObjectInitializer.CreateDefaultSubobject<UProjectileMovementComponent>(this, TEXT("ProjectileComp"));
-   projectileMovement->UpdatedComponent = RootComponent;
-   projectileMovement->InitialSpeed = 3000.f;
-   projectileMovement->MaxSpeed = 3000.f;
-   projectileMovement->bRotationFollowsVelocity = true;
-   projectileMovement->bShouldBounce = true;
-   projectileMovement->Bounciness  = 0.3f;
+   projectileMovementComp = ObjectInitializer.CreateDefaultSubobject<UProjectileMovementComponent>(this, TEXT("ProjectileMovementComp"));
+   projectileMovementComp->UpdatedComponent = RootComponent;
+   projectileMovementComp->InitialSpeed = 3000.f;
+   projectileMovementComp->MaxSpeed = 3000.f;
+   projectileMovementComp->bRotationFollowsVelocity = true;
+   projectileMovementComp->bShouldBounce = false;
+   projectileMovementComp->Bounciness  = 0.3f;
+
+   isExploded = false;
+}
+
+void AProjectile::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	projectileMovementComp->OnProjectileStop.AddDynamic( this, &AProjectile::OnImpact );
+	proxSphere->MoveIgnoreActors.Add( Instigator );
+
+	controller = GetInstigatorController();
 }
 
 void AProjectile::InitVelocity( const FVector & shootDirection )
 {
-   if ( projectileMovement )
+   if ( projectileMovementComp )
       {
-      projectileMovement->Velocity = shootDirection * projectileMovement->InitialSpeed;
+      projectileMovementComp->Velocity = shootDirection * projectileMovementComp->InitialSpeed;
       }
+}
+
+void AProjectile::OnImpact( const FHitResult& hitResult )
+{
+	if ( Role == ROLE_Authority && !isExploded )
+	{
+		Explode( hitResult );
+		//DisableAndDestroy();
+	}
+}
+
+void AProjectile::Explode( const FHitResult& hitResult )
+{
+
+	// effects and damage origin shouldn't be placed inside mesh at impact point
+	const FVector nudgedImpactLocation = hitResult.ImpactPoint + hitResult.ImpactNormal * 10.0f;
+
+	//if ( WeaponConfig.ExplosionDamage > 0 && WeaponConfig.ExplosionRadius > 0 && WeaponConfig.DamageType )
+//	{
+		UGameplayStatics::ApplyRadialDamage( this, 10.f, nudgedImpactLocation, 90.f, NULL, TArray<AActor*>(), this, controller.Get() );
+	//}
+
+	isExploded = true;
 }
 
 

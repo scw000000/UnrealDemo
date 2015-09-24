@@ -3,6 +3,8 @@
 #include "Demo.h"
 #include "BasicCharacter.h"
 #include "DemoGame.h"
+#include "DemoGameMode.h"
+#include "DemoPlayerController.h"
 
 // Sets default values
 ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
@@ -153,6 +155,45 @@ void ABasicCharacter::UnCrouch( bool bClientSimulation )
             bodyMotion = BodyMotions::BodyMotions_Jog:
             bodyMotion = BodyMotions::BodyMotions_Idle;
       }
+}
+
+   /** Take damage, handle death */
+float ABasicCharacter::TakeDamage( float damage, struct FDamageEvent const& damageEvent, class AController* eventInstigator, class AActor* damageCauser )
+{
+GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "DAMAGE" );
+   ADemoPlayerController* MyPC = Cast<ADemoPlayerController>(Controller);
+	if ( MyPC )
+	{
+		return 0.f;
+	}
+
+	if ( health <= 0.f )
+	{
+		return 0.f;
+	}
+
+	// Modify based on game rules.
+	ADemoGameMode* const gameMode = GetWorld()->GetAuthGameMode<ADemoGameMode>();
+	damage = gameMode ? gameMode->ModifyDamage( damage, this, damageEvent, eventInstigator, damageCauser) : damage;
+
+	const float ActualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
+	if ( ActualDamage > 0.f )
+	{
+		health -= ActualDamage;
+		if ( health <= 0 )
+		{
+
+		//	Die(ActualDamage, DamageEvent, EventInstigator, DamageCauser);
+		}
+		else
+		{
+		//	PlayHit(ActualDamage, DamageEvent, EventInstigator ? EventInstigator->GetPawn() : NULL, DamageCauser);
+		}
+
+		MakeNoise(1.0f, eventInstigator ? eventInstigator->GetPawn() : this);
+	}
+
+	return ActualDamage;
 }
 
 void ABasicCharacter::SetPlayerView( PlayerViews inViewType )

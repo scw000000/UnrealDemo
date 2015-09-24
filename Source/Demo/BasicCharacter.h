@@ -33,7 +33,8 @@ public:
 
    virtual void UnCrouch( bool bClientSimulation = false ) override;
 
-   
+   /** Take damage, handle death */
+	virtual float TakeDamage( float damage, struct FDamageEvent const& damageEvent, class AController* eventInstigator, class AActor* damageCauser ) override;
 
    void SetPlayerView( PlayerViews inViewType );
    
