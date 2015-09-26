@@ -24,7 +24,7 @@ AProjectile::AProjectile( const FObjectInitializer& ObjectInitializer ) : Super(
    projectileMovementComp->MaxSpeed = 3000.f;
    projectileMovementComp->bRotationFollowsVelocity = true;
    projectileMovementComp->bShouldBounce = false;
-   projectileMovementComp->Bounciness  = 0.3f;
+   projectileMovementComp->Bounciness  = 0.f;
 
    isExploded = false;
 }
@@ -34,25 +34,35 @@ void AProjectile::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	projectileMovementComp->OnProjectileStop.AddDynamic( this, &AProjectile::OnImpact );
 	proxSphere->MoveIgnoreActors.Add( Instigator );
-
 	controller = GetInstigatorController();
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "weapon cast TEST" );
+   ARangedWeapon* ownerWeapon = Cast<ARangedWeapon>( GetOwner() );
+	if ( ownerWeapon )
+	{
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "weapon cast" );
+		ownerWeapon->ApplyProjectileConfig ( projectileConfig );
+	}
+   SetLifeSpan( projectileConfig.projectileLife );
 }
 
 void AProjectile::InitVelocity( const FVector & shootDirection )
 {
    if ( projectileMovementComp )
       {
-      projectileMovementComp->Velocity = shootDirection * projectileMovementComp->InitialSpeed;
+      projectileMovementComp->InitialSpeed = projectileConfig.projectileVelocity;
+      projectileMovementComp->MaxSpeed = projectileConfig.projectileVelocity;
+      projectileMovementComp->Velocity = shootDirection * projectileConfig.projectileVelocity;
       }
 }
 
 void AProjectile::OnImpact( const FHitResult& hitResult )
 {
-	if ( Role == ROLE_Authority && !isExploded )
-	{
+	if ( !isExploded )
+	   {
 		Explode( hitResult );
 		//DisableAndDestroy();
-	}
+	   }
+   isExploded = true;
 }
 
 void AProjectile::Explode( const FHitResult& hitResult )
@@ -61,10 +71,10 @@ void AProjectile::Explode( const FHitResult& hitResult )
 	// effects and damage origin shouldn't be placed inside mesh at impact point
 	const FVector nudgedImpactLocation = hitResult.ImpactPoint + hitResult.ImpactNormal * 10.0f;
 
-	//if ( WeaponConfig.ExplosionDamage > 0 && WeaponConfig.ExplosionRadius > 0 && WeaponConfig.DamageType )
-//	{
-		UGameplayStatics::ApplyRadialDamage( this, 10.f, nudgedImpactLocation, 90.f, NULL, TArray<AActor*>(), this, controller.Get() );
-	//}
+	if ( projectileConfig.explosionDamage > 0 && projectileConfig.explosionRadius > 0 && projectileConfig.damageType )
+	   {
+		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), this, controller.Get() );
+	   }
 
 	isExploded = true;
 }

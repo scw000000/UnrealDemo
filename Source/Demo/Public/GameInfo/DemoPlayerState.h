@@ -12,6 +12,7 @@ UCLASS()
 class DEMO_API ADemoPlayerState : public APlayerState
 {
 	GENERATED_UCLASS_BODY()
+
 	// Begin APlayerState interface
 	/** clear scores */
 	virtual void Reset() override;
@@ -19,17 +20,17 @@ class DEMO_API ADemoPlayerState : public APlayerState
 	/**
 	 * Set new team and update pawn. Also updates player character team colors.
 	 *
-	 * @param	NewTeamNumber	Team we want to be on.
+	 * @param	inTeamNumber	Team we want to be on.
 	 */
-	void SetTeamNum(int32 inTeamNumber);
+	void SetTeamNum( int32 inTeamNumber );
 
 	/** get current team */
-	int32 GetTeamNum() const;
+	int32 GetTeamNum();
 
-   UFUNCTION()
-      void InformAboutKill( class ADemoPlayerState* killerPlayerState, const UDamageType* killerDamageType, class ADemoPlayerState* killedPlayerState );
+ //  UFUNCTION()
+  //    void InformAboutKill( class ADemoPlayerState* killerPlayerState, const UDamageType* killerDamageType, class ADemoPlayerState* killedPlayerState );
 
-	virtual void CopyProperties( class APlayerState* playerState ) override;
+	//virtual void CopyProperties( class APlayerState* playerState ) override;
 
 protected:
 

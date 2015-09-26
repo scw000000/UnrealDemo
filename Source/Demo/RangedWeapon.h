@@ -5,6 +5,40 @@
 #include "Weapon.h"
 #include "RangedWeapon.generated.h"
 
+USTRUCT()
+struct FProjectileConfig
+{
+	GENERATED_USTRUCT_BODY()
+
+   /** life time */
+	UPROPERTY( EditDefaultsOnly, Category = Projectile )
+	   float projectileVelocity;
+
+	/** life time */
+	UPROPERTY( EditDefaultsOnly, Category = Projectile )
+	   float projectileLife;
+
+	/** damage at impact point */
+	UPROPERTY( EditDefaultsOnly, Category = WeaponStat )
+	   int32 explosionDamage;
+
+	/** radius of damage */
+	UPROPERTY( EditDefaultsOnly, Category = WeaponStat) 
+	   float explosionRadius;
+
+	/** type of damage */
+	UPROPERTY( EditDefaultsOnly, Category = WeaponStat )
+	  TSubclassOf<UDamageType> damageType;
+
+	/** defaults */
+	FProjectileConfig()
+	{
+		projectileLife = 10.0f;
+		explosionDamage = 30.f;
+		explosionRadius = 90.0f;
+		damageType = UDamageType::StaticClass();
+	}
+};
 /**
  * 
  */
@@ -27,20 +61,25 @@ public:
    void Reload(  int32 reloadAmmoNum  );
 
    void SetisTriggerOn( const bool& isSwitchedOn );
+
+   void ApplyProjectileConfig( FProjectileConfig& Data );
    
    int32 ammo;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = RangedWeapon )
       FireModes fireMode; 
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = RangedWeapon )
       int32 maxAmmo; 
 
    //unit = RPM
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = RangedWeapon )
-      float fireRate; 
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = RangedWeapon )
+      float fireRate;
 
-   UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = RangedWeapon )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Projectile )
+	   FProjectileConfig projectileConfig;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Projectile )
       TSubclassOf<class AProjectile> bpProjectile;
 
    

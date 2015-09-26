@@ -14,19 +14,19 @@ class DEMO_API ADemoGameMode : public AGameMode
 	GENERATED_UCLASS_BODY()
 
 	/** prevents friendly fire */
-	virtual float ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser ) const;
+	float ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser );
 
 	/** notify about kills */
 	virtual void Killed( AController* killer, AController* killedPlayer, APawn* killedPawn, const UDamageType* damageType );
 
 	///** can players damage each other? */
-	virtual bool CanDealDamage( ADemoPlayerState* damageInstigator, ADemoPlayerState* damagedPlayer ) const;
+	bool CanDealDamage( ADemoPlayerState* damageInstigator, ADemoPlayerState* damagedPlayer );
 
 	/** hides the onscreen hud and restarts the map */
 //	virtual void RestartGame() override;
 
 	/** Creates AIControllers for all bots */
-	void CreateBotControllers();
+	//void CreateBotControllers();
 
 protected:
 //	UPROPERTY()

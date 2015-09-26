@@ -4,6 +4,7 @@
 #include "BasicCharacter.h"
 #include "DemoEnums.h"
 #include "DemoPlayerController.h"
+#include "GameInfo/DemoPlayerState.h"
 
 void ADemoPlayerController::SetupInputComponent( )
 {
@@ -144,9 +145,12 @@ void ADemoPlayerController::MouseWheelDownPressed( )
 void ADemoPlayerController::Possess( APawn * InPawn )
 {
    Super::Possess( InPawn );
+   ADemoPlayerState* playerState = InPawn ? Cast<ADemoPlayerState>( InPawn->PlayerState ) : NULL;
+
    if( SetControllingCharacter( InPawn ) )
    {
-
+      playerState->SetTeamNum( 1 );
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "set team sucess" );
    }
    else
    {
@@ -156,11 +160,9 @@ void ADemoPlayerController::Possess( APawn * InPawn )
 
 bool ADemoPlayerController::SetControllingCharacter( APawn* InPawn )
 {
-   ABasicCharacter *character = Cast<ABasicCharacter>( InPawn );
-
-   if( character )
+   controllingCharacter = InPawn ? Cast<ABasicCharacter>( InPawn ) : NULL ;
+   if( controllingCharacter )
       {
-      controllingCharacter = character;
       return true;
       }
    GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: possess cast fail" );

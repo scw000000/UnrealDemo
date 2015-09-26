@@ -97,6 +97,11 @@ void ARangedWeapon::SetisTriggerOn( const bool& isSwitchedOn )
       }
 }
 
+void ARangedWeapon::ApplyProjectileConfig( FProjectileConfig& data )
+{
+   data = projectileConfig;
+}
+
 void ARangedWeapon::OnTriggerPressed()
 {
    TryFire( true );

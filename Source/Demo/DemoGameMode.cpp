@@ -10,7 +10,7 @@ ADemoGameMode::ADemoGameMode(const FObjectInitializer& ObjectInitializer) : Supe
 
 }
 
-float ADemoGameMode::ModifyDamage(float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser) const
+float ADemoGameMode::ModifyDamage(float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser)
 {
 	float actualDamage = damage;
 	ABasicCharacter* damagedPawn = Cast<ABasicCharacter>( damagedActor );
@@ -20,6 +20,11 @@ float ADemoGameMode::ModifyDamage(float damage, AActor* damagedActor, struct FDa
 		ADemoPlayerState* instigatorPlayerState = Cast< ADemoPlayerState >( eventInstigator->PlayerState );
 
 		// disable friendly fire
+      if( damagedPlayerState && instigatorPlayerState )
+         {
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf( TEXT("palyer state null") ) );
+         return 0.f;
+         }
 		if (!CanDealDamage( instigatorPlayerState, damagedPlayerState ) )
 		{
 			actualDamage = 0.0f;
@@ -42,7 +47,7 @@ void ADemoGameMode::Killed(AController* killer, AController* killedPlayer, APawn
 
 	if( killerPlayerState && killerPlayerState != victimPlayerState )
 	{
-		killerPlayerState->InformAboutKill( killerPlayerState, damageType, victimPlayerState );
+//		killerPlayerState->InformAboutKill( killerPlayerState, damageType, victimPlayerState );
 	}
 
 	if ( victimPlayerState )
@@ -51,9 +56,18 @@ void ADemoGameMode::Killed(AController* killer, AController* killedPlayer, APawn
 	}
 }
 
-bool ADemoGameMode::CanDealDamage(class ADemoPlayerState* damageInstigator, class ADemoPlayerState* damagedPlayer) const
-{
-	return true;
+bool ADemoGameMode::CanDealDamage( ADemoPlayerState* damageInstigator, ADemoPlayerState* damagedPlayer )
+{ 
+    //  GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf( TEXT(" %d wants to attack %d"), damageInstigator->GetTeamNum(), damagedPlayer->GetTeamNum() ) );
+ GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf( TEXT(" %d wants to attack "), damageInstigator->GetTeamNum() ) );
+ return true;
+/*
+   if( damageInstigator->GetTeamNum() != damagedPlayer->GetTeamNum() )
+      {
+
+      return true;
+      }
+	return false;*/
 }
 
 

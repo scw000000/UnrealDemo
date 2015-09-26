@@ -18,7 +18,12 @@ public:
 	virtual void PostInitializeComponents() override;
 
    AProjectile(const FObjectInitializer& ObjectInitializer );
+
    void InitVelocity(const FVector& shootDirection);
+
+	/** handle hit */
+	UFUNCTION()
+	   void OnImpact( const FHitResult& hitResult );
 
 	UPROPERTY( VisibleDefaultsOnly, Category = Projectile )
       USphereComponent* proxSphere;
@@ -26,9 +31,7 @@ public:
 	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Projectile )
       UProjectileMovementComponent* projectileMovementComp;
 
-   	/** handle hit */
-	UFUNCTION()
-	   void OnImpact( const FHitResult& hitResult );
+   
 private:
 
    /** trigger explosion */
@@ -36,6 +39,9 @@ private:
 
    /** controller that fired me (cache for damage calculations) */
 	TWeakObjectPtr<AController> controller;
+
+   /** projectile data */
+	struct FProjectileConfig projectileConfig;
 
    bool isExploded;
 };

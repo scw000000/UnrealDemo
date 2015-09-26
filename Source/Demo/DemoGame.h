@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine.h"
+#include "RangedWeapon.h"
 
 #define COLLISION_WEAPON		ECC_GameTraceChannel1
 #define COLLISION_PROJECTILE	ECC_GameTraceChannel2
