@@ -5,6 +5,7 @@
 #include "GameFramework/GameMode.h"
 #include "DemoGameMode.generated.h"
 class ADemoPlayerState;
+class ABasicCharacter;
 /**
  * 
  */
@@ -20,7 +21,7 @@ class DEMO_API ADemoGameMode : public AGameMode
 	virtual void Killed( AController* killer, AController* killedPlayer, APawn* killedPawn, const UDamageType* damageType );
 
 	///** can players damage each other? */
-	bool CanDealDamage( ADemoPlayerState* damageInstigator, ADemoPlayerState* damagedPlayer );
+	bool CanDealDamage( ABasicCharacter* damagedCharacter, ABasicCharacter* damagedCauser );
 
 	/** hides the onscreen hud and restarts the map */
 //	virtual void RestartGame() override;

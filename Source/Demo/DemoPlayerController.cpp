@@ -145,11 +145,10 @@ void ADemoPlayerController::MouseWheelDownPressed( )
 void ADemoPlayerController::Possess( APawn * InPawn )
 {
    Super::Possess( InPawn );
-   ADemoPlayerState* playerState = InPawn ? Cast<ADemoPlayerState>( InPawn->PlayerState ) : NULL;
 
    if( SetControllingCharacter( InPawn ) )
    {
-      playerState->SetTeamNum( 1 );
+      controllingCharacter->SetTeamNumber( 1 );
       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "set team sucess" );
    }
    else

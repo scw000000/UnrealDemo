@@ -48,7 +48,6 @@ void ARangedWeapon::Fire( FVector hitPoint )
    if ( bpProjectile )
       {
       FVector const nozzleLocation = mesh->GetSocketLocation( "nozzleSocket" );
-      FVector const barrelLocation = mesh->GetSocketLocation( "barrelSocket" );
       FRotator nozzleRotation = GetActorRotation();
       UWorld* const World = GetWorld();
       if (World)

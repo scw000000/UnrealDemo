@@ -33,8 +33,7 @@ public:
 
    virtual void UnCrouch( bool bClientSimulation = false ) override;
 
-   /** Take damage, handle death */
-	virtual float TakeDamage( float damage, struct FDamageEvent const& damageEvent, class AController* eventInstigator, class AActor* damageCauser ) override;
+
 
    void SetPlayerView( PlayerViews inViewType );
    
@@ -49,6 +48,17 @@ public:
    void SetCamPitch( const float& amount );
 
    void SetCamDistance( const float& amount );
+
+   void SetTeamNumber( int32 newTeamNumber );
+
+   /** Take damage, handle death */
+	virtual float TakeDamage( float damage, FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser ) override;
+
+   int32 GetTeamNumber() const;
+
+   bool CanDie( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser ) const;
+
+   bool ABasicCharacter::Die( float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser );
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
       float maxCameraPitch;
@@ -76,6 +86,9 @@ public:
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerHealth )
       float maxHealth;
+
+   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerTeam )
+      int32 teamNumber;
 
    UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
       USpringArmComponent* thirdPersonCameraBoomYaw;
@@ -119,6 +132,10 @@ protected:
   void RefineMotionJogJump( );
 
   void RefineMotionBreak( );
+
+  void OnDeath( float killingDamage, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator, class AActor* damageCauser );
+
+  bool isDying;
 
 private:
    void SetPlayerViewToThirdPerson( );

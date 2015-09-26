@@ -24,9 +24,13 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) 
    health = 100.f;
    maxHealth = 100.f;
 
+   teamNumber = 0;
+
    bUseControllerRotationPitch = false;
    bUseControllerRotationYaw = false;
    bUseControllerRotationRoll = false;
+
+   isDying = false;
    /*
    GetMesh()->SetCollisionObjectType( ECC_Pawn );
 	GetMesh()->SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
@@ -157,45 +161,6 @@ void ABasicCharacter::UnCrouch( bool bClientSimulation )
       }
 }
 
-   /** Take damage, handle death */
-float ABasicCharacter::TakeDamage( float damage, struct FDamageEvent const& damageEvent, class AController* eventInstigator, class AActor* damageCauser )
-{
-GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "DAMAGE" );
-   ADemoPlayerController* MyPC = Cast<ADemoPlayerController>(Controller);
-	if ( MyPC )
-	{
-		return 0.f;
-	}
-
-	if ( health <= 0.f )
-	{
-		return 0.f;
-	}
-
-	// Modify based on game rules.
-	ADemoGameMode* const gameMode = GetWorld()->GetAuthGameMode<ADemoGameMode>();
-	damage = gameMode ? gameMode->ModifyDamage( damage, this, damageEvent, eventInstigator, damageCauser) : damage;
-
-	const float ActualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
-	if ( ActualDamage > 0.f )
-	{
-		health -= ActualDamage;
-		if ( health <= 0 )
-		{
-
-		//	Die(ActualDamage, DamageEvent, EventInstigator, DamageCauser);
-		}
-		else
-		{
-		//	PlayHit(ActualDamage, DamageEvent, EventInstigator ? EventInstigator->GetPawn() : NULL, DamageCauser);
-		}
-
-		MakeNoise(1.0f, eventInstigator ? eventInstigator->GetPawn() : this);
-	}
-
-	return ActualDamage;
-}
-
 void ABasicCharacter::SetPlayerView( PlayerViews inViewType )
 {
    switch( inViewType )
@@ -293,6 +258,88 @@ void ABasicCharacter::SetCamDistance( const float& amount )
 {
    thirdPersonCameraBoomPitch->TargetArmLength += cameraScrollSpeed * amount * -1.f * GetWorld( )->GetDeltaSeconds( );
    thirdPersonCameraBoomPitch->TargetArmLength = FMath::Clamp<float>( thirdPersonCameraBoomPitch->TargetArmLength, minCameraDistance, maxCameraDistance );
+}
+
+void ABasicCharacter::SetTeamNumber( int32 newTeamNumber )
+{
+   teamNumber = newTeamNumber;
+}
+
+   /** Take damage, handle death */
+float ABasicCharacter::TakeDamage( float damage, FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser )
+{
+   //already, skip
+	if ( health <= 0.f )
+	{
+		return 0.f;
+	}
+
+	// Modify based on game rules.
+	ADemoGameMode* const gameMode = GetWorld()->GetAuthGameMode<ADemoGameMode>();
+	damage = gameMode ? gameMode->ModifyDamage( damage, this, damageEvent, eventInstigator, damageCauser) : damage;
+   if( !gameMode )
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "Game mode null" );
+      }
+	const float ActualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
+	if ( ActualDamage > 0.f )
+	{
+		health -= ActualDamage;
+		if ( health <= 0 )
+		{
+GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "dying" );
+			Die( ActualDamage, damageEvent, eventInstigator, damageCauser );
+          
+		}
+		else
+		{
+		//	PlayHit(ActualDamage, DamageEvent, EventInstigator ? EventInstigator->GetPawn() : NULL, DamageCauser);
+		}
+
+		MakeNoise(1.0f, eventInstigator ? eventInstigator->GetPawn() : this);
+	}
+
+	return ActualDamage;
+}
+
+
+int32 ABasicCharacter::GetTeamNumber() const
+{
+   return teamNumber;
+}
+
+bool ABasicCharacter::CanDie( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser ) const
+{
+   if ( isDying										// already dying
+		|| IsPendingKill()								// already destroyed
+		|| GetWorld()->GetAuthGameMode() == NULL
+		|| GetWorld()->GetAuthGameMode()->GetMatchState() == MatchState::LeavingMap )	// level transition occurring
+	   {
+       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "cannot die" );
+		   return false;
+	   }
+    GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "can die" );
+	return true;
+}
+
+bool ABasicCharacter::Die( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser )
+{
+   if ( !CanDie( killingDamage, damageEvent, killer, damageCauser ) )
+	   {
+	  	return false;
+	   }
+
+	health = FMath::Min(0.0f, health);
+
+	// if this is an environmental death then refer to the previous killer so that they receive credit (knocked into lava pits, etc)
+	//UDamageType const* const DamageType = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
+	//Killer = GetDamageInstigator( Killer, *DamageType );
+
+	AController* const KilledPlayer = (Controller != NULL) ? Controller : Cast<AController>( GetOwner() );
+	//GetWorld()->GetAuthGameMode<ADemoGameMode>()->Killed( Killer, KilledPlayer, this, DamageType );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "calling on death" );
+	OnDeath( killingDamage, damageEvent, killer ? killer->GetPawn() : NULL, damageCauser );
+	return true;
 }
 
 //reset idle time and set its bodymotion
@@ -424,6 +471,43 @@ void ABasicCharacter::RefineMotionBreak( )
     {
     bodyMotion = BodyMotions::BodyMotions_Idle;
     }
+}
+
+void ABasicCharacter::OnDeath( float killingDamage, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator, class AActor* damageCauser )
+{
+	if ( isDying )
+	{
+		return;
+	}
+
+	isDying = true;
+
+   /*
+	// cannot use IsLocallyControlled here, because even local client's controller may be NULL here
+	if (GetNetMode() != NM_DedicatedServer && DeathSound && Mesh1P && Mesh1P->IsVisible())
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	}*/
+
+	// remove all weapons
+	//DestroyInventory();
+
+	DetachFromControllerPendingDestroy();
+	//StopAllAnimMontages();
+
+	// disable collisions on capsule
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECR_Ignore);
+
+	if (GetMesh())
+	{
+		static FName CollisionProfileName(TEXT("Ragdoll"));
+		GetMesh()->SetCollisionProfileName(CollisionProfileName);
+	}
+	SetActorEnableCollision(true);
+
+	bodyMotion = BodyMotions::BodyMotions_Die;
+
 }
 
 void ABasicCharacter::SetPlayerViewToThirdPerson( )

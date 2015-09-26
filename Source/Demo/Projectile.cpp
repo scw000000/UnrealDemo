@@ -73,7 +73,7 @@ void AProjectile::Explode( const FHitResult& hitResult )
 
 	if ( projectileConfig.explosionDamage > 0 && projectileConfig.explosionRadius > 0 && projectileConfig.damageType )
 	   {
-		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), this, controller.Get() );
+		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), controller->GetControlledPawn(), controller.Get() );
 	   }
 
 	isExploded = true;

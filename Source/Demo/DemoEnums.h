@@ -25,7 +25,8 @@ enum class BodyMotions : uint8
    BodyMotions_CrouchJog   UMETA( DisplayName = "CrouchJog" ),
    BodyMotions_CrouchIdle  UMETA( DisplayName = "CrouchIdle" ),
    BodyMotions_Fall    	   UMETA( DisplayName = "Fall" ),
-   BodyMotions_Prone    	UMETA( DisplayName = "Prone" )
+   BodyMotions_Prone    	UMETA( DisplayName = "Prone" ),
+   BodyMotions_Die    	   UMETA( DisplayName = "Die" )
 };
 
 UENUM( BlueprintType )		
