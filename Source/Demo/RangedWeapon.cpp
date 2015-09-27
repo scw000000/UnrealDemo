@@ -158,32 +158,14 @@ void ARangedWeapon::TrySingleFire()
    AMilitaryCharacter *character = Cast<AMilitaryCharacter>( GetOwner() );
    if( character &&  ammo > 0 )
       {
-      UCameraComponent *playerCamera = character->playerCamera;
-      FCollisionQueryParams lineTraceParams = FCollisionQueryParams(FName( TEXT( "Line_Trace" ) ), true, this);
-      lineTraceParams.bTraceComplex = true;
-      lineTraceParams.bTraceAsyncScene = true;
-      lineTraceParams.bReturnPhysicalMaterial = false;
-      lineTraceParams.AddIgnoredActor( GetOwner() );
- 
-      FHitResult line_HitResult( ForceInit );
-
-      const FVector traceStart = playerCamera->GetComponentLocation();      
-      const FVector traceEnd = traceStart + playerCamera->GetForwardVector() * 4096; 
-      bool isHitImpactPointExist = GetWorld()->LineTraceSingleByChannel( 
-                                      line_HitResult,        //result
-                                      traceStart + playerCamera->GetForwardVector() * 10,    //start
-                                      traceEnd, //end
-                                      COLLISION_WEAPON,
-                                      lineTraceParams
-                                      );
-       
-      if( isHitImpactPointExist )
+      FHitResult line_HitResult = character->PerfromVisionLineTrace();      
+      if( line_HitResult.bBlockingHit )
          {
          Fire( line_HitResult.ImpactPoint );
          }
       else
          {
-         Fire( traceEnd );
+         Fire( line_HitResult.TraceEnd );
          }
       }
 }

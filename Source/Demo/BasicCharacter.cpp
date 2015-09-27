@@ -342,6 +342,28 @@ bool ABasicCharacter::Die( float killingDamage, FDamageEvent const& damageEvent,
 	return true;
 }
 
+FHitResult ABasicCharacter::PerfromVisionLineTrace()
+{
+   FCollisionQueryParams lineTraceParams = FCollisionQueryParams( FName( TEXT( "Line_Trace" ) ), true, this );
+   lineTraceParams.bTraceComplex = true;
+   lineTraceParams.bTraceAsyncScene = true;
+   lineTraceParams.bReturnPhysicalMaterial = false;
+   lineTraceParams.AddIgnoredActor( this );
+ 
+   FHitResult line_HitResult( ForceInit );
+
+   const FVector traceStart = playerCamera->GetComponentLocation();      
+   const FVector traceEnd = traceStart + playerCamera->GetForwardVector() * 4096; 
+   bool isHitImpactPointExist = GetWorld()->LineTraceSingleByChannel( 
+                                      line_HitResult,        //result
+                                      traceStart + playerCamera->GetForwardVector() * 10,    //start
+                                      traceEnd, //end
+                                      COLLISION_WEAPON,
+                                      lineTraceParams
+                                      );   
+   return line_HitResult;
+}
+
 //reset idle time and set its bodymotion
 void ABasicCharacter::WakePlayer()
 {
@@ -481,7 +503,7 @@ void ABasicCharacter::OnDeath( float killingDamage, struct FDamageEvent const& d
 	}
 
 	isDying = true;
-
+ //  GetMesh()->AnimScriptInstance->AnimNotifies;
    /*
 	// cannot use IsLocallyControlled here, because even local client's controller may be NULL here
 	if (GetNetMode() != NM_DedicatedServer && DeathSound && Mesh1P && Mesh1P->IsVisible())

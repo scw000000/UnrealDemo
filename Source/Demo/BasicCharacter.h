@@ -58,7 +58,10 @@ public:
 
    bool CanDie( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser ) const;
 
-   bool ABasicCharacter::Die( float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser );
+   bool Die( float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser );
+
+   UFUNCTION( BlueprintCallable, Category = LineTrace )
+      FHitResult PerfromVisionLineTrace();
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
       float maxCameraPitch;
