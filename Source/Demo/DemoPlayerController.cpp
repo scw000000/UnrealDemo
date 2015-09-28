@@ -149,7 +149,6 @@ void ADemoPlayerController::Possess( APawn * InPawn )
    if( SetControllingCharacter( InPawn ) )
    {
       controllingCharacter->SetTeamNumber( 1 );
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "set team sucess" );
    }
    else
    {

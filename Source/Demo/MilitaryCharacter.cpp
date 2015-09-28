@@ -65,40 +65,32 @@ void AMilitaryCharacter::StartReloadWeapon()
       }
 }
 
-void AMilitaryCharacter::ReloadWeaponAnimSync()
+void AMilitaryCharacter::CatchAnimNotifies()
 {
-   inventoryManager.ReloadWeapon();
-}
-
-void AMilitaryCharacter::EndReloadWeapon()
-{
-   
-   if( playerView == PlayerViews::PlayerViews_Aim )
+   if( GetMesh() )
       {
-      armMotion = ArmMotions::ArmMotions_IronSight;
+      for( TArray<const struct FAnimNotifyEvent *>::TIterator it = GetMesh()->AnimScriptInstance->AnimNotifies.CreateIterator(); it; ++it )
+         {
+         //GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, (*it)->NotifyName.ToString() );
+         FString animNotifyName = (*it)->NotifyName.ToString();
+         if( animNotifyName.Equals( "EquipSync" ) )
+            {
+            EquipWeaponAnimSync();
+            }
+         else if( animNotifyName.Equals( "EquipEnd" ) )
+            {
+            EndEquipWeapon();
+            }
+         else if( animNotifyName.Equals( "ReloadSync" ) )
+            {
+            ReloadWeaponAnimSync();
+            }
+         else if( animNotifyName.Equals( "ReloadEnd" ) )
+            {
+            EndReloadWeapon();
+            }
+         }
       }
-   else
-      {
-      armMotion = ArmMotions::ArmMotions_Default;
-      }
-}
-
-void AMilitaryCharacter::EndEquipWeapon( )
-{ 
-   if( playerView == PlayerViews::PlayerViews_Aim )
-      {
-      armMotion = ArmMotions::ArmMotions_IronSight;
-      }
-   else
-      {
-      armMotion = ArmMotions::ArmMotions_Default;
-      }
-
-}
-
-void AMilitaryCharacter::EquipWeaponAnimSync()
-{           
-   inventoryManager.EquipWeapon();
 }
 
 void AMilitaryCharacter::Tick( float DeltaTime )
@@ -163,3 +155,40 @@ AWeapon* AMilitaryCharacter::GetEquippedWeapon()
 {
    return inventoryManager.GetEquippedWeapon();
 }
+
+void AMilitaryCharacter::ReloadWeaponAnimSync()
+{
+   inventoryManager.ReloadWeapon();
+}
+
+void AMilitaryCharacter::EndReloadWeapon()
+{
+   
+   if( playerView == PlayerViews::PlayerViews_Aim )
+      {
+      armMotion = ArmMotions::ArmMotions_IronSight;
+      }
+   else
+      {
+      armMotion = ArmMotions::ArmMotions_Default;
+      }
+}
+
+void AMilitaryCharacter::EndEquipWeapon( )
+{ 
+   if( playerView == PlayerViews::PlayerViews_Aim )
+      {
+      armMotion = ArmMotions::ArmMotions_IronSight;
+      }
+   else
+      {
+      armMotion = ArmMotions::ArmMotions_Default;
+      }
+
+}
+
+void AMilitaryCharacter::EquipWeaponAnimSync()
+{           
+   inventoryManager.EquipWeapon();
+}
+

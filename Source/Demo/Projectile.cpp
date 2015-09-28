@@ -35,11 +35,9 @@ void AProjectile::PostInitializeComponents()
 	projectileMovementComp->OnProjectileStop.AddDynamic( this, &AProjectile::OnImpact );
 	proxSphere->MoveIgnoreActors.Add( Instigator );
 	controller = GetInstigatorController();
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "weapon cast TEST" );
    ARangedWeapon* ownerWeapon = Cast<ARangedWeapon>( GetOwner() );
 	if ( ownerWeapon )
 	{
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "weapon cast" );
 		ownerWeapon->ApplyProjectileConfig ( projectileConfig );
 	}
    SetLifeSpan( projectileConfig.projectileLife );
@@ -73,7 +71,7 @@ void AProjectile::Explode( const FHitResult& hitResult )
 
 	if ( projectileConfig.explosionDamage > 0 && projectileConfig.explosionRadius > 0 && projectileConfig.damageType )
 	   {
-		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), controller->GetControlledPawn(), controller.Get() );
+		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), controller->GetPawn(), controller.Get() );
 	   }
 
 	isExploded = true;

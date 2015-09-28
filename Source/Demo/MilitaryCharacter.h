@@ -34,17 +34,7 @@ public:
    UFUNCTION( BlueprintCallable, Category = Equipment )
       void StartReloadWeapon();
 
-   UFUNCTION( BlueprintCallable, Category = Equipment )
-      void ReloadWeaponAnimSync();
-
-   UFUNCTION( BlueprintCallable, Category = Equipment )
-      void EndReloadWeapon();
-   
-   UFUNCTION( BlueprintCallable, Category = Equipment )
-      void EndEquipWeapon();
-
-   UFUNCTION( BlueprintCallable, Category = Equipment )
-      void EquipWeaponAnimSync( );
+   virtual void CatchAnimNotifies() override;
 
   // UFUNCTION( BlueprintCallable, Category = Equipment )
   //    void ReloadWeaponAnimSync( );
@@ -78,5 +68,12 @@ public:
    //UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = Equipment )
       
 private:
+   void ReloadWeaponAnimSync();
+
+   void EndReloadWeapon();
+   
+   void EndEquipWeapon();
+
+   void EquipWeaponAnimSync( );
    InventoryManager inventoryManager;
 };

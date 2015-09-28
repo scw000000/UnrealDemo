@@ -26,6 +26,8 @@ public:
 
    virtual void StopAttack();
 
+   virtual void CatchAnimNotifies();
+
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 

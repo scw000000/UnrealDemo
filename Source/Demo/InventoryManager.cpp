@@ -107,8 +107,9 @@ void InventoryManager::AddBackpackItemByInstance( AItem *const inItemInstance )
 
 void InventoryManager::AddBackpackItemByClass( TSubclassOf<class AItem> inItemClass, int32 itemNum )
 {
-   BackpackItem *backpackItem = backpack.Find( inItemClass );
-   
+
+   BackpackItem *backpackItem = FindItem( inItemClass );
+   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "add by ckass" );
    if( inItemClass && itemNum > 0 ){
       AItem* defaultObject = Cast<AItem>( inItemClass->GetDefaultObject() ); 
       if( backpackItem && defaultObject )

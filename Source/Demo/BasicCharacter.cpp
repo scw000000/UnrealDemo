@@ -118,10 +118,16 @@ void ABasicCharacter::StopAttack()
       }
 }
 
+void ABasicCharacter::CatchAnimNotifies()
+{
+}
+
 // Called every frame
 void ABasicCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+   //do not catch at all in BasicCharacter
+   CatchAnimNotifies();
    RefineMotionType( DeltaTime );
 }
 /**
@@ -277,19 +283,13 @@ float ABasicCharacter::TakeDamage( float damage, FDamageEvent const& damageEvent
 	// Modify based on game rules.
 	ADemoGameMode* const gameMode = GetWorld()->GetAuthGameMode<ADemoGameMode>();
 	damage = gameMode ? gameMode->ModifyDamage( damage, this, damageEvent, eventInstigator, damageCauser) : damage;
-   if( !gameMode )
-      {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "Game mode null" );
-      }
 	const float ActualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
 	if ( ActualDamage > 0.f )
 	{
 		health -= ActualDamage;
 		if ( health <= 0 )
 		{
-GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "dying" );
 			Die( ActualDamage, damageEvent, eventInstigator, damageCauser );
-          
 		}
 		else
 		{
@@ -337,7 +337,7 @@ bool ABasicCharacter::Die( float killingDamage, FDamageEvent const& damageEvent,
 
 	AController* const KilledPlayer = (Controller != NULL) ? Controller : Cast<AController>( GetOwner() );
 	//GetWorld()->GetAuthGameMode<ADemoGameMode>()->Killed( Killer, KilledPlayer, this, DamageType );
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "calling on death" );
+
 	OnDeath( killingDamage, damageEvent, killer ? killer->GetPawn() : NULL, damageCauser );
 	return true;
 }
