@@ -67,3 +67,16 @@ enum CrosshairDirections : uint8
 	CrosshairDirections_Center = 4
 };
 
+enum ShooterHudPositions : uint8
+{
+	ShooterHudPositions_Left = 0,
+	ShooterHudPositions_FrontLeft = 1,
+   ShooterHudPositions_Front = 2,
+	ShooterHudPositions_FrontRight = 3,
+	ShooterHudPositions_Right = 4,
+	ShooterHudPositions_BackRight = 5,
+	ShooterHudPositions_Back = 6,
+   ShooterHudPositions_BackLeft = 7
+};
+
+
