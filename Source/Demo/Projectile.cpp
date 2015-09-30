@@ -33,7 +33,7 @@ void AProjectile::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	projectileMovementComp->OnProjectileStop.AddDynamic( this, &AProjectile::OnImpact );
-	proxSphere->MoveIgnoreActors.Add( Instigator );
+	//proxSphere->MoveIgnoreActors.Add( Instigator );
 	controller = GetInstigatorController();
    ARangedWeapon* ownerWeapon = Cast<ARangedWeapon>( GetOwner() );
 	if ( ownerWeapon )
@@ -68,11 +68,13 @@ void AProjectile::Explode( const FHitResult& hitResult )
 
 	// effects and damage origin shouldn't be placed inside mesh at impact point
 	const FVector nudgedImpactLocation = hitResult.ImpactPoint + hitResult.ImpactNormal * 10.0f;
-
 	if ( projectileConfig.explosionDamage > 0 && projectileConfig.explosionRadius > 0 && projectileConfig.damageType )
 	   {
-		UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), controller->GetPawn(), controller.Get() );
-	   }
+	//	UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), controller->GetPawn(), controller.Get() );
+	UGameplayStatics::ApplyRadialDamage( this, projectileConfig.explosionDamage, nudgedImpactLocation, projectileConfig.explosionRadius, projectileConfig.damageType, TArray<AActor*>(), NULL, controller.Get() );
+
+      //  UGameplayStatics::
+      }
 
 	isExploded = true;
 }

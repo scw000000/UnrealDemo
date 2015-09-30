@@ -48,10 +48,18 @@ void ADemoGameMode::Killed(AController* killer, AController* killedPlayer, APawn
 }
 
 bool ADemoGameMode::CanDealDamage( ABasicCharacter* damagedCharacter, ABasicCharacter* damagedCauser )
-{ 
+{ 	  
    if( damagedCharacter->GetTeamNumber() != damagedCauser->GetTeamNumber() )
       {
 
+      return true;
+      }
+   if( canFriendlyFire && damagedCharacter->GetTeamNumber() == damagedCauser->GetTeamNumber() && damagedCharacter->GetUniqueID() != damagedCauser->GetUniqueID() )
+      {
+      return true;
+      }
+   if( canDamageSelf && damagedCharacter->GetTeamNumber() == damagedCauser->GetTeamNumber() && damagedCharacter->GetUniqueID() == damagedCauser->GetUniqueID() )
+      {
       return true;
       }
 	return false;

@@ -28,12 +28,19 @@ class DEMO_API ADemoGameMode : public AGameMode
 
 	/** Creates AIControllers for all bots */
 	//void CreateBotControllers();
-
+//UPROPERTY(config)
+   
 protected:
 //	UPROPERTY()
 //	TArray<AShooterAIController*> BotControllers;
-   UPROPERTY(config)
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
 	   float damageSelfScale;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
+	   bool canDamageSelf;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
+	   bool canFriendlyFire;
 
 //	/** initialization for bot after creation */
 //	virtual void InitBot(AShooterAIController* AIC, int32 BotNum);

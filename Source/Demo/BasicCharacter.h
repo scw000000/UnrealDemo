@@ -140,6 +140,8 @@ protected:
 
   void OnDeath( float killingDamage, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator, class AActor* damageCauser );
 
+  void PlayHitReaction( float damageTaken, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator, class AActor* damageCauser );
+
   bool isDying;
 
 private:

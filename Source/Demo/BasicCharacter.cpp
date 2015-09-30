@@ -5,6 +5,7 @@
 #include "DemoGame.h"
 #include "DemoGameMode.h"
 #include "DemoPlayerController.h"
+#include "DemoHUD.h"
 
 // Sets default values
 ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
@@ -270,36 +271,35 @@ void ABasicCharacter::SetTeamNumber( int32 newTeamNumber )
 {
    teamNumber = newTeamNumber;
 }
-
    /** Take damage, handle death */
 float ABasicCharacter::TakeDamage( float damage, FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser )
 {
    //already, skip
 	if ( health <= 0.f )
-	{
+	   {
 		return 0.f;
-	}
+	   }
 
 	// Modify based on game rules.
 	ADemoGameMode* const gameMode = GetWorld()->GetAuthGameMode<ADemoGameMode>();
 	damage = gameMode ? gameMode->ModifyDamage( damage, this, damageEvent, eventInstigator, damageCauser) : damage;
-	const float ActualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
-	if ( ActualDamage > 0.f )
-	{
-		health -= ActualDamage;
+	const float actualDamage = Super::TakeDamage( damage, damageEvent, eventInstigator, damageCauser);
+	if ( actualDamage > 0.f )
+	   {
+		health -= actualDamage;
 		if ( health <= 0 )
-		{
-			Die( ActualDamage, damageEvent, eventInstigator, damageCauser );
-		}
+		   {
+			Die( actualDamage, damageEvent, eventInstigator, damageCauser );
+		   }
 		else
-		{
-		//	PlayHit(ActualDamage, DamageEvent, EventInstigator ? EventInstigator->GetPawn() : NULL, DamageCauser);
-		}
+		   {
+         PlayHitReaction( actualDamage, damageEvent, eventInstigator ? eventInstigator->GetPawn() : NULL, damageCauser);
+		   }
 
 		MakeNoise(1.0f, eventInstigator ? eventInstigator->GetPawn() : this);
-	}
+	   }
 
-	return ActualDamage;
+	return actualDamage;
 }
 
 
@@ -530,6 +530,32 @@ void ABasicCharacter::OnDeath( float killingDamage, struct FDamageEvent const& d
 
 	bodyMotion = BodyMotions::BodyMotions_Die;
 
+}
+
+void ABasicCharacter::PlayHitReaction( float damageTaken, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator, class AActor* damageCauser )
+{
+
+   if ( damageTaken > 0.f)
+	   {
+		//ApplyDamageMomentum( damageTaken*1000000.f, damageEvent, pawnInstigator, damageCauser );
+      }
+	
+   ADemoPlayerController* myPC = Cast<ADemoPlayerController>( Controller );
+	ADemoHUD* myHUD = myPC ? Cast<ADemoHUD>( myPC->GetHUD() ) : NULL;
+	if ( myHUD )
+	   {
+		myHUD->NotifyWeaponHit( damageTaken, damageEvent, pawnInstigator );
+	   }
+
+	if ( pawnInstigator && pawnInstigator != this && pawnInstigator->IsLocallyControlled())
+	   {
+		ADemoPlayerController* instigatorPC = Cast<ADemoPlayerController>( pawnInstigator->Controller );
+		ADemoHUD* instigatorHUD = instigatorPC ? Cast<ADemoHUD>( instigatorPC->GetHUD() ) : NULL;
+		if ( instigatorHUD )
+		   {
+	//		InstigatorHUD->NotifyEnemyHit();
+		   }
+	   }
 }
 
 void ABasicCharacter::SetPlayerViewToThirdPerson( )

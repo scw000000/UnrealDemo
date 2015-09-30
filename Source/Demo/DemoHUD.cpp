@@ -69,6 +69,7 @@ void ADemoHUD::DrawHUD()
   // GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "drawing" );
       DrawCrossHair();
       DrawHealth();
+      DrawHitIndicator();;
 		return;
 }
 
@@ -134,42 +135,42 @@ void ADemoHUD::DrawHitIndicator()
 {
 	const float CurrentTime = GetWorld()->GetTimeSeconds();
 	if (CurrentTime - lastHitTime <= hitNotifyDisplayTime)
-	{
+	   {
 		const float StartX = Canvas->ClipX / 2.0f;
 		const float StartY = Canvas->ClipY / 2.0f;
 
 		for ( uint8 i = 0; i < 8; i++ )
-		{
-			const float TimeModifier = FMath::Max( 0.0f, 1 - (CurrentTime - HitNotifyData[i].HitTime) / hitNotifyDisplayTime );
-			const float Alpha = TimeModifier * HitNotifyData[i].HitPercentage;
+		   {
+			const float TimeModifier = FMath::Max( 0.0f, 1 - (CurrentTime - hitNotifyData[i].hitTime ) / hitNotifyDisplayTime );
+			const float Alpha = TimeModifier * hitNotifyData[i].hitPercentage;
 			Canvas->SetDrawColor(255, 255, 255, FMath::Clamp(FMath::TruncToInt(Alpha * 255 * 1.5f), 0, 255));
 			Canvas->DrawIcon(HitNotifyIcon[i], 
 				StartX + ( HitNotifyIcon[i].U - HitNotifyTexture->GetSizeX() / 2 + Offsets[i].X) * uiScale,
 				StartY + ( HitNotifyIcon[i].V - HitNotifyTexture->GetSizeY() / 2 + Offsets[i].Y) * uiScale,
 				uiScale );
-		}
-	}
+		   }
+	   }
 }
 
 void ADemoHUD::NotifyWeaponHit( float damageTaken, struct FDamageEvent const& damageEvent, class APawn* pawnInstigator )
 {
-	const float CurrentTime = GetWorld()->GetTimeSeconds();
+	const float currentTime = GetWorld()->GetTimeSeconds();
 	if ( controllingCharacter )
-	{
-		if (CurrentTime - LastHitTime > HitNotifyDisplayTime) 
-		{
+	   {
+		if ( currentTime - lastHitTime > hitNotifyDisplayTime ) 
+		   {
 			for ( uint8 i = 0; i < 8; i++ )
-			{
+			   {
 				hitNotifyData[i].hitPercentage = 0;
-			}
-		}
+			   }
+		   }
 
 		FVector impulseDir;    
 		FHitResult hitResult; 
-		DamageEvent.GetBestHitInfo( this, pawnInstigator, hitResult, impulseDir );
+		damageEvent.GetBestHitInfo( this, pawnInstigator, hitResult, impulseDir );
 
 		//check hit vector against pre-defined direction vectors - left, front, right, back
-		const FVector HitVector = FRotationMatrix( PlayerOwner->GetControlRotation() ).InverseTransformVector( -impulseDir );
+		FVector HitVector = FRotationMatrix( controllingCharacter->playerCamera->GetComponentRotation() ).InverseTransformVector( -impulseDir );
 
 		FVector Dirs2[8] = { 
 			FVector(0,-1,0) /*left*/, 
@@ -180,32 +181,32 @@ void ADemoHUD::NotifyWeaponHit( float damageTaken, struct FDamageEvent const& da
 			FVector(-1,1,0) /*back right*/, 
 			FVector(-1,0,0), /*back*/
 			FVector(-1,-1,0) /*back left*/ 
-		};
+		   };
 		int32 DirIndex = -1;
 		float HighestModifier = 0;
-
+      //test 8 direction individually to find the best match direction by minimal dot product value
 		for ( uint8 i = 0; i < 8; i++ )
-		{
+		   {
 			//Normalize our direction vectors
 			Dirs2[i].Normalize();
 			const float DirModifier = FMath::Max(0.0f, FVector::DotProduct(Dirs2[i], HitVector));
 			if (DirModifier > HighestModifier)
-			{
+			   {
 				DirIndex = i;
 				HighestModifier = DirModifier;
-			}
-		}
+			   }
+		   }
 		if (DirIndex > -1)
-		{
-			const float DamageTakenPercentage = ( DamageTaken / controllingCharacter->health );
-			HitNotifyData[DirIndex].HitPercentage += DamageTakenPercentage * 2;
-			HitNotifyData[DirIndex].HitPercentage = FMath::Clamp(HitNotifyData[DirIndex].HitPercentage, 0.0f, 1.0f);
-			HitNotifyData[DirIndex].HitTime = CurrentTime;
-		}
+		   {
+			const float DamageTakenPercentage = ( damageTaken / controllingCharacter->health );
+			hitNotifyData[DirIndex].hitPercentage += DamageTakenPercentage * 2;
+			hitNotifyData[DirIndex].hitPercentage = FMath::Clamp( hitNotifyData[DirIndex].hitPercentage, 0.0f, 1.0f );
+			hitNotifyData[DirIndex].hitTime = currentTime;
+		   }
 
-	}
+	   }
 	
-	LastHitTime = CurrentTime;
+	lastHitTime = currentTime;
 }
 
 

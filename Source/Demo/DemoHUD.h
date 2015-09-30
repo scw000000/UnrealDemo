@@ -30,7 +30,7 @@ UCLASS()
 class DEMO_API ADemoHUD : public AHUD
 {
 	GENERATED_BODY()
-	
+public:
    ADemoHUD( const FObjectInitializer& ObjectInitializer );
 
    virtual void DrawHUD() override;
