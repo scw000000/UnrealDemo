@@ -65,56 +65,59 @@ public:
    UFUNCTION( BlueprintCallable, Category = LineTrace )
       FHitResult PerfromVisionLineTrace();
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float maxCameraPitch;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float minCameraPitch;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float cameraScrollSpeed;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float cameraRotateSpeed;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float maxCameraDistance;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float minCameraDistance;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerMotion )
       float idleTime;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerHealth )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerHealth )
       float health;
 
-   UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerHealth )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerHealth )
       float maxHealth;
 
    UPROPERTY( EditAnywhere, BlueprintReadOnly, Category = PlayerTeam )
       int32 teamNumber;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       USpringArmComponent* thirdPersonCameraBoomYaw;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       USpringArmComponent* thirdPersonCameraBoomPitch;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       UCameraComponent* playerCamera;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       USpringArmComponent* aimingCameraBoom;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerView )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       PlayerViews playerView;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerMotion )
       ArmMotions armMotion;
 
-   UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = PlayerMotion )
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerMotion )
       BodyMotions bodyMotion;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = CameraShake)
+	  TSubclassOf<UCameraShake> damagedCameraShake;
 
 
 protected:

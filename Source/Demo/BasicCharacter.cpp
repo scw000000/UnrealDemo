@@ -539,15 +539,20 @@ void ABasicCharacter::PlayHitReaction( float damageTaken, struct FDamageEvent co
 	   {
 		//ApplyDamageMomentum( damageTaken*1000000.f, damageEvent, pawnInstigator, damageCauser );
       }
-	
+   
+	//playerCamera->
    ADemoPlayerController* myPC = Cast<ADemoPlayerController>( Controller );
 	ADemoHUD* myHUD = myPC ? Cast<ADemoHUD>( myPC->GetHUD() ) : NULL;
+   if ( myPC && damagedCameraShake )
+		{
+		myPC->ClientPlayCameraShake( damagedCameraShake, 1 );
+		}
 	if ( myHUD )
 	   {
 		myHUD->NotifyWeaponHit( damageTaken, damageEvent, pawnInstigator );
 	   }
 
-	if ( pawnInstigator && pawnInstigator != this && pawnInstigator->IsLocallyControlled())
+	if ( pawnInstigator && pawnInstigator != this && pawnInstigator->IsLocallyControlled() )
 	   {
 		ADemoPlayerController* instigatorPC = Cast<ADemoPlayerController>( pawnInstigator->Controller );
 		ADemoHUD* instigatorHUD = instigatorPC ? Cast<ADemoHUD>( instigatorPC->GetHUD() ) : NULL;
