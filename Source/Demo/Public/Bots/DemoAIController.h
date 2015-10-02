@@ -16,6 +16,12 @@ public:
    ADemoAIController(const FObjectInitializer& ObjectInitializer);
 
    virtual void Possess( APawn* inPawn ) override;
+
+   void SetEnemy(class APawn* inPawn);
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void FindClosestEnemy();
+
 protected:
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
 	   UBlackboardComponent* blackboardComp;

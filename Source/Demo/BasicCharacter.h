@@ -58,9 +58,17 @@ public:
 
    int32 GetTeamNumber() const;
 
+   bool IsAlive() const;
+
+   bool IsEnemyFor( AController* testController );
+
+   bool IsEnemyFor( ABasicCharacter * testCharacter );
+
    bool CanDie( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser ) const;
 
    bool Die( float KillingDamage, FDamageEvent const& DamageEvent, AController* Killer, AActor* DamageCauser );
+
+   
 
    UFUNCTION( BlueprintCallable, Category = LineTrace )
       FHitResult PerfromVisionLineTrace();

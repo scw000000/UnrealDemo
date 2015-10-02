@@ -7,6 +7,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Bool.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
+#include "BasicCharacter.h"
 #include "Bots/AIMilitaryCharacter.h"
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -14,6 +15,39 @@ ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer
  	blackboardComp = ObjectInitializer.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackBoardComp"));
 
 	BrainComponent = behaviorComp = ObjectInitializer.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorComp") );	
+}
+
+void ADemoAIController::FindClosestEnemy()
+{
+	APawn* myPawn = GetPawn();
+	if( !myPawn )
+	   {
+		return;
+	   }
+
+	const FVector myLocation = myPawn->GetActorLocation();
+	float bestTargetDistSq = MAX_FLT;
+	ABasicCharacter* bestTargetPawn = NULL;
+
+   //finding the nearest hostile pawn
+	for (FConstPawnIterator It = GetWorld()->GetPawnIterator(); It; ++It)
+	   {
+		ABasicCharacter* testPawn = Cast<ABasicCharacter>( *It );
+		if ( testPawn && testPawn->IsAlive() && testPawn->IsEnemyFor( this ) )
+		   {
+			const float distSq = ( testPawn->GetActorLocation() - myLocation ).SizeSquared();
+			if ( distSq < bestTargetDistSq )
+			   {
+				bestTargetDistSq = distSq;
+				bestTargetPawn = testPawn;
+			   }
+		   }
+	   }
+
+	if ( bestTargetPawn )
+	   {
+		SetEnemy( bestTargetPawn );
+	   }
 }
 
 void ADemoAIController::Possess( APawn* inPawn )
@@ -36,5 +70,15 @@ void ADemoAIController::Possess( APawn* inPawn )
 		behaviorComp->StartTree( *( bot->botBehavior ) );
 	}
 }
+
+void ADemoAIController::SetEnemy( APawn* inPawn )
+{
+	if ( blackboardComp )
+	   {
+		blackboardComp->SetValue<UBlackboardKeyType_Object>( enemyKeyID, inPawn );
+		SetFocus( inPawn );
+	   }
+}
+
 
 

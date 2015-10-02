@@ -308,6 +308,26 @@ int32 ABasicCharacter::GetTeamNumber() const
    return teamNumber;
 }
 
+bool ABasicCharacter::IsAlive() const
+{
+   return ( bodyMotion != BodyMotions::BodyMotions_Die );
+}
+
+bool ABasicCharacter::IsEnemyFor( AController* testController )
+{
+   ABasicCharacter* testCharacter = ( testController )? Cast<ABasicCharacter> (testController->GetPawn() ) : NULL;
+   if( testCharacter )
+      {
+      return ( GetTeamNumber() != testCharacter->GetTeamNumber() );
+      }
+   return false;
+}
+
+bool ABasicCharacter::IsEnemyFor( ABasicCharacter * testCharacter )
+{
+   return ( GetTeamNumber() != testCharacter->GetTeamNumber() );
+}
+
 bool ABasicCharacter::CanDie( float killingDamage, FDamageEvent const& damageEvent, AController* killer, AActor* damageCauser ) const
 {
    if ( isDying										// already dying
@@ -315,10 +335,8 @@ bool ABasicCharacter::CanDie( float killingDamage, FDamageEvent const& damageEve
 		|| GetWorld()->GetAuthGameMode() == NULL
 		|| GetWorld()->GetAuthGameMode()->GetMatchState() == MatchState::LeavingMap )	// level transition occurring
 	   {
-       GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "cannot die" );
 		   return false;
 	   }
-    GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "can die" );
 	return true;
 }
 
@@ -335,7 +353,7 @@ bool ABasicCharacter::Die( float killingDamage, FDamageEvent const& damageEvent,
 	//UDamageType const* const DamageType = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
 	//Killer = GetDamageInstigator( Killer, *DamageType );
 
-	AController* const KilledPlayer = (Controller != NULL) ? Controller : Cast<AController>( GetOwner() );
+	//AController* const KilledPlayer = (Controller != NULL) ? Controller : Cast<AController>( GetOwner() );
 	//GetWorld()->GetAuthGameMode<ADemoGameMode>()->Killed( Killer, KilledPlayer, this, DamageType );
 
 	OnDeath( killingDamage, damageEvent, killer ? killer->GetPawn() : NULL, damageCauser );
