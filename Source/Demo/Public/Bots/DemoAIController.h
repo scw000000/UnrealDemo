@@ -5,6 +5,7 @@
 #include "AIController.h"
 #include "DemoAIController.generated.h"
 
+class ABasicCharacter;
 /**
  * 
  */
@@ -15,12 +16,19 @@ class DEMO_API ADemoAIController : public AAIController
 public:
    ADemoAIController(const FObjectInitializer& ObjectInitializer);
 
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void FindClosestEnemy();
+
    virtual void Possess( APawn* inPawn ) override;
 
    void SetEnemy(class APawn* inPawn);
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
-      void FindClosestEnemy();
+      bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
+
+   bool HasWeaponLOSToEnemy( AActor* InEnemyActor, const bool bAnyEnemy ) const;
+
+   
 
 protected:
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
