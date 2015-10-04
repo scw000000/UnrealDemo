@@ -123,11 +123,16 @@ bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 				}
 			}
 		}
+   SetEnemy( bestTargetPawn );
 	if ( bestTargetPawn )
 		{
-			SetEnemy( bestTargetPawn );
-			bGotEnemy = true;
+		//SetEnemy( bestTargetPawn );
+		bGotEnemy = true;
 		}
+   else
+      {
+      bGotEnemy = false;
+      }
 	return bGotEnemy;
 }
 
