@@ -6,6 +6,7 @@
 #include "DemoEnums.h"
 #include "BasicCharacter.generated.h"
 
+class UPawnNoiseEmitterComponent;
 UCLASS()
 class DEMO_API ABasicCharacter : public ACharacter
 {
@@ -127,6 +128,8 @@ public:
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = CameraShake)
 	  TSubclassOf<UCameraShake> damagedCameraShake;
 
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Noise )
+     UPawnNoiseEmitterComponent* noiseEmitterComp;
 
 protected:
   void WakePlayer();

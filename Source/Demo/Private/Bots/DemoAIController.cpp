@@ -11,6 +11,7 @@
 #include "Bots/AIMilitaryCharacter.h"
 #include "GameInfo/DemoPlayerState.h"
 #include "DemoGame.h"
+#include "Runtime/AIModule/Classes/Perception/PawnSensingComponent.h"
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -60,45 +61,66 @@ void ADemoAIController::Possess( APawn* inPawn )
 
 	// start behavior
 	if ( myCharacter && myCharacter->botBehavior)
-	{
-		if ( myCharacter->botBehavior->BlackboardAsset)
-		{
+	   {
+		if ( myCharacter->botBehavior->BlackboardAsset )
+		   {
 			blackboardComp->InitializeBlackboard( *myCharacter->botBehavior->BlackboardAsset );
-		}
+		   }
 
 		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
 
 		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf(TEXT("have behavior")) );
-	}
-   else
-      {
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf(TEXT("doesn;t have behavior")) );
-      }
-   ADemoPlayerState* myCharacterState = Cast<ADemoPlayerState>( PlayerState );
-   if( myCharacterState )
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf(TEXT("team num %d"), myCharacterState->GetTeamNum()) );
-   else
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf(TEXT("Fail")) );
-
+	   }
 }
 
 void ADemoAIController::SetEnemy( APawn* inPawn )
 {
-	if ( blackboardComp )
-	   {
-		blackboardComp->SetValue<UBlackboardKeyType_Object>( enemyKeyID, inPawn );
-		SetFocus( inPawn );
-	   }
-   else
-      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, FString::Printf(TEXT("doesn;t have Blackborad")) );
+
+   blackboardComp->SetValue<UBlackboardKeyType_Object>( enemyKeyID, inPawn );
+	SetFocus( inPawn );
 }
 
 bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 {
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   const FVector myLoc = myAICharacter->GetActorLocation();
+   float bestDistSq = MAX_FLT;
+   ABasicCharacter* bestTargetPawn = NULL;
+   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
+		{
+		ABasicCharacter* testPawn = Cast<ABasicCharacter>( *it );
+		if ( testPawn 
+           && testPawn != excludeEnemy 
+           && testPawn->IsAlive() 
+           && testPawn->IsEnemyFor( this ) 
+           &&  myAICharacter->pawnSensingComp->CouldSeePawn( testPawn ) 
+           &&  myAICharacter->pawnSensingComp->HasLineOfSightTo( testPawn )
+           ) 
+			{
+			const float DistSq = ( testPawn->GetActorLocation() - myLoc ).SizeSquared();
+			if ( DistSq < bestDistSq )
+			   {
+				bestDistSq = DistSq;
+				bestTargetPawn = testPawn;
+				}
+			}
+		}
+   SetEnemy( bestTargetPawn );
+   bool bGotEnemy = false;
+	if ( bestTargetPawn )
+		{
+		bGotEnemy = true;
+		}
+   else
+      {
+      bGotEnemy = false;
+      }
+	return bGotEnemy;
+/*
 	bool bGotEnemy = false;
 	APawn* myPawn = GetPawn();
+   
 	if( !myPawn )
 	   {
 		return bGotEnemy;
@@ -134,6 +156,7 @@ bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
       bGotEnemy = false;
       }
 	return bGotEnemy;
+   */
 }
 
 bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAnyEnemy ) const

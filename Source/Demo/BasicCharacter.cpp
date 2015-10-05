@@ -6,6 +6,7 @@
 #include "DemoGameMode.h"
 #include "DemoPlayerController.h"
 #include "DemoHUD.h"
+#include "Runtime/Engine/Classes/Components/PawnNoiseEmitterComponent.h"
 
 // Sets default values
 ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) : Super( ObjectInitializer )
@@ -70,6 +71,8 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) 
    playerView = PlayerViews::PlayerViews_ThirdPerson;
    armMotion = ArmMotions::ArmMotions_Default;
    bodyMotion = BodyMotions::BodyMotions_Idle;
+
+   noiseEmitterComp = ObjectInitializer.CreateDefaultSubobject<UPawnNoiseEmitterComponent>(this, TEXT("Noise Emitter"));
 }
 
 // Called when the game starts or when spawned

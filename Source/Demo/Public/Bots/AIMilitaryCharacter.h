@@ -15,7 +15,21 @@ class DEMO_API AAIMilitaryCharacter : public AMilitaryCharacter
 public:
 	AAIMilitaryCharacter( const FObjectInitializer& ObjectInitializer ) ;
 
-	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AI )
+   virtual void PostInitializeComponents() override;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComponent )
 	   class UBehaviorTree* botBehavior;
-	
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComponent )
+      class UPawnSensingComponent* pawnSensingComp;
+
+protected:
+
+      UFUNCTION()
+   void OnHearNoise( APawn *OtherActor, const FVector &Location, float Volume );
+
+      UFUNCTION()
+   void OnSeePawn( APawn *OtherPawn );
+
+   
 };
