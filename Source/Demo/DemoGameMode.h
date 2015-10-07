@@ -14,6 +14,8 @@ class DEMO_API ADemoGameMode : public AGameMode
 {
 	GENERATED_UCLASS_BODY()
 
+   virtual void BeginPlay() override;
+
 	/** prevents friendly fire */
 	float ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser );
 

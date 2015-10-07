@@ -21,12 +21,27 @@ public:
 
    virtual void BeginPlay() override;
 
+   void ShowObserverMAP( );
+
+   void DecideEnemy();
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void FindClosestEnemy();
+
+   virtual void EndPlay( const EEndPlayReason::Type EndPlayReason ) override;
+
+   void AddObserverToMap( ABasicCharacter* targetCharacter );
+
+   void DelObserverFromMap( ABasicCharacter* targetCharacter );
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      bool UpdateEnemyExistInfo();
 
    virtual void Possess( APawn* inPawn ) override;
 
    void SetEnemy(class APawn* inPawn);
+
+   static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
@@ -36,7 +51,7 @@ public:
    
 
 protected:
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
+   
 
    void LOSAllianceBroadcast( APawn* otherPawn );
 

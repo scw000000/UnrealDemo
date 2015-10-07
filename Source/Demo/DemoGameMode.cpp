@@ -4,10 +4,16 @@
 #include "DemoGameMode.h"
 #include "GameInfo/DemoPlayerState.h"
 #include "BasicCharacter.h"
+#include "Bots/DemoAIController.h"
 
 ADemoGameMode::ADemoGameMode(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 
+}
+
+void ADemoGameMode::BeginPlay()
+{
+   ADemoAIController::GetObserveMap().Reset();
 }
 
 float ADemoGameMode::ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser )
