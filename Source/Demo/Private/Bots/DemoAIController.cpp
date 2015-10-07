@@ -13,11 +13,24 @@
 #include "DemoGame.h"
 #include "Runtime/AIModule/Classes/Perception/PawnSensingComponent.h"
 
+
+
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
  	blackboardComp = ObjectInitializer.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackBoardComp"));
 
 	BrainComponent = behaviorComp = ObjectInitializer.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorComp") );	
+}
+
+void ADemoAIController::PostInitializeComponents()
+{
+  Super::PostInitializeComponents();
+  
+}
+
+void ADemoAIController::BeginPlay()
+{
+  Super::BeginPlay();
 }
 
 void ADemoAIController::FindClosestEnemy()
@@ -67,7 +80,7 @@ void ADemoAIController::Possess( APawn* inPawn )
 			blackboardComp->InitializeBlackboard( *myCharacter->botBehavior->BlackboardAsset );
 		   }
 
-		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
+		enemyKeyID = blackboardComp->GetKeyID( "VisualEnemy" );
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
 
 		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
@@ -83,10 +96,11 @@ void ADemoAIController::SetEnemy( APawn* inPawn )
 
 bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 {
+   static APawn* lastSetPawn = NULL;
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
    const FVector myLoc = myAICharacter->GetActorLocation();
    float bestDistSq = MAX_FLT;
-   ABasicCharacter* bestTargetPawn = NULL;
+   APawn* bestTargetPawn = NULL;
    for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
 		{
 		ABasicCharacter* testPawn = Cast<ABasicCharacter>( *it );
@@ -98,6 +112,15 @@ bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
            &&  myAICharacter->pawnSensingComp->HasLineOfSightTo( testPawn )
            ) 
 			{
+         if( GetObserveMap().Find( testPawn ) )
+            {
+            ( *( GetObserveMap().Find( testPawn ) ) )->AddUnique( myAICharacter );
+            }
+         else
+            {
+            GetObserveMap().Add( testPawn, new TArray< ABasicCharacter *> );
+            ( *( GetObserveMap().Find( testPawn ) ) )->AddUnique( myAICharacter );
+            }
 			const float DistSq = ( testPawn->GetActorLocation() - myLoc ).SizeSquared();
 			if ( DistSq < bestDistSq )
 			   {
@@ -108,55 +131,37 @@ bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 		}
    SetEnemy( bestTargetPawn );
    bool bGotEnemy = false;
-	if ( bestTargetPawn )
-		{
-		bGotEnemy = true;
-		}
-   else
-      {
-      bGotEnemy = false;
-      }
-	return bGotEnemy;
-/*
-	bool bGotEnemy = false;
-	APawn* myPawn = GetPawn();
    
-	if( !myPawn )
-	   {
-		return bGotEnemy;
-	   }
-	const FVector myLoc = myPawn->GetActorLocation();
-	float bestDistSq = MAX_FLT;
-	ABasicCharacter* bestTargetPawn = NULL;
-
-	for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
-		{
-		ABasicCharacter* testPawn = Cast<ABasicCharacter>( *it );
-		if ( testPawn && testPawn != excludeEnemy && testPawn->IsAlive() && testPawn->IsEnemyFor( this ) )
-			{
-			if ( HasWeaponLOSToEnemy( testPawn, true ) == true )
-				{
-				const float DistSq = ( testPawn->GetActorLocation() - myLoc ).SizeSquared();
-				if (DistSq < bestDistSq)
-					{
-					bestDistSq = DistSq;
-					bestTargetPawn = testPawn;
-					}
-				}
-			}
-		}
-   SetEnemy( bestTargetPawn );
+ //  onSightDelegate = FTimerDelegate::CreateUObject( this, &ADemoAIController::SetEnemy, bestTargetPawn );
 	if ( bestTargetPawn )
 		{
-		//SetEnemy( bestTargetPawn );
+      
+      
+      LOSAllianceBroadcast( bestTargetPawn );
+     // GetLOSBroadcastDelegate().Broadcast( bestTargetPawn );
+      /*
+         if( !GetWorld()->GetTimerManager().IsTimerActive( onSightTimerHandle ) )
+            {
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "ADDDDDDDDDD");
+            lastSetPawn = bestTargetPawn;
+            }
+         else
+            {
+             GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "NOOOOOOOOOOOO");
+            }*/
 		bGotEnemy = true;
 		}
    else
       {
+         if( !GetWorld()->GetTimerManager().IsTimerActive( onSightTimerHandle ) )
+            {
+            GetWorld()->GetTimerManager().SetTimer( onSightTimerHandle, onSightDelegate, 1.f, false );
+            lastSetPawn = bestTargetPawn;
+            
+            }
       bGotEnemy = false;
       }
 	return bGotEnemy;
-   */
 }
 
 bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAnyEnemy ) const
@@ -197,17 +202,6 @@ bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAny
                   {
                   bHasLOS = true;
                   }
-               /*
-					AShooterPlayerState* HitPlayerState = Cast<AShooterPlayerState>( hitCharater->PlayerState );
-					AShooterPlayerState* MyPlayerState = Cast<AShooterPlayerState>( PlayerState );
-					if ( HitPlayerState && MyPlayerState )
-					   {
-						if (HitPlayerState->GetTeamNum() != MyPlayerState->GetTeamNum())
-						   {
-							bHasLOS = true;
-						   }
-					   }
-                */
 				   }
 			   }
 		   }  
@@ -216,4 +210,49 @@ bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAny
 	
 
 	return bHasLOS;
+}
+
+void ADemoAIController::LOSAllianceBroadcast( APawn* otherPawn )
+{
+   static APawn* lastSetPawn = NULL;
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
+		{
+		AAIMilitaryCharacter* testPawn = Cast<AAIMilitaryCharacter>( *it );
+		if ( testPawn && testPawn->IsAlive() && !testPawn->IsEnemyFor( this ) ) 
+			{
+         ADemoAIController* AllianceController = Cast<ADemoAIController>( testPawn->Controller );
+         if( AllianceController )
+            {
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "calling");
+            AllianceController->OnReceiveLOSBroadcast( otherPawn );
+            }
+			}
+		}
+}
+
+void ADemoAIController::OnReceiveLOSBroadcast( APawn* otherPawn )
+{
+    // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "revecing");
+   // FString message = TEXT("!!!!!!!!!!!!I know !Saw Actor ") + otherPawn->GetName();
+
+   // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+    SetEnemy( otherPawn );
+    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "-------------" );
+    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = GetObserveMap().CreateIterator(); mapIT; ++mapIT )
+       {
+       
+       for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
+          {
+          FString traversalmessage = (*mapIT).Key->GetName() + TEXT(" is obsvered by ") + (*arrayIT)->GetName();
+          GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, traversalmessage );
+          }
+       }
+    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "-------------" );
+}
+
+TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetObserveMap()
+{
+    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > observeMap;
+    return observeMap;
 }

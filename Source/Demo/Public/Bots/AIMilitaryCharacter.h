@@ -26,10 +26,10 @@ public:
 protected:
 
       UFUNCTION()
-   void OnHearNoise( APawn *OtherActor, const FVector &Location, float Volume );
+   void OnHearNoise( APawn *otherPawn, const FVector &location, float volume );
 
       UFUNCTION()
-   void OnSeePawn( APawn *OtherPawn );
+   void OnSeePawn( APawn *otherPawn );
 
    
 };

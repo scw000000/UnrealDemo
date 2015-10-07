@@ -13,7 +13,6 @@ AAIMilitaryCharacter::AAIMilitaryCharacter(const FObjectInitializer& ObjectIniti
    pawnSensingComp->SensingInterval = .5f; // 4 times per second
    pawnSensingComp->bOnlySensePlayers = false;
    pawnSensingComp->SetPeripheralVisionAngle( 65.f );
-
 }
 
 void AAIMilitaryCharacter::PostInitializeComponents()
@@ -24,22 +23,28 @@ void AAIMilitaryCharacter::PostInitializeComponents()
     pawnSensingComp->OnHearNoise.AddDynamic( this, &AAIMilitaryCharacter::OnHearNoise );
 }
 
-void AAIMilitaryCharacter::OnHearNoise( APawn *OtherPawn, const FVector &Location, float Volume )
+void AAIMilitaryCharacter::OnHearNoise( APawn *otherPawn, const FVector &location, float volume )
 {
 
-    const FString VolumeDesc = FString::Printf(TEXT(" at volume %f"), Volume);    
-    FString message = TEXT("Heard Actor ") + OtherPawn->GetName() + VolumeDesc;
+    const FString VolumeDesc = FString::Printf(TEXT(" at volume %f"), volume);    
+    FString message = TEXT("Heard Actor ") + otherPawn->GetName() + VolumeDesc;
     GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
 }
 
-void AAIMilitaryCharacter::OnSeePawn( APawn *OtherPawn )
+void AAIMilitaryCharacter::OnSeePawn( APawn *otherPawn )
 {
-    FString message = TEXT("Saw Actor ") + OtherPawn->GetName();
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+    FString message = TEXT("Saw Actor ") + otherPawn->GetName();
+    
     ADemoAIController* myAIController = Cast<ADemoAIController>( Controller );
-    if( myAIController )
+    ABasicCharacter* otherCharacter = Cast<ABasicCharacter>( otherPawn );
+    if( myAIController && otherCharacter->IsAlive() && otherCharacter->IsEnemyFor( this ) )
        {
-       myAIController->SetEnemy( OtherPawn );
+       if( pawnSensingComp->CouldSeePawn( otherCharacter ) && pawnSensingComp->HasLineOfSightTo( otherCharacter ) )
+          {
+          GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+          }
+       
+     //  myAICoroller->SetEnemy( OtherPawn );
        }
 }
 

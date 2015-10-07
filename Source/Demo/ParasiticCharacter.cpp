@@ -29,6 +29,7 @@ void AParasiticCharacter::OnHit_Implementation( AActor* OtherActor, UPrimitiveCo
       }
    else
       {
+
       }
 }
 
