@@ -25,21 +25,30 @@ public:
 
    void DecideEnemy();
 
-   UFUNCTION( BlueprintCallable, Category = Behavior )
-      void FindClosestEnemy();
+   virtual void Tick( float DeltaSeconds ) override;
 
    virtual void EndPlay( const EEndPlayReason::Type EndPlayReason ) override;
+
+   virtual void Possess( APawn* inPawn ) override;
+
+   void UpdateTraceMeter( float deltaSeconds );
 
    void AddObserverToMap( ABasicCharacter* targetCharacter );
 
    void DelObserverFromMap( ABasicCharacter* targetCharacter );
 
+   void OnSeeEnemy( ABasicCharacter* targetCharacter );
+
+   void SetEnemy( APawn* inPawn);
+
+   void SetTracingEnemy( class APawn* inPawn );
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool UpdateEnemyExistInfo();
 
-   virtual void Possess( APawn* inPawn ) override;
+   APawn* GetTracingEnemy();
 
-   void SetEnemy(class APawn* inPawn);
+   APawn* GetEnemy();
 
    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
 
@@ -48,14 +57,20 @@ public:
 
    bool HasWeaponLOSToEnemy( AActor* InEnemyActor, const bool bAnyEnemy ) const;
 
-   
+   bool GetShouldTraceEmemy();
 
 protected:
-   
+   void StopEngageMode();
+
+   void StartEngageEnemy( ABasicCharacter* otherCharacter );
 
    void LOSAllianceBroadcast( APawn* otherPawn );
 
    void OnReceiveLOSBroadcast( APawn* otherPawn );
+
+   bool IsAllianceSeeing( ABasicCharacter* tracingCharacter );
+
+   bool CanTraceCharacter( ABasicCharacter* otherCharacter );
 
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
 	   UBlackboardComponent* blackboardComp;
@@ -67,12 +82,19 @@ protected:
 
    //FLOSBroadcastDelegate losBroadcastDelegate;
 
-   FTimerHandle onSightTimerHandle;
+   FTimerHandle onTraceTimerHandle;
 
-   FTimerDelegate onSightDelegate;
+   FTimerDelegate onTraceDelegate;
 
 	int32 enemyKeyID;
 
 	int32 needAmmoKeyID;
 	
+   int32 engageModeKeyID;
+
+   int32 tracingEnemyKeyID;
+
+   float traceTimeMeterMax;
+
+   float traceTimeMeter;
 };

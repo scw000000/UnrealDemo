@@ -41,7 +41,7 @@ void AAIMilitaryCharacter::OnSeePawn( APawn *otherPawn )
        {
        if( pawnSensingComp->CouldSeePawn( otherCharacter ) && pawnSensingComp->HasLineOfSightTo( otherCharacter ) )
           {
-          GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+         // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
           }
        
      //  myAICoroller->SetEnemy( OtherPawn );

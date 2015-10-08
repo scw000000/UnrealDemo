@@ -17,9 +17,16 @@
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+   PrimaryActorTick.bCanEverTick = true;
+
  	blackboardComp = ObjectInitializer.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackBoardComp"));
 
 	BrainComponent = behaviorComp = ObjectInitializer.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorComp") );	
+
+   traceTimeMeterMax = 5.0f;
+
+   traceTimeMeter = 0.f;
+
 }
 
 void ADemoAIController::PostInitializeComponents()
@@ -33,37 +40,38 @@ void ADemoAIController::BeginPlay()
   Super::BeginPlay();
 }
 
-void ADemoAIController::FindClosestEnemy()
+void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
 {
-	APawn* myPawn = GetPawn();
-	if( !myPawn )
-	   {
-		return;
-	   }
-
-	const FVector myLocation = myPawn->GetActorLocation();
-	float bestTargetDistSq = MAX_FLT;
-	ABasicCharacter* bestTargetPawn = NULL;
-
-   //finding the nearest hostile pawn
-	for (FConstPawnIterator It = GetWorld()->GetPawnIterator(); It; ++It)
-	   {
-		ABasicCharacter* testPawn = Cast<ABasicCharacter>( *It );
-		if ( testPawn && testPawn->IsAlive() && testPawn->IsEnemyFor( this ) )
-		   {
-			const float distSq = ( testPawn->GetActorLocation() - myLocation ).SizeSquared();
-			if ( distSq < bestTargetDistSq )
-			   {
-				bestTargetDistSq = distSq;
-				bestTargetPawn = testPawn;
-			   }
-		   }
-	   }
-
-	if ( bestTargetPawn )
-	   {
-		SetEnemy( bestTargetPawn );
-	   }
+   ABasicCharacter* tracingCharacter = Cast<ABasicCharacter>( GetTracingEnemy() );
+   ABasicCharacter* enemyCharacter = Cast<ABasicCharacter>( GetEnemy() );
+   if( tracingCharacter &&  CanTraceCharacter( tracingCharacter ) )
+      {
+      traceTimeMeter += deltaSeconds;
+      
+      }
+   else
+      {
+      traceTimeMeter -= deltaSeconds;
+      
+      }
+ // GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, FString::Printf( TEXT("%f"), traceTimeMeter ) );
+   if( traceTimeMeter >= traceTimeMeterMax )
+      {
+      traceTimeMeter = traceTimeMeterMax;
+      StartEngageEnemy( tracingCharacter );
+      }
+   if( traceTimeMeter <= 0.f )
+      {
+      traceTimeMeter = 0.f;
+      SetTracingEnemy( NULL );
+        if( !IsAllianceSeeing( enemyCharacter ) )
+           {
+           GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Engage" );
+           //SetEnemy( NULL );
+           StopEngageMode();
+           //DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
+           }
+      }
 }
 
 void ADemoAIController::ShowObserverMAP( )
@@ -89,24 +97,21 @@ void ADemoAIController::DecideEnemy()
    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = visionMap.CreateIterator(); mapIT; ++mapIT )
       {
       if( (*mapIT).Value->Num() > 0 )
-         {
+         { 
          SetEnemy( (*mapIT).Key );
          bGotEnemy = true;
          }
-    //  for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
-      //   {
-         
-        // }
-      }
-   if( !bGotEnemy )
-      {
-      SetEnemy( NULL );
       }
 }
 
 void ADemoAIController::EndPlay( const EEndPlayReason::Type EndPlayReason )
 {
    Super::EndPlay( EndPlayReason );
+}
+
+void ADemoAIController::Tick( float DeltaSeconds )
+{
+   Super::Tick( DeltaSeconds );
 }
 
 void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
@@ -126,7 +131,6 @@ void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
          {
          visionMap.Add( targetCharacter, new TArray< ABasicCharacter *> );
          ( *( visionMap.Find( targetCharacter ) ) )->AddUnique( myAICharacter );
-       //  GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "new array added" );
          }
       }
 }
@@ -136,11 +140,10 @@ void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
    TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
    TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   //the observer array already exist
    
    if( myAICharacter )
       {
-      //if my character is not observer, delete derectly
+      //if my character is not observer, delete directly
       if( pawnObserveArray )
          {
             if( pawnObserveArray->Num() > 1 )
@@ -156,34 +159,50 @@ void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
       }
 }
 
+void ADemoAIController::OnSeeEnemy( ABasicCharacter* targetCharacter )
+{
+   if( GetEnemy() )
+      {
+      AddObserverToMap( targetCharacter );
+      SetTracingEnemy( NULL );
+      traceTimeMeter = traceTimeMeterMax;
+      }
+   else
+      {
+      if( GetTracingEnemy() )
+         {
+
+         }
+      else
+         {
+         SetTracingEnemy( targetCharacter );
+         }
+      }
+}
+
 bool ADemoAIController::UpdateEnemyExistInfo()
 {
-  // ShowObserverMAP( );
+
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
- //  APawn* bestTargetPawn = NULL;
    TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = GetObserveMap();
    bool bGotEnemy = false;
    for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
 		{
 		ABasicCharacter* testCharacter = Cast<ABasicCharacter>( *it );
-      //should be test for enemy
-      if( testCharacter && testCharacter->IsAlive()  && testCharacter->IsEnemyFor( this ) )
+      if( CanTraceCharacter( testCharacter ) )
          {
-         //can be seen
-         if( myAICharacter->pawnSensingComp->CouldSeePawn( testCharacter ) && myAICharacter->pawnSensingComp->HasLineOfSightTo( testCharacter ) )
-            {
-            TArray<ABasicCharacter *> * pawnObserveArray = *( visionMap.Find( testCharacter ) );
-            //the ovserve array already exist
-            AddObserverToMap( testCharacter );
-            bGotEnemy = true;
-            }
-         else
-            {
-            DelObserverFromMap( testCharacter );
-            }
+         OnSeeEnemy( testCharacter );
+         bGotEnemy = true;
+         }
+      else
+         {
+         DelObserverFromMap( testCharacter );
          }
 		}
-   DecideEnemy();
+   if( !bGotEnemy )
+      {
+     // DecideEnemy();
+      }
    return bGotEnemy;
 }
 
@@ -202,6 +221,7 @@ void ADemoAIController::Possess( APawn* inPawn )
 		   }
 		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
+      tracingEnemyKeyID = blackboardComp->GetKeyID( "TracingEnemy" );
 		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
 	   }
 }
@@ -212,12 +232,30 @@ void ADemoAIController::SetEnemy( APawn* inPawn )
 	SetFocus( inPawn );
 }
 
+void ADemoAIController::SetTracingEnemy( class APawn* inPawn )
+{
+   APawn* tracingPawn = GetTracingEnemy();
+   if( tracingPawn != inPawn )
+      {
+      blackboardComp->SetValue<UBlackboardKeyType_Object>( tracingEnemyKeyID, inPawn );
+      }
+}
+
+APawn* ADemoAIController::GetTracingEnemy()
+{
+   return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("TracingEnemy") ) ) );
+}
+
+APawn* ADemoAIController::GetEnemy()
+{
+   return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("Enemy") ) ) );
+}
+
 TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetObserveMap()
 {
     static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > observeMap;
     return observeMap;
 }
-
 
 bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 {
@@ -248,23 +286,11 @@ bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
    SetEnemy( bestTargetPawn );
    bool bGotEnemy = false;
    
- //  onSightDelegate = FTimerDelegate::CreateUObject( this, &ADemoAIController::SetEnemy, bestTargetPawn );
 	if ( bestTargetPawn )
 		{
       
       
       LOSAllianceBroadcast( bestTargetPawn );
-     // GetLOSBroadcastDelegate().Broadcast( bestTargetPawn );
-      /*
-         if( !GetWorld()->GetTimerManager().IsTimerActive( onSightTimerHandle ) )
-            {
-            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "ADDDDDDDDDD");
-            lastSetPawn = bestTargetPawn;
-            }
-         else
-            {
-             GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "NOOOOOOOOOOOO");
-            }*/
 		bGotEnemy = true;
 		}
    else
@@ -322,6 +348,20 @@ bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAny
 	return bHasLOS;
 }
 
+void ADemoAIController::StopEngageMode()
+{
+   DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
+   SetEnemy( NULL );
+}
+
+void ADemoAIController::StartEngageEnemy( ABasicCharacter* otherCharacter )
+{
+   SetEnemy( otherCharacter );
+   AddObserverToMap( otherCharacter );
+   LOSAllianceBroadcast( otherCharacter );
+
+}
+
 void ADemoAIController::LOSAllianceBroadcast( APawn* otherPawn )
 {
    static APawn* lastSetPawn = NULL;
@@ -342,20 +382,34 @@ void ADemoAIController::LOSAllianceBroadcast( APawn* otherPawn )
 
 void ADemoAIController::OnReceiveLOSBroadcast( APawn* otherPawn )
 {
-    // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "revecing");
-   // FString message = TEXT("!!!!!!!!!!!!I know !Saw Actor ") + otherPawn->GetName();
-
-   // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, message);
+    FString message = TEXT("!!!!!!!!!!!!I know !Saw Actor ") + otherPawn->GetName();
     SetEnemy( otherPawn );
-    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "-------------" );
-    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = GetObserveMap().CreateIterator(); mapIT; ++mapIT )
-       {
-       
-       for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
-          {
-          FString traversalmessage = (*mapIT).Key->GetName() + TEXT(" is obsvered by ") + (*arrayIT)->GetName();
-          GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, traversalmessage );
-          }
-       }
-    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "-------------" );
+}
+
+bool ADemoAIController::IsAllianceSeeing( ABasicCharacter* tracingCharacter )
+{
+   TArray<ABasicCharacter *> * observerArray =  GetObserveMap().Find( tracingCharacter )? *( GetObserveMap().Find( tracingCharacter ) ) : NULL;
+   ABasicCharacter* myAICharacter = Cast<ABasicCharacter>( GetPawn() );
+   if( observerArray )
+      {
+      for( TArray<ABasicCharacter *>::TIterator arrayIT = observerArray->CreateIterator(); arrayIT; ++arrayIT )
+         {
+         if( (*arrayIT) != myAICharacter )
+            {
+            return true;
+            }
+         }
+      }
+   return false;
+}
+
+bool ADemoAIController::CanTraceCharacter( ABasicCharacter* otherCharacter )
+{
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+  return  ( myAICharacter 
+   && otherCharacter 
+   && otherCharacter->IsAlive()  
+   && otherCharacter->IsEnemyFor( this ) 
+   && myAICharacter->pawnSensingComp->CouldSeePawn( otherCharacter ) 
+   && myAICharacter->pawnSensingComp->HasLineOfSightTo( otherCharacter ) );
 }
