@@ -36,8 +36,6 @@ public:
 
    virtual void UnCrouch( bool bClientSimulation = false ) override;
 
-
-
    void SetPlayerView( PlayerViews inViewType );
    
    //custom function for movement

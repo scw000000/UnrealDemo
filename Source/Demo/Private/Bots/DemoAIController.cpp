@@ -40,6 +40,57 @@ void ADemoAIController::BeginPlay()
   Super::BeginPlay();
 }
 
+void ADemoAIController::ShowObserverMAP( )
+{
+    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "L-------------" );
+    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = GetObserveMap().CreateIterator(); mapIT; ++mapIT )
+       {
+       
+       for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
+          {
+          FString traversalmessage = (*mapIT).Key->GetName() + TEXT(" is obsvered by ") + (*arrayIT)->GetName();
+          GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, traversalmessage );
+          }
+       }
+    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "^-------------" );
+}
+
+void ADemoAIController::StopEngageMode()
+{
+   DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
+   SetEnemy( NULL );
+}
+
+void ADemoAIController::Tick( float DeltaSeconds )
+{
+   Super::Tick( DeltaSeconds );
+}
+
+void ADemoAIController::EndPlay( const EEndPlayReason::Type EndPlayReason )
+{
+   Super::EndPlay( EndPlayReason );
+}
+
+void ADemoAIController::Possess( APawn* inPawn )
+{
+	Super::Possess( inPawn );
+   
+	AAIMilitaryCharacter* myCharacter = Cast<AAIMilitaryCharacter>( inPawn );
+
+	// start behavior
+	if ( myCharacter && myCharacter->botBehavior)
+	   {
+		if ( myCharacter->botBehavior->BlackboardAsset )
+		   {
+			blackboardComp->InitializeBlackboard( *myCharacter->botBehavior->BlackboardAsset );
+		   }
+		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
+		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
+      tracingEnemyKeyID = blackboardComp->GetKeyID( "TracingEnemy" );
+		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
+	   }
+}
+
 void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
 {
    ABasicCharacter* tracingCharacter = Cast<ABasicCharacter>( GetTracingEnemy() );
@@ -74,158 +125,6 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
       }
 }
 
-void ADemoAIController::ShowObserverMAP( )
-{
-    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "L-------------" );
-    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = GetObserveMap().CreateIterator(); mapIT; ++mapIT )
-       {
-       
-       for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
-          {
-          FString traversalmessage = (*mapIT).Key->GetName() + TEXT(" is obsvered by ") + (*arrayIT)->GetName();
-          GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, traversalmessage );
-          }
-       }
-    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "^-------------" );
-}
-
-void ADemoAIController::DecideEnemy()
-{
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
-   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   bool bGotEnemy = false;
-   for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = visionMap.CreateIterator(); mapIT; ++mapIT )
-      {
-      if( (*mapIT).Value->Num() > 0 )
-         { 
-         SetEnemy( (*mapIT).Key );
-         bGotEnemy = true;
-         }
-      }
-}
-
-void ADemoAIController::EndPlay( const EEndPlayReason::Type EndPlayReason )
-{
-   Super::EndPlay( EndPlayReason );
-}
-
-void ADemoAIController::Tick( float DeltaSeconds )
-{
-   Super::Tick( DeltaSeconds );
-}
-
-void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
-{
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
-   TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
-   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   
-   //the ovserve array already exist
-   if( myAICharacter )
-      {
-      if( pawnObserveArray )
-         {
-         pawnObserveArray->AddUnique( myAICharacter );
-         }
-      else
-         {
-         visionMap.Add( targetCharacter, new TArray< ABasicCharacter *> );
-         ( *( visionMap.Find( targetCharacter ) ) )->AddUnique( myAICharacter );
-         }
-      }
-}
-
-void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
-{
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
-   TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
-   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   
-   if( myAICharacter )
-      {
-      //if my character is not observer, delete directly
-      if( pawnObserveArray )
-         {
-            if( pawnObserveArray->Num() > 1 )
-            {
-            pawnObserveArray->Remove( myAICharacter );
-            }
-            else if( pawnObserveArray->Find( myAICharacter ) != INDEX_NONE )
-            {
-            pawnObserveArray->Remove( myAICharacter );
-            GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, myAICharacter->GetName() + ": im The Last One!!!!" );
-            }
-         }
-      }
-}
-
-void ADemoAIController::OnSeeEnemy( ABasicCharacter* targetCharacter )
-{
-   if( GetEnemy() )
-      {
-      AddObserverToMap( targetCharacter );
-      SetTracingEnemy( NULL );
-      traceTimeMeter = traceTimeMeterMax;
-      }
-   else
-      {
-      if( GetTracingEnemy() )
-         {
-
-         }
-      else
-         {
-         SetTracingEnemy( targetCharacter );
-         }
-      }
-}
-
-bool ADemoAIController::UpdateEnemyExistInfo()
-{
-
-   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = GetObserveMap();
-   bool bGotEnemy = false;
-   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
-		{
-		ABasicCharacter* testCharacter = Cast<ABasicCharacter>( *it );
-      if( CanTraceCharacter( testCharacter ) )
-         {
-         OnSeeEnemy( testCharacter );
-         bGotEnemy = true;
-         }
-      else
-         {
-         DelObserverFromMap( testCharacter );
-         }
-		}
-   if( !bGotEnemy )
-      {
-     // DecideEnemy();
-      }
-   return bGotEnemy;
-}
-
-void ADemoAIController::Possess( APawn* inPawn )
-{
-	Super::Possess( inPawn );
-   
-	AAIMilitaryCharacter* myCharacter = Cast<AAIMilitaryCharacter>( inPawn );
-
-	// start behavior
-	if ( myCharacter && myCharacter->botBehavior)
-	   {
-		if ( myCharacter->botBehavior->BlackboardAsset )
-		   {
-			blackboardComp->InitializeBlackboard( *myCharacter->botBehavior->BlackboardAsset );
-		   }
-		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
-		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
-      tracingEnemyKeyID = blackboardComp->GetKeyID( "TracingEnemy" );
-		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
-	   }
-}
-
 void ADemoAIController::SetEnemy( APawn* inPawn )
 {
    blackboardComp->SetValue<UBlackboardKeyType_Object>( enemyKeyID, inPawn );
@@ -241,14 +140,40 @@ void ADemoAIController::SetTracingEnemy( class APawn* inPawn )
       }
 }
 
-APawn* ADemoAIController::GetTracingEnemy()
+bool ADemoAIController::UpdateEnemyExistInfo()
 {
-   return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("TracingEnemy") ) ) );
+
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = GetObserveMap();
+   bool bGotEnemy = false;
+   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
+		{
+		ABasicCharacter* testCharacter = Cast<ABasicCharacter>( *it );
+      if( CanTraceCharacter( testCharacter ) )
+         {
+         OnSightOnEnemy( testCharacter );
+         bGotEnemy = true;
+         }
+      else
+         {
+         OnLostSigntOnEnemy( testCharacter );
+         }
+		}
+   if( !bGotEnemy )
+      {
+     // DecideEnemy();
+      }
+   return bGotEnemy;
 }
 
 APawn* ADemoAIController::GetEnemy()
 {
    return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("Enemy") ) ) );
+}
+
+APawn* ADemoAIController::GetTracingEnemy()
+{
+   return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("TracingEnemy") ) ) );
 }
 
 TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetObserveMap()
@@ -257,6 +182,7 @@ TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetO
     return observeMap;
 }
 
+//decrepated now
 bool ADemoAIController::FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy )
 {
    static APawn* lastSetPawn = NULL;
@@ -342,16 +268,63 @@ bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAny
 			   }
 		   }  
 	   }
-
-	
-
 	return bHasLOS;
 }
 
-void ADemoAIController::StopEngageMode()
+//decrepated now
+void ADemoAIController::DecideEnemy()
 {
-   DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
-   SetEnemy( NULL );
+   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   bool bGotEnemy = false;
+   for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = visionMap.CreateIterator(); mapIT; ++mapIT )
+      {
+      if( (*mapIT).Value->Num() > 0 )
+         { 
+         SetEnemy( (*mapIT).Key );
+         bGotEnemy = true;
+         }
+      }
+}
+
+void ADemoAIController::OnSightOnEnemy( ABasicCharacter* targetCharacter )
+{
+   if( GetEnemy() )
+      {
+      AddObserverToMap( targetCharacter );
+      SetTracingEnemy( NULL );
+      traceTimeMeter = traceTimeMeterMax;
+      }
+   else
+      {
+      if( GetTracingEnemy() )
+         {
+
+         }
+      else
+         {
+         SetTracingEnemy( targetCharacter );
+         }
+      }
+}
+
+void ADemoAIController::OnLostSigntOnEnemy( ABasicCharacter* targetCharacter )
+{
+   if( GetEnemy() && IsAllianceSeeing( targetCharacter ) )
+      {
+      DelObserverFromMap( targetCharacter );
+      SetTracingEnemy( NULL );
+      }
+   else
+      {
+      if( GetTracingEnemy() )
+         {
+
+         }
+      else
+         {
+         }
+      }
 }
 
 void ADemoAIController::StartEngageEnemy( ABasicCharacter* otherCharacter )
@@ -359,7 +332,6 @@ void ADemoAIController::StartEngageEnemy( ABasicCharacter* otherCharacter )
    SetEnemy( otherCharacter );
    AddObserverToMap( otherCharacter );
    LOSAllianceBroadcast( otherCharacter );
-
 }
 
 void ADemoAIController::LOSAllianceBroadcast( APawn* otherPawn )
@@ -384,6 +356,51 @@ void ADemoAIController::OnReceiveLOSBroadcast( APawn* otherPawn )
 {
     FString message = TEXT("!!!!!!!!!!!!I know !Saw Actor ") + otherPawn->GetName();
     SetEnemy( otherPawn );
+}
+
+void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
+{
+   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
+   TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   
+   //the ovserve array already exist
+   if( myAICharacter )
+      {
+      if( pawnObserveArray )
+         {
+         pawnObserveArray->AddUnique( myAICharacter );
+         }
+      else
+         {
+         visionMap.Add( targetCharacter, new TArray< ABasicCharacter *> );
+         ( *( visionMap.Find( targetCharacter ) ) )->AddUnique( myAICharacter );
+         }
+      }
+}
+
+void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
+{
+   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
+   TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   
+   if( myAICharacter )
+      {
+      //if my character is not observer, delete directly
+      if( pawnObserveArray )
+         {
+            if( pawnObserveArray->Num() > 1 )
+            {
+            pawnObserveArray->Remove( myAICharacter );
+            }
+            else if( pawnObserveArray->Find( myAICharacter ) != INDEX_NONE )
+            {
+            pawnObserveArray->Remove( myAICharacter );
+            GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, myAICharacter->GetName() + ": im The Last One!!!!" );
+            }
+         }
+      }
 }
 
 bool ADemoAIController::IsAllianceSeeing( ABasicCharacter* tracingCharacter )

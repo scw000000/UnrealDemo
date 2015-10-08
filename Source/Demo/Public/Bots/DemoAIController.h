@@ -22,8 +22,8 @@ public:
    virtual void BeginPlay() override;
 
    void ShowObserverMAP( );
-
-   void DecideEnemy();
+  
+   void StopEngageMode();
 
    virtual void Tick( float DeltaSeconds ) override;
 
@@ -32,12 +32,6 @@ public:
    virtual void Possess( APawn* inPawn ) override;
 
    void UpdateTraceMeter( float deltaSeconds );
-
-   void AddObserverToMap( ABasicCharacter* targetCharacter );
-
-   void DelObserverFromMap( ABasicCharacter* targetCharacter );
-
-   void OnSeeEnemy( ABasicCharacter* targetCharacter );
 
    void SetEnemy( APawn* inPawn);
 
@@ -57,12 +51,20 @@ public:
 
    bool HasWeaponLOSToEnemy( AActor* InEnemyActor, const bool bAnyEnemy ) const;
 
-   bool GetShouldTraceEmemy();
-
 protected:
-   void StopEngageMode();
+
+   //decrepated now
+   void DecideEnemy();
+
+   void OnSightOnEnemy( ABasicCharacter* targetCharacter );
+
+   void OnLostSigntOnEnemy( ABasicCharacter* targetCharacter );
 
    void StartEngageEnemy( ABasicCharacter* otherCharacter );
+
+   void AddObserverToMap( ABasicCharacter* targetCharacter );
+
+   void DelObserverFromMap( ABasicCharacter* targetCharacter );
 
    void LOSAllianceBroadcast( APawn* otherPawn );
 
@@ -79,9 +81,6 @@ protected:
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
 	   UBehaviorTreeComponent* behaviorComp;
 
-
-   //FLOSBroadcastDelegate losBroadcastDelegate;
-
    FTimerHandle onTraceTimerHandle;
 
    FTimerDelegate onTraceDelegate;
@@ -89,8 +88,6 @@ protected:
 	int32 enemyKeyID;
 
 	int32 needAmmoKeyID;
-	
-   int32 engageModeKeyID;
 
    int32 tracingEnemyKeyID;
 
