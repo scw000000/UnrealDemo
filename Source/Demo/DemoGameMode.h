@@ -16,6 +16,8 @@ class DEMO_API ADemoGameMode : public AGameMode
 
    virtual void BeginPlay() override;
 
+   virtual void Tick( float DeltaSeconds ) override;
+
 	/** prevents friendly fire */
 	float ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser );
 
@@ -33,8 +35,8 @@ class DEMO_API ADemoGameMode : public AGameMode
 //UPROPERTY(config)
    
 protected:
-//	UPROPERTY()
-//	TArray<AShooterAIController*> BotControllers;
+   void UpdateSearchMeter( float deltaSeconds );
+
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
 	   float damageSelfScale;
 

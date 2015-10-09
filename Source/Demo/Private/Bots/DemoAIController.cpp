@@ -14,7 +14,6 @@
 #include "Runtime/AIModule/Classes/Perception/PawnSensingComponent.h"
 
 
-
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
    PrimaryActorTick.bCanEverTick = true;
@@ -115,10 +114,11 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
       {
       traceTimeMeter = 0.f;
       SetTracingEnemy( NULL );
-        if( !IsAllianceSeeing( enemyCharacter ) )
+        if( !IsAllianceSeeing( enemyCharacter ) && GetEnemy() )
            {
            GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Engage" );
            //SetEnemy( NULL );
+           SetSearchMeter( 6.f );
            StopEngageMode();
            //DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
            }
@@ -138,6 +138,13 @@ void ADemoAIController::SetTracingEnemy( class APawn* inPawn )
       {
       blackboardComp->SetValue<UBlackboardKeyType_Object>( tracingEnemyKeyID, inPawn );
       }
+}
+
+void ADemoAIController::SetSearchMeter( float inMeterValue )
+{
+   float& traceMeter = GetTraceMeterRef();
+   traceMeter = inMeterValue;
+   traceMeter = FMath::Clamp<float>( traceMeter, 0.f, GetTraceMeterMax() );
 }
 
 bool ADemoAIController::UpdateEnemyExistInfo()
@@ -180,6 +187,11 @@ TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetO
 {
     static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > observeMap;
     return observeMap;
+}
+
+float ADemoAIController::GetSearchMeterVal()
+{
+  return GetTraceMeterRef();
 }
 
 //decrepated now
@@ -429,4 +441,16 @@ bool ADemoAIController::CanTraceCharacter( ABasicCharacter* otherCharacter )
    && otherCharacter->IsEnemyFor( this ) 
    && myAICharacter->pawnSensingComp->CouldSeePawn( otherCharacter ) 
    && myAICharacter->pawnSensingComp->HasLineOfSightTo( otherCharacter ) );
+}
+
+float& ADemoAIController::GetTraceMeterRef()
+{
+   static float traceMeter = 0.f;
+   return traceMeter;
+}
+
+float ADemoAIController::GetTraceMeterMax()
+{
+   static float traceMeterMax = 5.f;
+   return traceMeterMax;
 }

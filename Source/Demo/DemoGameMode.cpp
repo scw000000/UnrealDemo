@@ -14,6 +14,12 @@ ADemoGameMode::ADemoGameMode(const FObjectInitializer& ObjectInitializer) : Supe
 void ADemoGameMode::BeginPlay()
 {
    ADemoAIController::GetObserveMap().Reset();
+   ADemoAIController::SetSearchMeter( 0.f );
+}
+
+void ADemoGameMode::Tick( float DeltaSeconds )
+{
+   UpdateSearchMeter( DeltaSeconds );
 }
 
 float ADemoGameMode::ModifyDamage( float damage, AActor* damagedActor, struct FDamageEvent const& damageEvent, AController* eventInstigator, AActor* damageCauser )
@@ -69,6 +75,29 @@ bool ADemoGameMode::CanDealDamage( ABasicCharacter* damagedCharacter, ABasicChar
       return true;
       }
 	return false;
+}
+
+void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
+{
+   static float prevAISearchMeterVal = 0.f;
+   static float curAISearchMeterVal = 0.f;
+   curAISearchMeterVal = ADemoAIController::GetSearchMeterVal();
+   if( curAISearchMeterVal > 0.f )
+      {
+      float newAISearchMeterVal = curAISearchMeterVal - deltaSeconds;
+      ADemoAIController::SetSearchMeter( newAISearchMeterVal );
+     // GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, FString::Printf( TEXT("%f"), newAISearchMeterVal ) );
+      //on search End
+      if( newAISearchMeterVal <= 0.f )
+         {
+         GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Search" );
+         }
+      }
+   if( prevAISearchMeterVal <= 0.f && curAISearchMeterVal > 0.f )
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Search" );
+      }
+   prevAISearchMeterVal = ADemoAIController::GetSearchMeterVal();
 }
 
 

@@ -1,0 +1,12 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "Demo.h"
+#include "BTService_UpdateSearchMeter.h"
+#include "Bots/DemoAIController.h"
+
+void UBTService_UpdateSearchMeter::TickNode( UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds ) 
+{
+
+}
+
+

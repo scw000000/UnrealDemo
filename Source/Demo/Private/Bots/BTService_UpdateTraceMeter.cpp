@@ -7,7 +7,9 @@
 void UBTService_UpdateTraceMeter::TickNode( UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds ) 
 {
    ADemoAIController* myController = Cast<ADemoAIController>( OwnerComp.GetAIOwner() );
+
    myController->UpdateTraceMeter( DeltaSeconds );
 }
+
 
 

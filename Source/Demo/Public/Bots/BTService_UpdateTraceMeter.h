@@ -14,4 +14,5 @@ class DEMO_API UBTService_UpdateTraceMeter : public UBTService
 	GENERATED_BODY()
 	
 	virtual void TickNode( UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds ) override;
+
 };

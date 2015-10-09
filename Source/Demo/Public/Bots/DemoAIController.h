@@ -37,6 +37,8 @@ public:
 
    void SetTracingEnemy( class APawn* inPawn );
 
+   static void SetSearchMeter( float inMeterValue );
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool UpdateEnemyExistInfo();
 
@@ -45,6 +47,8 @@ public:
    APawn* GetEnemy();
 
    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
+
+   static float GetSearchMeterVal();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
@@ -73,6 +77,10 @@ protected:
    bool IsAllianceSeeing( ABasicCharacter* tracingCharacter );
 
    bool CanTraceCharacter( ABasicCharacter* otherCharacter );
+
+   static float& GetTraceMeterRef();
+
+   static float GetTraceMeterMax();
 
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
 	   UBlackboardComponent* blackboardComp;
