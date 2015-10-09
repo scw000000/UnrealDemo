@@ -48,12 +48,14 @@ public:
 
    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
 
-   static float GetSearchMeterVal();
+   static float GetSearchMeter();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
 
    bool HasWeaponLOSToEnemy( AActor* InEnemyActor, const bool bAnyEnemy ) const;
+
+
 
 protected:
 
@@ -78,8 +80,6 @@ protected:
 
    bool CanTraceCharacter( ABasicCharacter* otherCharacter );
 
-   static float& GetTraceMeterRef();
-
    static float GetTraceMeterMax();
 
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
@@ -88,6 +88,8 @@ protected:
 	/* Cached BT component */
 	UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComp )
 	   UBehaviorTreeComponent* behaviorComp;
+
+   static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > observeMap;
 
    FTimerHandle onTraceTimerHandle;
 
@@ -102,4 +104,9 @@ protected:
    float traceTimeMeterMax;
 
    float traceTimeMeter;
+
+   static float searchMeter;
+
+  // UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AISetting )
+      static float searchMeterMax;
 };

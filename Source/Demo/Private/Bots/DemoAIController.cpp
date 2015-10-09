@@ -13,6 +13,9 @@
 #include "DemoGame.h"
 #include "Runtime/AIModule/Classes/Perception/PawnSensingComponent.h"
 
+TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > ADemoAIController::observeMap;
+float ADemoAIController::searchMeter = 0.f;
+float ADemoAIController::searchMeterMax = 5.f;
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -42,7 +45,7 @@ void ADemoAIController::BeginPlay()
 void ADemoAIController::ShowObserverMAP( )
 {
     GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "L-------------" );
-    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = GetObserveMap().CreateIterator(); mapIT; ++mapIT )
+    for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = observeMap.CreateIterator(); mapIT; ++mapIT )
        {
        
        for( TArray<ABasicCharacter *>::TIterator arrayIT = (*mapIT).Value->CreateIterator(); arrayIT; ++arrayIT )
@@ -142,16 +145,15 @@ void ADemoAIController::SetTracingEnemy( class APawn* inPawn )
 
 void ADemoAIController::SetSearchMeter( float inMeterValue )
 {
-   float& traceMeter = GetTraceMeterRef();
-   traceMeter = inMeterValue;
-   traceMeter = FMath::Clamp<float>( traceMeter, 0.f, GetTraceMeterMax() );
+   searchMeter = inMeterValue;
+   searchMeter = FMath::Clamp<float>( searchMeter, 0.f, searchMeterMax );
 }
 
 bool ADemoAIController::UpdateEnemyExistInfo()
 {
 
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = GetObserveMap();
+  // TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = observeMap;
    bool bGotEnemy = false;
    for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
 		{
@@ -185,13 +187,12 @@ APawn* ADemoAIController::GetTracingEnemy()
 
 TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetObserveMap()
 {
-    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > observeMap;
-    return observeMap;
+   return observeMap;
 }
 
-float ADemoAIController::GetSearchMeterVal()
+float ADemoAIController::GetSearchMeter()
 {
-  return GetTraceMeterRef();
+  return searchMeter;
 }
 
 //decrepated now
@@ -286,10 +287,10 @@ bool ADemoAIController::HasWeaponLOSToEnemy( AActor* enemyActor, const bool bAny
 //decrepated now
 void ADemoAIController::DecideEnemy()
 {
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
+  // TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
    bool bGotEnemy = false;
-   for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = visionMap.CreateIterator(); mapIT; ++mapIT )
+   for( TMap< ABasicCharacter *, TArray<ABasicCharacter *> * >::TIterator mapIT = observeMap.CreateIterator(); mapIT; ++mapIT )
       {
       if( (*mapIT).Value->Num() > 0 )
          { 
@@ -372,8 +373,8 @@ void ADemoAIController::OnReceiveLOSBroadcast( APawn* otherPawn )
 
 void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
 {
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
-   TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
+   //TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = observeMap;
+   TArray<ABasicCharacter *> * pawnObserveArray =  observeMap.Find( targetCharacter )? *( observeMap.Find( targetCharacter ) ) : NULL;
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
    
    //the ovserve array already exist
@@ -385,15 +386,15 @@ void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )
          }
       else
          {
-         visionMap.Add( targetCharacter, new TArray< ABasicCharacter *> );
-         ( *( visionMap.Find( targetCharacter ) ) )->AddUnique( myAICharacter );
+         observeMap.Add( targetCharacter, new TArray< ABasicCharacter *> );
+         ( *( observeMap.Find( targetCharacter ) ) )->AddUnique( myAICharacter );
          }
       }
 }
 
 void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
 {
-   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = GetObserveMap();
+   TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > &visionMap = observeMap;
    TArray<ABasicCharacter *> * pawnObserveArray =  visionMap.Find( targetCharacter )? *( visionMap.Find( targetCharacter ) ) : NULL;
    AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
    
@@ -417,7 +418,7 @@ void ADemoAIController::DelObserverFromMap( ABasicCharacter* targetCharacter )
 
 bool ADemoAIController::IsAllianceSeeing( ABasicCharacter* tracingCharacter )
 {
-   TArray<ABasicCharacter *> * observerArray =  GetObserveMap().Find( tracingCharacter )? *( GetObserveMap().Find( tracingCharacter ) ) : NULL;
+   TArray<ABasicCharacter *> * observerArray =  observeMap.Find( tracingCharacter )? *( observeMap.Find( tracingCharacter ) ) : NULL;
    ABasicCharacter* myAICharacter = Cast<ABasicCharacter>( GetPawn() );
    if( observerArray )
       {
@@ -441,16 +442,4 @@ bool ADemoAIController::CanTraceCharacter( ABasicCharacter* otherCharacter )
    && otherCharacter->IsEnemyFor( this ) 
    && myAICharacter->pawnSensingComp->CouldSeePawn( otherCharacter ) 
    && myAICharacter->pawnSensingComp->HasLineOfSightTo( otherCharacter ) );
-}
-
-float& ADemoAIController::GetTraceMeterRef()
-{
-   static float traceMeter = 0.f;
-   return traceMeter;
-}
-
-float ADemoAIController::GetTraceMeterMax()
-{
-   static float traceMeterMax = 5.f;
-   return traceMeterMax;
 }

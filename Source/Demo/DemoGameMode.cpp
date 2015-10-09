@@ -81,7 +81,7 @@ void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
 {
    static float prevAISearchMeterVal = 0.f;
    static float curAISearchMeterVal = 0.f;
-   curAISearchMeterVal = ADemoAIController::GetSearchMeterVal();
+   curAISearchMeterVal = ADemoAIController::GetSearchMeter();
    if( curAISearchMeterVal > 0.f )
       {
       float newAISearchMeterVal = curAISearchMeterVal - deltaSeconds;
@@ -97,7 +97,7 @@ void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
       {
       GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Search" );
       }
-   prevAISearchMeterVal = ADemoAIController::GetSearchMeterVal();
+   prevAISearchMeterVal = ADemoAIController::GetSearchMeter();
 }
 
 
