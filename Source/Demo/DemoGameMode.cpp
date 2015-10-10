@@ -8,13 +8,20 @@
 
 ADemoGameMode::ADemoGameMode(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-
+   searchModeTime = 5.f;
 }
 
 void ADemoGameMode::BeginPlay()
 {
    ADemoAIController::GetObserveMap().Reset();
    ADemoAIController::SetSearchMeter( 0.f );
+   StartSearchMode();
+}
+
+void ADemoGameMode::StartSearchMode()
+{
+   BroadCastSearchMode( true );
+   ADemoAIController::SetSearchMeter( searchModeTime );
 }
 
 void ADemoGameMode::Tick( float DeltaSeconds )

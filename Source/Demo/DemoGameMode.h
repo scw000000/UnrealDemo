@@ -15,6 +15,8 @@ class DEMO_API ADemoGameMode : public AGameMode
 	GENERATED_UCLASS_BODY()
 
    virtual void BeginPlay() override;
+   
+   void StartSearchMode();
 
    virtual void Tick( float DeltaSeconds ) override;
 
@@ -35,12 +37,17 @@ class DEMO_API ADemoGameMode : public AGameMode
 //UPROPERTY(config)
    
 protected:
+   
+
    void UpdateSearchMeter( float deltaSeconds );
 
    void BroadCastSearchMode( bool isOn );
 
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
 	   float damageSelfScale;
+
+   UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AI )
+	   float searchModeTime;
 
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
 	   bool canDamageSelf;

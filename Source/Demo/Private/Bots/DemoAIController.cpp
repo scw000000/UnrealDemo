@@ -2,6 +2,7 @@
 
 #include "Demo.h"
 #include "DemoAIController.h"
+#include "DemoGameMode.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -15,7 +16,6 @@
 
 TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > ADemoAIController::observeMap;
 float ADemoAIController::searchMeter = 0.f;
-float ADemoAIController::searchMeterMax = 5.f;
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -24,8 +24,6 @@ ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer
  	blackboardComp = ObjectInitializer.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackBoardComp"));
 
 	BrainComponent = behaviorComp = ObjectInitializer.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorComp") );	
-
-   traceTimeMeterMax = 5.0f;
 
    traceTimeMeter = 0.f;
 
@@ -147,7 +145,6 @@ void ADemoAIController::SetTracingEnemy( class APawn* inPawn )
 void ADemoAIController::SetSearchMeter( float inMeterValue )
 {
    searchMeter = inMeterValue;
-   searchMeter = FMath::Clamp<float>( searchMeter, 0.f, searchMeterMax );
 }
 
 void ADemoAIController::SetSearchMode( bool isON )
@@ -186,7 +183,11 @@ bool ADemoAIController::UpdateEnemyExistInfo()
 
 void ADemoAIController::StartSearch()
 {
-   SetSearchMeter( 6.f );
+   ADemoGameMode* myGameMode = Cast<ADemoGameMode>( GetWorld()->GetAuthGameMode() );
+   if( myGameMode )
+      {
+      myGameMode->StartSearchMode();
+      }
 }
 
 APawn* ADemoAIController::GetEnemy()

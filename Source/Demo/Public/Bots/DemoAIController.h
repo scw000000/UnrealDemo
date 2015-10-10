@@ -115,6 +115,4 @@ protected:
    float traceTimeMeter;
 
    static float searchMeter;
-
-   static float searchMeterMax;
 };
