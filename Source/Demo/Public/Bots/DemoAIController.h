@@ -39,8 +39,13 @@ public:
 
    static void SetSearchMeter( float inMeterValue );
 
+   void SetSearchMode( bool isON );
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool UpdateEnemyExistInfo();
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void StartSearch();
 
    APawn* GetTracingEnemy();
 
@@ -49,6 +54,8 @@ public:
    static TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & GetObserveMap();
 
    static float GetSearchMeter();
+
+   bool GetSearchMode();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
@@ -101,12 +108,13 @@ protected:
 
    int32 tracingEnemyKeyID;
 
+   int32 searchModeKeyID;
+
    float traceTimeMeterMax;
 
    float traceTimeMeter;
 
    static float searchMeter;
 
-  // UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AISetting )
-      static float searchMeterMax;
+   static float searchMeterMax;
 };

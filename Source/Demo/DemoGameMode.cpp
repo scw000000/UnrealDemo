@@ -91,13 +91,26 @@ void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
       if( newAISearchMeterVal <= 0.f )
          {
          GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Search" );
+         BroadCastSearchMode( false );
          }
       }
    if( prevAISearchMeterVal <= 0.f && curAISearchMeterVal > 0.f )
       {
       GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Search" );
+      BroadCastSearchMode( true );
       }
    prevAISearchMeterVal = ADemoAIController::GetSearchMeter();
 }
 
+void ADemoGameMode::BroadCastSearchMode( bool isOn )
+{
+   for ( FConstControllerIterator it = GetWorld()->GetControllerIterator() ; it; ++it )
+      {
+      ADemoAIController* aiController = Cast<ADemoAIController>( (*it) );
+      if( aiController )
+         {
+         aiController->SetSearchMode( isOn );
+         }
+      }
+}
 

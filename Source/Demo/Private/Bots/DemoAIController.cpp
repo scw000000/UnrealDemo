@@ -89,6 +89,7 @@ void ADemoAIController::Possess( APawn* inPawn )
 		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
       tracingEnemyKeyID = blackboardComp->GetKeyID( "TracingEnemy" );
+      searchModeKeyID = blackboardComp->GetKeyID( "SearchMode" );
 		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
 	   }
 }
@@ -121,7 +122,7 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
            {
            GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Engage" );
            //SetEnemy( NULL );
-           SetSearchMeter( 6.f );
+          // SetSearchMeter( 6.f );
            StopEngageMode();
            //DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
            }
@@ -147,6 +148,14 @@ void ADemoAIController::SetSearchMeter( float inMeterValue )
 {
    searchMeter = inMeterValue;
    searchMeter = FMath::Clamp<float>( searchMeter, 0.f, searchMeterMax );
+}
+
+void ADemoAIController::SetSearchMode( bool isON )
+{
+   if( GetSearchMode() != isON )
+      {
+      blackboardComp->SetValue<UBlackboardKeyType_Bool>( searchModeKeyID, isON );
+      }
 }
 
 bool ADemoAIController::UpdateEnemyExistInfo()
@@ -175,6 +184,11 @@ bool ADemoAIController::UpdateEnemyExistInfo()
    return bGotEnemy;
 }
 
+void ADemoAIController::StartSearch()
+{
+   SetSearchMeter( 6.f );
+}
+
 APawn* ADemoAIController::GetEnemy()
 {
    return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("Enemy") ) ) );
@@ -193,6 +207,11 @@ TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > & ADemoAIController::GetO
 float ADemoAIController::GetSearchMeter()
 {
   return searchMeter;
+}
+
+bool ADemoAIController::GetSearchMode()
+{
+   return blackboardComp->GetValueAsBool( FName( TEXT("SearchMode") ) );
 }
 
 //decrepated now

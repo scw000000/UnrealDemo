@@ -37,6 +37,8 @@ class DEMO_API ADemoGameMode : public AGameMode
 protected:
    void UpdateSearchMeter( float deltaSeconds );
 
+   void BroadCastSearchMode( bool isOn );
+
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = Damage )
 	   float damageSelfScale;
 
