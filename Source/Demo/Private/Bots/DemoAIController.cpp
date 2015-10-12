@@ -8,6 +8,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Bool.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "BasicCharacter.h"
 #include "Bots/AIMilitaryCharacter.h"
 #include "GameInfo/DemoPlayerState.h"
@@ -16,6 +17,7 @@
 
 TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > ADemoAIController::observeMap;
 float ADemoAIController::searchMeter = 0.f;
+float ADemoAIController::traceTimeMeterMax = 5.f;
 
 ADemoAIController::ADemoAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -61,6 +63,17 @@ void ADemoAIController::StopEngageMode()
    SetEnemy( NULL );
 }
 
+void ADemoAIController::StartPatrol()
+{
+  bool canPatrol = patrolPathManager.SetStartPoint( Cast<AAIMilitaryCharacter>( GetPawn() ) );
+   SetPatrolMode( canPatrol );
+  if( canPatrol )
+     {
+     GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Patrol" );
+     SetDestination( patrolPathManager.GetCurrentDestination() );
+     }
+}
+
 void ADemoAIController::Tick( float DeltaSeconds )
 {
    Super::Tick( DeltaSeconds );
@@ -88,6 +101,8 @@ void ADemoAIController::Possess( APawn* inPawn )
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
       tracingEnemyKeyID = blackboardComp->GetKeyID( "TracingEnemy" );
       searchModeKeyID = blackboardComp->GetKeyID( "SearchMode" );
+      patrolModeKeyID = blackboardComp->GetKeyID( "PatrolMode" );
+      destinationKeyID = blackboardComp->GetKeyID( "Destination" );
 		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
 	   }
 }
@@ -103,10 +118,12 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
       }
    else
       {
+      if( tracingCharacter )
+         {
+         }
       traceTimeMeter -= deltaSeconds;
       
       }
- // GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, FString::Printf( TEXT("%f"), traceTimeMeter ) );
    if( traceTimeMeter >= traceTimeMeterMax )
       {
       traceTimeMeter = traceTimeMeterMax;
@@ -115,6 +132,7 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
    if( traceTimeMeter <= 0.f )
       {
       traceTimeMeter = 0.f;
+      
       SetTracingEnemy( NULL );
         if( !IsAllianceSeeing( enemyCharacter ) && GetEnemy() )
            {
@@ -155,6 +173,16 @@ void ADemoAIController::SetSearchMode( bool isON )
       }
 }
 
+void ADemoAIController::SetPatrolMode( bool isON )
+{
+   blackboardComp->SetValue<UBlackboardKeyType_Bool>( patrolModeKeyID, isON );
+}
+
+void ADemoAIController::SetDestination( FVector inDestination )
+{ 
+   blackboardComp->SetValue<UBlackboardKeyType_Vector>( destinationKeyID, inDestination );
+}
+
 bool ADemoAIController::UpdateEnemyExistInfo()
 {
 
@@ -190,6 +218,15 @@ void ADemoAIController::StartSearch()
       }
 }
 
+void ADemoAIController::SetNextPatrolPoint()
+{
+   if( GetPatrolMode() )
+      {
+      patrolPathManager.SetToNextDestination();
+      SetDestination( patrolPathManager.GetCurrentDestination() );
+      }
+}
+
 APawn* ADemoAIController::GetEnemy()
 {
    return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("Enemy") ) ) );
@@ -213,6 +250,11 @@ float ADemoAIController::GetSearchMeter()
 bool ADemoAIController::GetSearchMode()
 {
    return blackboardComp->GetValueAsBool( FName( TEXT("SearchMode") ) );
+}
+
+bool ADemoAIController::GetPatrolMode()
+{
+   return blackboardComp->GetValueAsBool( FName( TEXT("PatrolMode") ) );
 }
 
 //decrepated now

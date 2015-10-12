@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AIController.h"
+#include "PatrolPathManager.h"
 #include "DemoAIController.generated.h"
 
 class ABasicCharacter;
@@ -24,6 +25,9 @@ public:
    void ShowObserverMAP( );
   
    void StopEngageMode();
+   
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void StartPatrol();
 
    virtual void Tick( float DeltaSeconds ) override;
 
@@ -41,11 +45,21 @@ public:
 
    void SetSearchMode( bool isON );
 
+   void SetDestination( FVector inDestination );
+
+   
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void SetPatrolMode( bool isON );
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool UpdateEnemyExistInfo();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void StartSearch();
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void SetNextPatrolPoint();
 
    APawn* GetTracingEnemy();
 
@@ -56,6 +70,8 @@ public:
    static float GetSearchMeter();
 
    bool GetSearchMode();
+
+   bool GetPatrolMode();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
@@ -102,6 +118,8 @@ protected:
 
    FTimerDelegate onTraceDelegate;
 
+   PatrolPathManager patrolPathManager;
+
 	int32 enemyKeyID;
 
 	int32 needAmmoKeyID;
@@ -110,7 +128,11 @@ protected:
 
    int32 searchModeKeyID;
 
-   float traceTimeMeterMax;
+   int32 patrolModeKeyID;
+
+   int32 destinationKeyID;
+
+   static float traceTimeMeterMax;
 
    float traceTimeMeter;
 

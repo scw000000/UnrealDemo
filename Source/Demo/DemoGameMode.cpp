@@ -15,7 +15,7 @@ void ADemoGameMode::BeginPlay()
 {
    ADemoAIController::GetObserveMap().Reset();
    ADemoAIController::SetSearchMeter( 0.f );
-   StartSearchMode();
+   //StartSearchMode();
 }
 
 void ADemoGameMode::StartSearchMode()
