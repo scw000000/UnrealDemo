@@ -29,6 +29,18 @@ public:
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void StartPatrol();
 
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      bool UpdateEnemyExistInfo();
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void StartSearch();
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void StopSearch();
+
+   UFUNCTION( BlueprintCallable, Category = Behavior )
+      void SetNextPatrolPoint();
+
    virtual void Tick( float DeltaSeconds ) override;
 
    virtual void EndPlay( const EEndPlayReason::Type EndPlayReason ) override;
@@ -47,19 +59,8 @@ public:
 
    void SetDestination( FVector inDestination );
 
-   
-
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void SetPatrolMode( bool isON );
-
-   UFUNCTION( BlueprintCallable, Category = Behavior )
-      bool UpdateEnemyExistInfo();
-
-   UFUNCTION( BlueprintCallable, Category = Behavior )
-      void StartSearch();
-
-   UFUNCTION( BlueprintCallable, Category = Behavior )
-      void SetNextPatrolPoint();
 
    APawn* GetTracingEnemy();
 

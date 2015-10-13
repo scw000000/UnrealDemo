@@ -18,6 +18,8 @@ class DEMO_API ADemoGameMode : public AGameMode
    
    void StartSearchMode();
 
+   void StopSearchMode();
+
    virtual void Tick( float DeltaSeconds ) override;
 
 	/** prevents friendly fire */
@@ -37,7 +39,7 @@ class DEMO_API ADemoGameMode : public AGameMode
 //UPROPERTY(config)
    
 protected:
-   
+   void BroadCastStartPatrol();
 
    void UpdateSearchMeter( float deltaSeconds );
 

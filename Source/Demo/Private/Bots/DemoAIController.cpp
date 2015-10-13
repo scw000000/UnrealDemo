@@ -74,6 +74,59 @@ void ADemoAIController::StartPatrol()
      }
 }
 
+void ADemoAIController::SetNextPatrolPoint()
+{
+   if( GetPatrolMode() )
+      {
+      patrolPathManager.SetToNextDestination();
+      SetDestination( patrolPathManager.GetCurrentDestination() );
+      }
+}
+
+bool ADemoAIController::UpdateEnemyExistInfo()
+{
+
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+  // TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = observeMap;
+   bool bGotEnemy = false;
+   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
+		{
+		ABasicCharacter* testCharacter = Cast<ABasicCharacter>( *it );
+      if( CanTraceCharacter( testCharacter ) )
+         {
+         OnSightOnEnemy( testCharacter );
+         bGotEnemy = true;
+         }
+      else
+         {
+         OnLostSigntOnEnemy( testCharacter );
+         }
+		}
+   if( !bGotEnemy )
+      {
+     // DecideEnemy();
+      }
+   return bGotEnemy;
+}
+
+void ADemoAIController::StartSearch()
+{
+   ADemoGameMode* myGameMode = Cast<ADemoGameMode>( GetWorld()->GetAuthGameMode() );
+   if( myGameMode )
+      {
+      myGameMode->StartSearchMode();
+      }
+}
+
+void ADemoAIController::StopSearch()
+{
+   ADemoGameMode* myGameMode = Cast<ADemoGameMode>( GetWorld()->GetAuthGameMode() );
+   if( myGameMode )
+      {
+      myGameMode->StopSearchMode();
+      }
+}
+
 void ADemoAIController::Tick( float DeltaSeconds )
 {
    Super::Tick( DeltaSeconds );
@@ -128,6 +181,8 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
       {
       traceTimeMeter = traceTimeMeterMax;
       StartEngageEnemy( tracingCharacter );
+      SetPatrolMode( false );
+      StopSearch();
       }
    if( traceTimeMeter <= 0.f )
       {
@@ -140,6 +195,7 @@ void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
            //SetEnemy( NULL );
           // SetSearchMeter( 6.f );
            StopEngageMode();
+           StartSearch();
            //DelObserverFromMap( Cast<ABasicCharacter>( GetEnemy() ) );
            }
       }
@@ -181,50 +237,6 @@ void ADemoAIController::SetPatrolMode( bool isON )
 void ADemoAIController::SetDestination( FVector inDestination )
 { 
    blackboardComp->SetValue<UBlackboardKeyType_Vector>( destinationKeyID, inDestination );
-}
-
-bool ADemoAIController::UpdateEnemyExistInfo()
-{
-
-   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
-  // TMap< ABasicCharacter *, TArray<ABasicCharacter *> * > visionMap = observeMap;
-   bool bGotEnemy = false;
-   for ( FConstPawnIterator it = GetWorld()->GetPawnIterator(); it; ++it )
-		{
-		ABasicCharacter* testCharacter = Cast<ABasicCharacter>( *it );
-      if( CanTraceCharacter( testCharacter ) )
-         {
-         OnSightOnEnemy( testCharacter );
-         bGotEnemy = true;
-         }
-      else
-         {
-         OnLostSigntOnEnemy( testCharacter );
-         }
-		}
-   if( !bGotEnemy )
-      {
-     // DecideEnemy();
-      }
-   return bGotEnemy;
-}
-
-void ADemoAIController::StartSearch()
-{
-   ADemoGameMode* myGameMode = Cast<ADemoGameMode>( GetWorld()->GetAuthGameMode() );
-   if( myGameMode )
-      {
-      myGameMode->StartSearchMode();
-      }
-}
-
-void ADemoAIController::SetNextPatrolPoint()
-{
-   if( GetPatrolMode() )
-      {
-      patrolPathManager.SetToNextDestination();
-      SetDestination( patrolPathManager.GetCurrentDestination() );
-      }
 }
 
 APawn* ADemoAIController::GetEnemy()
@@ -431,6 +443,8 @@ void ADemoAIController::OnReceiveLOSBroadcast( APawn* otherPawn )
 {
     FString message = TEXT("!!!!!!!!!!!!I know !Saw Actor ") + otherPawn->GetName();
     SetEnemy( otherPawn );
+    SetPatrolMode( false );
+    StopSearch();
 }
 
 void ADemoAIController::AddObserverToMap( ABasicCharacter* targetCharacter )

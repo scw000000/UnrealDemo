@@ -24,6 +24,12 @@ void ADemoGameMode::StartSearchMode()
    ADemoAIController::SetSearchMeter( searchModeTime );
 }
 
+void ADemoGameMode::StopSearchMode()
+{
+   BroadCastSearchMode( false );
+   ADemoAIController::SetSearchMeter( 0.f );
+}
+
 void ADemoGameMode::Tick( float DeltaSeconds )
 {
    UpdateSearchMeter( DeltaSeconds );
@@ -84,6 +90,10 @@ bool ADemoGameMode::CanDealDamage( ABasicCharacter* damagedCharacter, ABasicChar
 	return false;
 }
 
+void ADemoGameMode::BroadCastStartPatrol()
+{
+}
+
 void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
 {
    static float prevAISearchMeterVal = 0.f;
@@ -97,15 +107,14 @@ void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
       //on search End
       if( newAISearchMeterVal <= 0.f )
          {
-         GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Stop Search" );
-         BroadCastSearchMode( false );
+         StopSearchMode();
          }
       }
-   if( prevAISearchMeterVal <= 0.f && curAISearchMeterVal > 0.f )
-      {
-      GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Search" );
-      BroadCastSearchMode( true );
-      }
+  // if( prevAISearchMeterVal <= 0.f && curAISearchMeterVal > 0.f )
+ //     {
+  //    GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Search" );
+  //    BroadCastSearchMode( true );
+ //     }
    prevAISearchMeterVal = ADemoAIController::GetSearchMeter();
 }
 
