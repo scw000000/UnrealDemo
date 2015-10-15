@@ -57,6 +57,9 @@ public:
 
    int32 GetTeamNumber() const;
 
+   UFUNCTION( BlueprintCallable, Category = Control )
+      bool IsControlledByPlayer();
+
    bool IsAlive() const;
 
    bool IsEnemyFor( AController* testController );

@@ -90,10 +90,6 @@ bool ADemoGameMode::CanDealDamage( ABasicCharacter* damagedCharacter, ABasicChar
 	return false;
 }
 
-void ADemoGameMode::BroadCastStartPatrol()
-{
-}
-
 void ADemoGameMode::UpdateSearchMeter( float deltaSeconds )
 {
    static float prevAISearchMeterVal = 0.f;

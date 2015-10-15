@@ -311,6 +311,15 @@ int32 ABasicCharacter::GetTeamNumber() const
    return teamNumber;
 }
 
+bool ABasicCharacter::IsControlledByPlayer()
+{
+   if( Cast<APlayerController>( GetController() ) )
+   {
+   return true;
+   }
+   return  false;
+}
+
 bool ABasicCharacter::IsAlive() const
 {
    return ( bodyMotion != BodyMotions::BodyMotions_Die );
@@ -422,6 +431,7 @@ void ABasicCharacter::RefineMotionType( const float& DeltaSeconds )
             RefineMotionJogJump();
             break;
          case BodyMotions::BodyMotions_Break:
+            RefineMotionBreak();
             break;
       }
 
@@ -512,6 +522,7 @@ void ABasicCharacter::RefineMotionBreak( )
 {
    if( GetVelocity( ).Size( ) > 5.f )
     {
+    WakePlayer();
     bodyMotion = BodyMotions::BodyMotions_Idle;
     }
 }
@@ -586,7 +597,14 @@ void ABasicCharacter::PlayHitReaction( float damageTaken, struct FDamageEvent co
 
 void ABasicCharacter::SetPlayerViewToThirdPerson( )
 {
-   GetCharacterMovement( )->bOrientRotationToMovement = false;
+   if( IsControlledByPlayer() )
+      {
+      GetCharacterMovement( )->bOrientRotationToMovement = false;
+      }
+   else
+      {
+      GetCharacterMovement( )->bOrientRotationToMovement = true;
+      }
    GetMesh( )->SetVisibility( true );
    playerCamera->AttachTo( thirdPersonCameraBoomPitch );
    FRotator currentActorRotation = GetActorRotation( );

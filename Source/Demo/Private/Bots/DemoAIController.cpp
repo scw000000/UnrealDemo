@@ -69,7 +69,7 @@ void ADemoAIController::StartPatrol()
    SetPatrolMode( canPatrol );
   if( canPatrol )
      {
-     GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Patrol" );
+   //  GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "Start Patrol" );
      SetDestination( patrolPathManager.GetCurrentDestination() );
      }
 }

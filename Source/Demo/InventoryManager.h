@@ -53,6 +53,8 @@ public:
 
 private:
    void SpawnAndAttachWeapon();
+
+   //void HaveBackPackItem( TSubclassOf<class AItem> searchItem );
    
    ABasicCharacter* controllingCharacter;
    

@@ -109,7 +109,6 @@ void InventoryManager::AddBackpackItemByClass( TSubclassOf<class AItem> inItemCl
 {
 
    BackpackItem *backpackItem = FindItem( inItemClass );
-   GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "add by ckass" );
    if( inItemClass && itemNum > 0 ){
       AItem* defaultObject = Cast<AItem>( inItemClass->GetDefaultObject() ); 
       if( backpackItem && defaultObject )
@@ -139,8 +138,13 @@ void InventoryManager::RemoveBackpackItemByClass( TSubclassOf<class AItem> inIte
       if( backpackItem->GetQuantity() <= 0 )
          {
          backpack.Remove( inItemClass );
+         GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "remove item" );
          }
    }
+   else
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, "err: delete fail" );
+      }
 }
 
 bool InventoryManager::CanReload()
@@ -164,7 +168,7 @@ AWeapon* InventoryManager::GetEquippedWeapon()
 
 bool InventoryManager::CanEquipWeapon( TSubclassOf<class AWeapon> weapon )
 {
-   if( weapon && bpEquippedWeapon != weapon )
+   if( weapon && bpEquippedWeapon != weapon && FindItem( weapon ) )
       {
       return true;
       }
@@ -189,6 +193,7 @@ void InventoryManager::SpawnAndAttachWeapon()
          {
          const USkeletalMeshSocket *socket = controllingCharacter->GetMesh()->GetSocketByName( "hand_rSocket" );
          socket->AttachActor( equippedWeapon, controllingCharacter->GetMesh() );
+         RemoveBackpackItemByClass( bpEquippedWeapon, 1 );
          bpEquippingWeapon = NULL;
          }
       else

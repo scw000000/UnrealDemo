@@ -71,7 +71,6 @@ void AMilitaryCharacter::CatchAnimNotifies()
       {
       for( TArray<const struct FAnimNotifyEvent *>::TIterator it = GetMesh()->AnimScriptInstance->AnimNotifies.CreateIterator(); it; ++it )
          {
-         //GEngine->AddOnScreenDebugMessage( -1, 15.0f, FColor::Red, (*it)->NotifyName.ToString() );
          FString animNotifyName = (*it)->NotifyName.ToString();
          if( animNotifyName.Equals( "EquipSync" ) )
             {
@@ -91,12 +90,19 @@ void AMilitaryCharacter::CatchAnimNotifies()
             }
          }
       }
+   else 
+      {
+      GEngine->AddOnScreenDebugMessage( -1, 1.0f, FColor::Red, "NO mesh" );
+      }
 }
 
 void AMilitaryCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-   inventoryManager.ShowBackpack();
+   if( Cast<APlayerController>( GetController() ) )
+      {
+    //  inventoryManager.ShowBackpack();
+      }
 }
 
 void AMilitaryCharacter::MoveForward( float amount )
@@ -189,6 +195,8 @@ void AMilitaryCharacter::EndEquipWeapon( )
 
 void AMilitaryCharacter::EquipWeaponAnimSync()
 {           
+//GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Red, "equip sync" );
    inventoryManager.EquipWeapon();
+   
 }
 

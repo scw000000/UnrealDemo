@@ -39,7 +39,6 @@ class DEMO_API ADemoGameMode : public AGameMode
 //UPROPERTY(config)
    
 protected:
-   void BroadCastStartPatrol();
 
    void UpdateSearchMeter( float deltaSeconds );
 
