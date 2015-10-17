@@ -41,6 +41,12 @@ public:
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void SetNextPatrolPoint();
 
+   UFUNCTION(BlueprintCallable, Category = Behavior)
+	   void ShootEnemy();
+
+   UFUNCTION(BlueprintCallable, Category = Behavior)
+      void UpdateCanAttack();
+
    virtual void Tick( float DeltaSeconds ) override;
 
    virtual void EndPlay( const EEndPlayReason::Type EndPlayReason ) override;
@@ -59,6 +65,8 @@ public:
 
    void SetDestination( FVector inDestination );
 
+   void SetCanAttack( bool canAttack );
+
    UFUNCTION( BlueprintCallable, Category = Behavior )
       void SetPatrolMode( bool isON );
 
@@ -73,6 +81,8 @@ public:
    bool GetSearchMode();
 
    bool GetPatrolMode();
+
+   bool GetCanAttack();
 
    UFUNCTION( BlueprintCallable, Category = Behavior )
       bool FindClosestEnemyWithLOS( ABasicCharacter* excludeEnemy );
@@ -132,6 +142,8 @@ protected:
    int32 patrolModeKeyID;
 
    int32 destinationKeyID;
+
+   int32 canAttackKeyID;
 
    static float traceTimeMeterMax;
 

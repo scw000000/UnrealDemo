@@ -32,6 +32,9 @@ public:
    int32 GetQuantity();
 
    UTexture2D * GetIcon();
+
+   UStaticMeshComponent* GetMesh();
+protected:
    
    UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Item )
       FString name;

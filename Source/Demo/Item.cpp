@@ -51,6 +51,11 @@ UTexture2D * AItem::GetIcon()
 {
    return icon;
 }
+
+UStaticMeshComponent* AItem::GetMesh()
+{
+   return mesh;
+}
 /*
 // Called every frame
 void AItem::Tick( float DeltaTime )

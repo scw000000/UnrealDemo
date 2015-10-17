@@ -44,15 +44,15 @@ void InventoryManager::ReloadWeapon()
       {
       ARangedWeapon* rangedWeapon = Cast< ARangedWeapon >( equippedWeapon );
 
-      BackpackItem* backpackAmmo = FindItem( rangedWeapon->bpProjectile );
+      BackpackItem* backpackAmmo = FindItem( rangedWeapon->GetBPProjectile() );
 
       int32 backpackAmmoNum = backpackAmmo->GetQuantity();
 
-      int32 reloadAmmoNum = rangedWeapon->maxAmmo - rangedWeapon->ammo;
+      int32 reloadAmmoNum = rangedWeapon->GetMaxAmmo() - rangedWeapon->GetAmmo();
 
       reloadAmmoNum = FMath::Clamp<int32>( reloadAmmoNum, 0, backpackAmmoNum );
 
-      RemoveBackpackItemByClass( rangedWeapon->bpProjectile, reloadAmmoNum );
+      RemoveBackpackItemByClass( rangedWeapon->GetBPProjectile(), reloadAmmoNum );
 
       rangedWeapon->Reload( reloadAmmoNum );
       }
@@ -152,7 +152,7 @@ bool InventoryManager::CanReload()
    ARangedWeapon* rangedWeapon = Cast< ARangedWeapon >( equippedWeapon );
    if( rangedWeapon && rangedWeapon->CanReload() )
       {
-      BackpackItem* projectile = FindItem( rangedWeapon->bpProjectile );
+      BackpackItem* projectile = FindItem( rangedWeapon->GetBPProjectile() );
          if( projectile && projectile->GetQuantity() > 0 )
             {
             return true;

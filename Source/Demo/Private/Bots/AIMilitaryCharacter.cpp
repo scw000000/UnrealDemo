@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Demo.h"
+#include "DemoGame.h"
 #include "AIMilitaryCharacter.h"
 #include "Bots/DemoAIController.h"
+#include "RangedWeapon.h"
 #include "Runtime/AIModule/Classes/Perception/PawnSensingComponent.h"
 
 AAIMilitaryCharacter::AAIMilitaryCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -18,9 +20,40 @@ AAIMilitaryCharacter::AAIMilitaryCharacter(const FObjectInitializer& ObjectIniti
 void AAIMilitaryCharacter::PostInitializeComponents()
 {
     Super::PostInitializeComponents();
-
     pawnSensingComp->OnSeePawn.AddDynamic( this, &AAIMilitaryCharacter::OnSeePawn );
     pawnSensingComp->OnHearNoise.AddDynamic( this, &AAIMilitaryCharacter::OnHearNoise );
+}
+
+FHitResult AAIMilitaryCharacter::PerformLineTrace()
+{
+   FCollisionQueryParams lineTraceParams = FCollisionQueryParams( FName( TEXT( "Line_Trace" ) ), true, this );
+   lineTraceParams.bTraceComplex = true;
+   lineTraceParams.bTraceAsyncScene = true;
+   lineTraceParams.bReturnPhysicalMaterial = false;
+   lineTraceParams.AddIgnoredActor( this );
+ 
+   FHitResult line_HitResult( ForceInit );
+
+   const FVector traceStart = GetEquippedWeapon()->GetMesh()->GetSocketLocation( "nozzleSocket" );      
+   
+   ADemoAIController* myAIController = Cast<ADemoAIController>( GetController() );
+   FVector traceEnd = FVector::ZeroVector;
+   if( myAIController && myAIController->GetEnemy() )
+      {
+      traceEnd = myAIController->GetEnemy()->GetActorLocation(); 
+      }
+   else
+      {
+      traceEnd = GetActorLocation() + GetActorForwardVector() * 4096;
+      }
+   bool isHitImpactPointExist = GetWorld()->LineTraceSingleByChannel( 
+                                      line_HitResult,        //result
+                                      traceStart,    //start
+                                      traceEnd, //end
+                                      COLLISION_WEAPON,
+                                      lineTraceParams
+                                      );   
+   return line_HitResult;
 }
 
 void AAIMilitaryCharacter::OnHearNoise( APawn *otherPawn, const FVector &location, float volume )

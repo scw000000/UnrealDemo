@@ -372,7 +372,7 @@ bool ABasicCharacter::Die( float killingDamage, FDamageEvent const& damageEvent,
 	return true;
 }
 
-FHitResult ABasicCharacter::PerfromVisionLineTrace()
+FHitResult ABasicCharacter::PerformLineTrace()
 {
    FCollisionQueryParams lineTraceParams = FCollisionQueryParams( FName( TEXT( "Line_Trace" ) ), true, this );
    lineTraceParams.bTraceComplex = true;

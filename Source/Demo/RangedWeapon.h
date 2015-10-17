@@ -54,6 +54,12 @@ public:
    /** return true if this weapon have empty room for reload, and has specified projectile class */
    bool CanReload();
 
+   int32 GetAmmo();
+
+   int32 GetMaxAmmo();
+
+   TSubclassOf<class AProjectile> GetBPProjectile();
+
    virtual void Tick( float DeltaSeconds ) override;
 
    void Fire( FVector hitPoint );
@@ -63,7 +69,8 @@ public:
    void SetisTriggerOn( const bool& isSwitchedOn );
 
    void ApplyProjectileConfig( FProjectileConfig& Data );
-   
+
+protected:
    int32 ammo;
 
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = RangedWeapon )

@@ -17,6 +17,9 @@ public:
 
    virtual void PostInitializeComponents() override;
 
+   UFUNCTION( BlueprintCallable, Category = LineTrace )
+      virtual FHitResult PerformLineTrace() override;
+
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = AIComponent )
 	   class UBehaviorTree* botBehavior;
 

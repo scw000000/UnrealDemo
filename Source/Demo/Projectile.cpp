@@ -33,7 +33,7 @@ void AProjectile::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 	projectileMovementComp->OnProjectileStop.AddDynamic( this, &AProjectile::OnImpact );
-	//proxSphere->MoveIgnoreActors.Add( Instigator );
+	proxSphere->MoveIgnoreActors.Add( GetOwner() );
 	controller = GetInstigatorController();
    ARangedWeapon* ownerWeapon = Cast<ARangedWeapon>( GetOwner() );
 	if ( ownerWeapon )

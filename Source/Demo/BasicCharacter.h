@@ -73,7 +73,7 @@ public:
    
 
    UFUNCTION( BlueprintCallable, Category = LineTrace )
-      FHitResult PerfromVisionLineTrace();
+      virtual FHitResult PerformLineTrace();
 
    UPROPERTY( EditDefaultsOnly, BlueprintReadOnly, Category = PlayerView )
       float maxCameraPitch;

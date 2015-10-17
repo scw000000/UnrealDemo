@@ -36,6 +36,21 @@ bool ARangedWeapon::CanReload()
       }
 }
 
+int32 ARangedWeapon::GetAmmo()
+{
+   return ammo;
+}
+
+int32 ARangedWeapon::GetMaxAmmo()
+{
+   return maxAmmo;
+}
+
+TSubclassOf<class AProjectile> ARangedWeapon::GetBPProjectile()
+{
+   return bpProjectile;
+}
+
 void ARangedWeapon::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
@@ -158,7 +173,7 @@ void ARangedWeapon::TrySingleFire()
    AMilitaryCharacter *character = Cast<AMilitaryCharacter>( GetOwner() );
    if( character &&  ammo > 0 )
       {
-      FHitResult line_HitResult = character->PerfromVisionLineTrace();      
+      FHitResult line_HitResult = character->PerformLineTrace();      
       if( line_HitResult.bBlockingHit )
          {
          Fire( line_HitResult.ImpactPoint );

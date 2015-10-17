@@ -141,14 +141,14 @@ void ADemoAIController::Possess( APawn* inPawn )
 {
 	Super::Possess( inPawn );
    
-	AAIMilitaryCharacter* myCharacter = Cast<AAIMilitaryCharacter>( inPawn );
+	AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( inPawn );
 
 	// start behavior
-	if ( myCharacter && myCharacter->botBehavior)
+	if ( myAICharacter && myAICharacter->botBehavior)
 	   {
-		if ( myCharacter->botBehavior->BlackboardAsset )
+		if ( myAICharacter->botBehavior->BlackboardAsset )
 		   {
-			blackboardComp->InitializeBlackboard( *myCharacter->botBehavior->BlackboardAsset );
+			blackboardComp->InitializeBlackboard( *myAICharacter->botBehavior->BlackboardAsset );
 		   }
 		enemyKeyID = blackboardComp->GetKeyID( "Enemy" );
 		needAmmoKeyID = blackboardComp->GetKeyID( "NeedAmmo" );
@@ -156,8 +156,45 @@ void ADemoAIController::Possess( APawn* inPawn )
       searchModeKeyID = blackboardComp->GetKeyID( "SearchMode" );
       patrolModeKeyID = blackboardComp->GetKeyID( "PatrolMode" );
       destinationKeyID = blackboardComp->GetKeyID( "Destination" );
-		behaviorComp->StartTree( *( myCharacter->botBehavior ) );
+      canAttackKeyID = blackboardComp->GetKeyID( "CanAttack" );
+		behaviorComp->StartTree( *( myAICharacter->botBehavior ) );
 	   }
+}
+
+void ADemoAIController::ShootEnemy()
+{
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   if( !myAICharacter )
+      {
+      return;
+      }
+   if( GetCanAttack() )
+      {
+      myAICharacter->StartAttack();
+      }
+   
+}
+
+void ADemoAIController::UpdateCanAttack()
+{
+   AAIMilitaryCharacter* myAICharacter = Cast<AAIMilitaryCharacter>( GetPawn() );
+   
+   if( !myAICharacter )
+      {
+      SetCanAttack( false );
+      return;
+      }
+   FHitResult line_HitResult = myAICharacter->PerformLineTrace();
+   ABasicCharacter* testEnemy = Cast<ABasicCharacter>( line_HitResult.GetActor() );
+   ARangedWeapon* myAICharacterWeapon = Cast<ARangedWeapon>(  myAICharacter->GetEquippedWeapon() );
+   if( testEnemy && myAICharacter->IsEnemyFor( testEnemy ) && myAICharacterWeapon && myAICharacterWeapon->GetAmmo() > 0 )
+      {
+      SetCanAttack( true );
+      }
+   else
+      {
+      SetCanAttack( false );
+      }
 }
 
 void ADemoAIController::UpdateTraceMeter( float deltaSeconds )
@@ -239,6 +276,11 @@ void ADemoAIController::SetDestination( FVector inDestination )
    blackboardComp->SetValue<UBlackboardKeyType_Vector>( destinationKeyID, inDestination );
 }
 
+void ADemoAIController::SetCanAttack( bool canAttack )
+{
+   blackboardComp->SetValue<UBlackboardKeyType_Bool>( canAttackKeyID, canAttack );
+}
+
 APawn* ADemoAIController::GetEnemy()
 {
    return Cast<APawn>( blackboardComp->GetValueAsObject( FName( TEXT("Enemy") ) ) );
@@ -267,6 +309,11 @@ bool ADemoAIController::GetSearchMode()
 bool ADemoAIController::GetPatrolMode()
 {
    return blackboardComp->GetValueAsBool( FName( TEXT("PatrolMode") ) );
+}
+
+bool ADemoAIController::GetCanAttack()
+{
+   return blackboardComp->GetValueAsBool( FName( TEXT("CanAttack") ) );
 }
 
 //decrepated now
