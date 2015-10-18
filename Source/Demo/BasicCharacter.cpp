@@ -53,7 +53,7 @@ ABasicCharacter::ABasicCharacter( const FObjectInitializer& ObjectInitializer ) 
    thirdPersonCameraBoomYaw->AttachTo( RootComponent );
    thirdPersonCameraBoomYaw->TargetArmLength = 75.0f;
    thirdPersonCameraBoomYaw->bUsePawnControlRotation = false;
-   thirdPersonCameraBoomYaw->SetAbsolute( false, true, false );
+   thirdPersonCameraBoomYaw->SetAbsolute( false, false, false );
 
    thirdPersonCameraBoomPitch = ObjectInitializer.CreateDefaultSubobject<USpringArmComponent>( this, TEXT( "For ThirdPerson Camera Spring Arm Pitch Rotation" ) );
    thirdPersonCameraBoomPitch->AttachTo( thirdPersonCameraBoomYaw );
@@ -192,6 +192,14 @@ void ABasicCharacter::MoveForward( float amount )
 {
    WakePlayer();
    FVector fwd = playerCamera->GetForwardVector();
+   if( amount <= 0.f || playerView != PlayerViews::PlayerViews_ThirdPerson )
+      {
+      GetCharacterMovement( )->bOrientRotationToMovement = false;
+      }
+   else
+      {
+      GetCharacterMovement( )->bOrientRotationToMovement = true;
+      }
    AddMovementInput( fwd, amount, false );
 }
 
@@ -206,6 +214,7 @@ void ABasicCharacter::SetCamYaw( const float& amount )
 {
    FRotator currentRotation;
    FRotator clampedRotation;
+   float clampedYaw = 0.f;
    switch( playerView )
       {
          case PlayerViews::PlayerViews_ThirdPerson :
@@ -223,6 +232,7 @@ void ABasicCharacter::SetCamYaw( const float& amount )
                {
                GetRootComponent()->SetWorldRotation( FRotator( 0.f, thirdPersonCameraBoomYaw->GetComponentRotation().Yaw - 90.f , 0.f ) );
                }
+               
             break;
          case PlayerViews::PlayerViews_Aim:
       //      AddActorWorldRotation( FRotator( 0, cameraRotateSpeed * amount * GetWorld( )->GetDeltaSeconds( ), 0 ) );
@@ -597,14 +607,7 @@ void ABasicCharacter::PlayHitReaction( float damageTaken, struct FDamageEvent co
 
 void ABasicCharacter::SetPlayerViewToThirdPerson( )
 {
-   if( IsControlledByPlayer() )
-      {
-      GetCharacterMovement( )->bOrientRotationToMovement = false;
-      }
-   else
-      {
-      GetCharacterMovement( )->bOrientRotationToMovement = true;
-      }
+   GetCharacterMovement( )->bOrientRotationToMovement = true;
    GetMesh( )->SetVisibility( true );
    playerCamera->AttachTo( thirdPersonCameraBoomPitch );
    FRotator currentActorRotation = GetActorRotation( );
